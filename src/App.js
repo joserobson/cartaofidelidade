@@ -1,27 +1,45 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Header from './components/header/header';
+import Main from './main'
+import Loading from './components/loading/loading';
+import Modal from './components/modal/modal';
+
 
 class App extends Component {
+
+  constructor(){
+    super();
+
+    this.handleModal = this.handleModal.bind(this);
+    this.state = {
+        mensagem: '',
+        exibirMensagem: false        
+    }
+
+  }
+
+  handleModal(mensagemModal){
+    //alert(msg);
+    debugger;
+
+    this.setState({
+      exibirMensagem: true,
+      mensagem: mensagemModal.texto,
+      tipo: mensagemModal.tipo
+    })
+  }
+
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+    return  (
+      <div>       
+         <Modal mensagem={this.state.mensagem} exibirMensagem={this.state.exibirMensagem} tipo={this.state.tipo}/>
+         <Loading/>             
+         <Header/>
+         <Main handleModal={this.handleModal}/>
+      </div> 
+    );   
   }
 }
 
