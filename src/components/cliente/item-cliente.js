@@ -20,9 +20,9 @@ class ItemCliente extends Component{
 
   render(){
     return  <li className="w3-bar">
-                <span className="w3-medium"> <b>Tel:</b> {this.props.cliente.Telefone} - <b>CPF:</b>{this.props.cliente.Cpf}</span>
+                <span className="w3-medium"> <b>Tel.:</b> {this.props.cliente.Telefone} - <b>CPF:</b>{this.props.cliente.Cpf}</span>
                 <br></br>
-                <span className="w3-small"><b>Email:</b> {this.props.cliente.Email}</span>
+                <span className="w3-small"><b>E-mail:</b> {this.props.cliente.Email}</span>
             </li>              
     }
 

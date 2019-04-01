@@ -7,6 +7,19 @@ class  ClienteService{
 
     static CadastrarCliente(cliente){
 
+
+        let clienteStorage = localStorage.getItem("clientes")
+        let clientes = [];
+        
+        if (!clienteStorage){            
+            clientes.push(cliente);            
+        }else{
+             clientes = JSON.parse(localStorage.getItem("clientes"));
+             clientes.push(cliente);        
+        }
+
+        localStorage.setItem("clientes",JSON.stringify(clientes));
+
         return new Promise(resolve=>{
                 setTimeout(() => {
                 resolve(cliente);
@@ -19,18 +32,21 @@ class  ClienteService{
 
     static ObterClientes(textoParaPesquisa){
         
-        let clientes = []; 
+        let clientes = [];
+        let clientesEncontrados = [];
 
-        clientes.push(new ClienteModel("3299934311","robsbq@gmail.com","06542045600"))
-        clientes.push(new ClienteModel("3588988988","email@yahoo.com.br","1111111111"))
-        clientes.push(new ClienteModel("3511122545","joaomariajosejoa@gamil.com","233333333"))    
-        
+        let clienteStorage = localStorage.getItem("clientes");
+        if (clienteStorage){
+            clientes = JSON.parse(clienteStorage);
+        }                    
+
+        if (clientes.length > 0){                                     
+            clientesEncontrados = clientes.filter((cliente)=>{
+                return cliente.Cpf.indexOf(textoParaPesquisa) !== -1 | cliente.Telefone.indexOf(textoParaPesquisa) !== -1;   
+            });
+        }
+
         debugger;
-        let clientesEncontrados = clientes.filter((cliente)=>{
-            return cliente.Cpf.indexOf(textoParaPesquisa) !== -1 | cliente.Telefone.indexOf(textoParaPesquisa) !== -1;   
-        });
-
-
 
         return new Promise(resolve=>{
            setTimeout(() => {            

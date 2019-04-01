@@ -33,13 +33,17 @@ render(){
                 <Route 
                     path='/gerirCartao/' 
                     render={(props)=> <GerirCartao{...props} handleModal={this.props.handleModal}/>}/>
-                <Route path='/gerirCliente/' component={GerirCliente}/>
+                <Route 
+                    path='/gerirCliente/' 
+                    render={(props)=> <GerirCliente{...props} handleModal={this.props.handleModal}/>}/>
                 
                 <Route 
                     path='/cadastrarCliente/' 
                     render={(props)=> <CadastrarCliente{...props} handleModal={this.props.handleModal}/>}/>
 
-                <Route path='/cadastrarCartao/' component={CadastrarCartao} />
+                <Route path='/cadastrarCartao/' 
+                    render={(props)=> <CadastrarCartao{...props} handleModal={this.props.handleModal}/>}/>
+               
                 <Route path='*' exact={true} component={PaginaNaoEncontrada} />            
             </Switch>            
         </div> 

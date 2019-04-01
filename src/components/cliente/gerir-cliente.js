@@ -6,11 +6,12 @@ import {ClienteService} from '../../services/cliente-service';
 
 import ListaDeClientes from './lista-clientes';
 import Loading from '../loading/loading';
+import TipoAlerta from "../modal/tipo-alerta";
 
 class GerirCliente extends Component{
    
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
                 
         this.state = {clientes: [], textoParaPesquisa: ''};               
         this.buscarClientes = this.buscarClientes.bind(this);
@@ -34,9 +35,23 @@ class GerirCliente extends Component{
             
             Loading.close();
 
-            this.setState(state => ({                
-                clientes: res
-              }));        
+            if (res && res.length > 0){
+                this.setState(state => ({                
+                    clientes: res
+                }));   
+            }else{
+
+                this.setState(state => ({                
+                    clientes: []
+                })); 
+
+                let mensagemModal = {
+                    texto: 'Nenhum Cliente Foi Encontrado!!!',
+                    tipo: TipoAlerta.WARNING
+                }
+        
+                this.props.handleModal(mensagemModal);
+            }     
         })
 
         

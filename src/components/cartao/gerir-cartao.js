@@ -2,15 +2,26 @@ import React, { Component } from 'react';
 
 import { Link } from 'react-router-dom'
 
+import ListaDeCartoes from './lista-cartao.js';
+import Loading from '../loading/loading';
+import TipoAlerta from "../modal/tipo-alerta";
+import {CartaoService} from '../../services/cartao-service';
+
 class GerirCartao extends Component{
    
 
     constructor(props){
-        super(props);
-
+        super(props);                
+                
+        this.state = {cartoes: [], textoParaPesquisa: ''};               
+        this.buscarCartoes = this.buscarCartoes.bind(this);
+        this.handleChangePesquisa = this.handleChangePesquisa.bind(this);
         this.handleAtivarDesativar = this.handleAtivarDesativar.bind(this);
     }
 
+    handleChangePesquisa(event){
+        this.setState({textoParaPesquisa: event.target.value});
+    }
 
     handleAtivarDesativar(){
 
@@ -20,6 +31,36 @@ class GerirCartao extends Component{
         }
 
         this.props.handleModal(mensagemModal);
+    }
+
+    buscarCartoes(){
+
+        Loading.show();
+                     
+        const resposta = CartaoService.ObterCartoes(this.state.textoParaPesquisa);
+
+        resposta.then((res)=>{
+            
+            Loading.close();
+
+            if (res && res.length > 0){
+                this.setState(state => ({                
+                    cartoes: res
+                }));   
+            }else{
+
+                this.setState(state => ({                
+                    cartoes: []
+                })); 
+
+                let mensagemModal = {
+                    texto: 'Nenhum Cartão Foi Encontrado!!!',
+                    tipo: TipoAlerta.WARNING
+                }
+        
+                this.props.handleModal(mensagemModal);
+            }     
+        })
     }
 
 
@@ -49,57 +90,23 @@ class GerirCartao extends Component{
                         <form className="w3-container">
                             <div className="w3-row w3-section">
                                 <div className="w3-col s11">
-                                    <input className="w3-input w3-border" name="first" type="text" placeholder="Nome"/>
+                                    <input className="w3-input w3-border" name="first" type="text" placeholder="Nome do Cartão" onChange={this.handleChangePesquisa}/>
                                 </div>
                                 <div className="w3-col s1 w3-center" style={{paddingLeft: '2px'}}>
-                                    <i className="w3-xxlarge fa fa-search"></i>
+                                    <i className="w3-xxlarge fa fa-search"  style={{cursor: 'pointer'}} onClick={this.buscarCartoes}></i>
                                 </div>
                             </div>
                         </form>
                     </div>                
-                        <div style={{paddingTop: '3px'}}>
-                            <ul className="w3-ul w3-card-4" id="ulCartoes">
-                                <li className="w3-bar w3-red">
-                                    <div className="w3-row">
-                                        <div className="w3-col s12 m12 l12">
-                                            <span className="w3-medium"> <b>Nome:</b> Cartão A </span>
-                                            <br/>
-                                            <span className="w3-small"><b>Benefício:</b> Desconto de 10%</span>
-                                        </div>
-                                    </div>
-                                    <div className="w3-row">
-                                        <div className="w3-col s9 m9 l9">
-                                            <span className="w3-small"> <b>Qtd Marcações:</b> 10</span>
-                                        </div>
-                                        <div className="w3-col s3 m3 l3 w3-right-align">
-                                            <span className="w3-tag w3-round-medium w3-amber w3-center">Ativo</span>                                    
-                                        </div>
-                                    </div>
-                                </li>
-                                <li className="w3-bar">
-                                    <div className="w3-row">
-                                        <div className="w3-col s12 m12 l12">
-                                            <span className="w3-medium"> <b>Nome:</b> Cartão Corte de Cabelo</span>
-                                            <br/>
-                                            <span className="w3-small"><b>Benefício:</b> Ganhe um corte de Cabelo</span>
-                                        </div>
-                                    </div>
-                                    <div className="w3-row">
-                                        <div className="w3-col s9 m9 l9">
-                                            <span className="w3-small"> <b>Qtd Marcações:</b> 3</span>
-                                        </div>
-                                        <div className="w3-col s3 m3 l3 w3-right-align">
-                                            <span className="w3-tag w3-round-medium w3-amber w3-center">Inativo</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                    
+                    <div style={{paddingTop: '3px'}}>                
+                        <ListaDeCartoes cartoes={this.state.cartoes}></ListaDeCartoes>
+                     </div>    
                         
-                        <div style={{paddingTop: '10px'}}>
-                            <button className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" onClick={this.handleAtivarDesativar}>Ativar/Desativar</button>                                                      
-                            <Link className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" to="cadastrarCartao">Adicionar</Link>              
-                        </div>
+                    <div style={{paddingTop: '10px'}}>
+                        <button className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" onClick={this.handleAtivarDesativar}>Ativar/Desativar</button>                                                      
+                        <Link className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" to="cadastrarCartao">Adicionar</Link>              
+                    </div>
                 </div>                
     }
 
