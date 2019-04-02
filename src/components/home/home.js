@@ -1,10 +1,10 @@
 import React from 'react';
 
-import MarcarCartao from "../cartao/marcar-cartao"
+import SelecionarClienteCartao from '../cartao/selecionar-cliente-cartao';
 
 const Home = () =>(
     
-    <MarcarCartao/>
+    <SelecionarClienteCartao/>
 );
 
 export default Home;

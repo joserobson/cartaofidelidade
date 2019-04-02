@@ -12,9 +12,9 @@ class LinhaCartao extends Component{
     render(){
         return <div className="w3-row" style={{height: this.props.alturaDaLinha}}>
                     {
-                        this.props.colunas.map(coluna =>
+                        this.props.colunas.map((coluna,index) =>
                             (
-                                <ColunaCartao diaMarcado={coluna} cssDivColuna={this.props.cssDivColuna}></ColunaCartao>    
+                                <ColunaCartao key={index} diaMarcado={coluna} cssDivColuna={this.props.cssDivColuna}></ColunaCartao>    
                             ))
                     }
                </div>

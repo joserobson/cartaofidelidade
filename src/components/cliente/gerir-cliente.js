@@ -52,9 +52,7 @@ class GerirCliente extends Component{
         
                 this.props.handleModal(mensagemModal);
             }     
-        })
-
-        
+        })        
 
         console.log("buscar clientes");
     }   

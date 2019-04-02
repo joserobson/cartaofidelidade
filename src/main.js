@@ -12,7 +12,9 @@ import CadastrarCliente from './components/cliente/cadastrar-cliente';
 
 import CadastrarCartao from './components/cartao/cadastrar-cartao';
 
-import { Switch, Route, HashRouter } from 'react-router-dom'
+import { Switch, Route, HashRouter } from 'react-router-dom';
+
+import MarcarCartao from './components/cartao/marcar-cartao';
 
 
 class Main extends Component{
@@ -35,8 +37,7 @@ render(){
                     render={(props)=> <GerirCartao{...props} handleModal={this.props.handleModal}/>}/>
                 <Route 
                     path='/gerirCliente/' 
-                    render={(props)=> <GerirCliente{...props} handleModal={this.props.handleModal}/>}/>
-                
+                    render={(props)=> <GerirCliente{...props} handleModal={this.props.handleModal}/>}/>                
                 <Route 
                     path='/cadastrarCliente/' 
                     render={(props)=> <CadastrarCliente{...props} handleModal={this.props.handleModal}/>}/>
@@ -44,6 +45,9 @@ render(){
                 <Route path='/cadastrarCartao/' 
                     render={(props)=> <CadastrarCartao{...props} handleModal={this.props.handleModal}/>}/>
                
+               <Route path='/marcarCartao/:valorMarcacao' 
+                    render={(props)=> <MarcarCartao{...props} handleModal={this.props.handleModal}/>}/>
+
                 <Route path='*' exact={true} component={PaginaNaoEncontrada} />            
             </Switch>            
         </div> 

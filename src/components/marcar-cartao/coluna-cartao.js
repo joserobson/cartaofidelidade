@@ -58,7 +58,7 @@ class ColunaCartao extends Component{
     render(){
         return <div className={this.state.cssColuna} style={{height: '100%', cursor:'pointer'}} onClick={this.handleIconClick}>
                     <div>
-                        <icon className={this.state.cssIcon}></icon>
+                        <i className={this.state.cssIcon}></i>
                         <span className="w3-small">{this.state.diaDaMarcacao}</span>
                     </div>
                 </div>
@@ -66,6 +66,7 @@ class ColunaCartao extends Component{
 
     componentDidMount(){
 
+        debugger;
         if (this.props.diaMarcado === ""){
             this.setState({
                 cssColuna: "w3-col " + this.props.cssDivColuna + " w3-center w3-border w3-border-red",

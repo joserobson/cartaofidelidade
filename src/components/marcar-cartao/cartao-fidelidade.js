@@ -5,31 +5,38 @@ import ConfiguracaoCartao from './configuracao-cartao';
 class CartaoFidelidade extends Component{
 
     constructor(props){
-        super(props);
-         
-        //const qtdMarcacoes = this.props.qtdMarcacoes;
-        let diasMarcados = this.props.diasMarcados;
-        const configuracaoCartao = ConfiguracaoCartao.TAMANHO_12;
+        super(props);                     
 
+        this.state = {
+            linhas: [],            
+            alturaTabela: "",
+            cssDivColuna: "",            
+            valorMarcacao: '2',
+            diasMarcados: this.props.diasMarcados
+        }        
+    }
+
+
+    carregaCartao(configuracaoCartao){
+
+        debugger;
+        let diasMarcados = this.state.diasMarcados;        
+        
         //calculo altura e largura        
         let altura = window.innerHeight;
         let largura = window.innerWidth;
-        
-        let alturaCartao = Math.round(altura * 0.70);
-        let larguraCartao = Math.round(largura * 0.65);
-        if (largura < 900)
-        {
-            larguraCartao = Math.round(largura * 0.90);
-            //alturaCartao = Math.round(altura * 0.30);
-        }
-        
-        let alturaEmPx = alturaCartao.toString() +"px";
-        let larguraEmPx = larguraCartao.toString() + "px";
 
+        let alturaCartao = Math.round(altura * 0.70);
+        //let larguraCartao = Math.round(largura * 0.65);
+        if (largura < 980)
+        {            
+            //alturaCartao = Math.round(altura * 0.50);
+        }
+
+        let alturaEmPx = alturaCartao.toString() +"px";        
         let alturaDaLinha = alturaCartao / configuracaoCartao.NUMERO_LINHAS;
-        let alturaDalinhaEmPx = alturaDaLinha.toString() + "px";
-        debugger;    
-        
+        let alturaDalinhaEmPx = alturaDaLinha.toString() + "px";            
+
         const numeroColunasPorLinha = configuracaoCartao.NUMERO_COLUNAS;
         const numeroDelinhas = configuracaoCartao.NUMERO_LINHAS;
         let linhas = [];
@@ -54,29 +61,42 @@ class CartaoFidelidade extends Component{
                 });
         }
 
-        
-        this.state = {
-            linhas: linhas,
-            larguraTabela: larguraEmPx,
+
+        this.setState({
+            linhas: linhas,            
             alturaTabela: alturaEmPx,
             cssDivColuna: configuracaoCartao.CSS_DIV_COL,
-            alturaDaLinha: alturaDalinhaEmPx    
-        }
-    }
+            alturaDaLinha: alturaDalinhaEmPx               
+        });
+    }    
 
     render(){
-        return <div>
-                    <TabelaCartao linhas={this.state.linhas} largura={this.state.larguraTabela} altura={this.state.alturaTabela} alturaDaLinha={this.state.alturaDaLinha} cssDivColuna={this.state.cssDivColuna}></TabelaCartao>
+        return <div>                
+                    <TabelaCartao linhas={this.state.linhas} altura={this.state.alturaTabela} alturaDaLinha={this.state.alturaDaLinha} cssDivColuna={this.state.cssDivColuna}></TabelaCartao>
                </div>
+    }
+
+    componentWillUnmount(){
+        //alert('desmontaou');
     }
 
     componentDidMount(){
         //alert('mount');
+        this.carregaCartao(this.props.configuracao);
     }
 
-    componentDidUpdate(){
+    componentDidUpdate(prevProps){
         //alert('update');
+
+        if (this.props.configuracao !== prevProps.configuracao){
+            this.carregaCartao(this.props.configuracao);        
+        }
     }
+
+    componentWillUpdate(){
+        //this.carregaCartao(this.props.configuracao);
+    }
+    
 }
 
 export default CartaoFidelidade;
