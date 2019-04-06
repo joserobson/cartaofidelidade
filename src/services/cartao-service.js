@@ -1,4 +1,6 @@
 
+import {ClienteModel} from '../models/cliente-model';
+import {CartaoModel} from '../models/cartao-model'
 
 class  CartaoService{
     
@@ -56,6 +58,70 @@ class  CartaoService{
             
         });
 
+    }
+
+    static obterCartoesDoCliente(nomeOUCpfDocliente){
+
+        //1º cenário
+        //Cliente possui cadastro mas não possui nenhum cartão daquela loja        
+        let resposta1 = {
+    
+            clientePossuiCadastro: true,
+            clientePossuiCartaoAberto: false,
+            cliente: new ClienteModel("3299934311","robsbq@gmail.com","06542045600"),            
+            cartaoFidelidade:{
+                id: '',                
+                CriadoEm: '',
+                configuracao: new CartaoModel("Ganhe Corte Cabelo","Corte de Cabelo",10),
+                status: 'Pendente',
+                ocorrencias: [""]
+            }
+        } 
+            
+        //2º
+        //Cliente possui cadastro e já possui um cartão aberto
+        let resposta2 = {
+            
+            clientePossuiCadastro: true,
+            clientePossuiCartaoAberto: true,
+            cliente: new ClienteModel("3299934311","robsbq@gmail.com","06542045600"),            
+            cartaoFidelidade:{
+                id: 'abcasdasfqweqwe',                
+                CriadoEm: '01/01/2010',
+                configuracao: new CartaoModel("Ganhe Corte Cabelo","Corte de Cabelo",10),
+                status: 'aberto',
+                ocorrencias: ["01/01/2019 10:10","08/01/2019 13:10","16/01/2019 09:40"]
+            }
+        }
+
+        //3º
+        //Cliente não possui cadastro
+        let resposta3 = {
+    
+            clientePossuiCadastro: false,
+            clientePossuiCartaoAberto: false,
+            cliente: null,            
+            cartaoFidelidade:{
+                id: '',                
+                CriadoEm: '',
+                configuracao: new CartaoModel("Ganhe Corte Cabelo","Corte de Cabelo",10),
+                status: 'Pendente',
+                ocorrencias: [""]
+            }
+        } 
+
+
+        let respostas = [resposta2];
+
+        return new Promise(resolve=>{
+            setTimeout(() => {            
+ 
+             resolve(respostas);
+             
+            }, 2000);
+             
+         });
+ 
     }
 
 }

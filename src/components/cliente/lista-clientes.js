@@ -9,34 +9,35 @@ class ListaDeClientes extends Component{
         super(props);
 
         console.log(props.clientes);
+
+        this.state = {
+            clienteSelecionado: null
+        }
     }
 
-    addEventoDestacarClienteSelecionado(){
-        
+    desmarcarClientes(){
+
         var ulClientes = document.querySelectorAll("ul[id*=ulClientes] li");
         ulClientes.forEach((element)=>{
             
             element.classList.remove("w3-red");
-            
-            element.addEventListener("click", function(){
-               
-                ulClientes.forEach((element)=>{
-                    if (element.classList.contains("w3-red")){
-                        element.classList.remove("w3-red");
-                    }
-                });
-                
-                element.classList.add("w3-red");                
-          });
-        }); 
+        });
+    }
 
+    addEventoDestacarClienteSelecionado(){
+        
+        var lisVermelhos = document.querySelectorAll("ul[id*=ulClientes] li.w3-red");
+         
+        if (lisVermelhos.length === 0){
+            let ulClientes = document.querySelectorAll("ul[id*=ulClientes] li");
 
-        if (ulClientes.length > 0){
-            ulClientes[0].classList.add("w3-red");
+            if (ulClientes.length > 0)
+                ulClientes[0].classList.add("w3-red");
         }
     }
 
     componentDidUpdate(){
+        debugger;
         this.addEventoDestacarClienteSelecionado();
     }     
 
@@ -50,7 +51,7 @@ class ListaDeClientes extends Component{
               {
                   this.props.clientes.map(cliente =>
                     (
-                       <ItemCliente cliente={cliente} key={cliente.Cpf}></ItemCliente>
+                       <ItemCliente cliente={cliente} key={cliente.Cpf} setCliente={this.props.setCliente} desmarcarClientes={this.desmarcarClientes}></ItemCliente>
                     ))
                }              
             </ul>

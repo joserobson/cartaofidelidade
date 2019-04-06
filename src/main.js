@@ -16,6 +16,7 @@ import { Switch, Route, HashRouter } from 'react-router-dom';
 
 import MarcarCartao from './components/cartao/marcar-cartao';
 
+import SelecionarClienteCartao from './components/cartao/selecionar-cliente-cartao';
 
 class Main extends Component{
 
@@ -31,7 +32,8 @@ render(){
 
     return <div className="w3-main" style={{marginLeft:'340px', marginRight:'75px'}}>                                               
             <Switch>
-                <Route exact path='/' component={Home} />
+                <Route exact path='/'
+                render={(props)=> <SelecionarClienteCartao{...props} handleModal={this.props.handleModal}/>}/>
                 <Route 
                     path='/gerirCartao/' 
                     render={(props)=> <GerirCartao{...props} handleModal={this.props.handleModal}/>}/>

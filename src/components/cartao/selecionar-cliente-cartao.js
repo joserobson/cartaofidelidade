@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ConfiguracaoCartao from '../marcar-cartao/configuracao-cartao';
 import { Link } from 'react-router-dom'
+import BuscarCliente from '../cliente/buscar-cliente';
 
 class SelecionarClienteCartao extends Component{
 
@@ -11,24 +12,34 @@ class SelecionarClienteCartao extends Component{
 
         this.state = {
             valorMarcacao: '6',
-            configuracaoCartao: ConfiguracaoCartao.TAMANHO_6
+            configuracaoCartao: ConfiguracaoCartao.TAMANHO_6,
+            clienteSelecionado: null,
         }
+
+        this.setarClienteSelecionado = this.setarClienteSelecionado.bind(this);
     }
 
-    handleChange(event) {
-            
-        
+    handleChange(event) {     
         this.setState({
              valorMarcacao: event.target.value             
          });  
-            
-        
     }
+
+    setarClienteSelecionado(clienteModel){
+        
+        alert(clienteModel.Telefone);
+
+        this.setState({
+            clienteSelecionado: clienteModel
+        })
+    }
+
 
     render(){
         return <div className="w3-container" id="marcarCartao" style={{marginTop:'75px'}}>
 
-            <select value={this.state.valorMarcacao} onChange={this.handleChange}>
+            <BuscarCliente setCliente={this.setarClienteSelecionado} handleModal={this.props.handleModal}></BuscarCliente>
+            {/* <select value={this.state.valorMarcacao} onChange={this.handleChange}>
                     <option value="2">2</option>
                     <option value="4">4</option>
                     <option value="6">6</option>
@@ -37,9 +48,9 @@ class SelecionarClienteCartao extends Component{
                     <option value="12">12</option>
                     <option value="14">14</option>
                     <option value="16">16</option>
-            </select>
+            </select> */}
             <p></p>
-            <Link className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" to={"marcarCartao/"+ this.state.valorMarcacao}>Adicionar</Link>
+            <Link className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" to={"marcarCartao/"+ this.state.valorMarcacao}>Continuar</Link>
         </div>
     }
 }
