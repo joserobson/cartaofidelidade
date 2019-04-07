@@ -32,8 +32,9 @@ render(){
 
     return <div className="w3-main" style={{marginLeft:'340px', marginRight:'75px'}}>                                               
             <Switch>
-                <Route exact path='/'
-                render={(props)=> <SelecionarClienteCartao{...props} handleModal={this.props.handleModal}/>}/>
+                <Route exact 
+                    path='/'
+                    render={(props)=> <SelecionarClienteCartao{...props} handleModal={this.props.handleModal}/>}/>
                 <Route 
                     path='/gerirCartao/' 
                     render={(props)=> <GerirCartao{...props} handleModal={this.props.handleModal}/>}/>
@@ -44,10 +45,12 @@ render(){
                     path='/cadastrarCliente/' 
                     render={(props)=> <CadastrarCliente{...props} handleModal={this.props.handleModal}/>}/>
 
-                <Route path='/cadastrarCartao/' 
+                <Route 
+                    path='/cadastrarCartao/' 
                     render={(props)=> <CadastrarCartao{...props} handleModal={this.props.handleModal}/>}/>
                
-               <Route path='/marcarCartao/:valorMarcacao' 
+               <Route 
+                    path='/marcarCartao/:telefone' 
                     render={(props)=> <MarcarCartao{...props} handleModal={this.props.handleModal}/>}/>
 
                 <Route path='*' exact={true} component={PaginaNaoEncontrada} />            

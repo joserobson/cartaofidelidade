@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ConfiguracaoCartao from '../marcar-cartao/configuracao-cartao';
 import { Link } from 'react-router-dom'
 import BuscarCliente from '../cliente/buscar-cliente';
+import { ClienteModel } from '../../models/cliente-model';
 
 class SelecionarClienteCartao extends Component{
 
@@ -13,7 +14,7 @@ class SelecionarClienteCartao extends Component{
         this.state = {
             valorMarcacao: '6',
             configuracaoCartao: ConfiguracaoCartao.TAMANHO_6,
-            clienteSelecionado: null,
+            clienteSelecionado: new ClienteModel('','',''),
         }
 
         this.setarClienteSelecionado = this.setarClienteSelecionado.bind(this);
@@ -27,7 +28,7 @@ class SelecionarClienteCartao extends Component{
 
     setarClienteSelecionado(clienteModel){
         
-        alert(clienteModel.Telefone);
+        //alert(clienteModel.Telefone);
 
         this.setState({
             clienteSelecionado: clienteModel
@@ -50,7 +51,7 @@ class SelecionarClienteCartao extends Component{
                     <option value="16">16</option>
             </select> */}
             <p></p>
-            <Link className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" to={"marcarCartao/"+ this.state.valorMarcacao}>Continuar</Link>
+            <Link className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" to={"marcarCartao/"+ this.state.clienteSelecionado.Telefone}>Continuar</Link>
         </div>
     }
 }

@@ -11,17 +11,28 @@ class GerirCliente extends Component{
         super(props);
                 
         this.state = {};               
+
+        this.setarClienteSelecionado = this.setarClienteSelecionado.bind(this);
     }   
 
     componentWillUnmount(){
         console.info("ummont gerir cliente");
     }
 
+    setarClienteSelecionado(clienteModel){
+        
+        //alert(clienteModel.Telefone);
+
+        this.setState({
+            clienteSelecionado: clienteModel
+        })
+    }
+
     render(){        
 
         return <div className="w3-container" id="gerirCliente" style={{marginTop:'75px'}}>                
                    
-                    <BuscarCliente></BuscarCliente>                 
+                    <BuscarCliente setCliente={this.setarClienteSelecionado} handleModal={this.props.handleModal}></BuscarCliente>                 
                     
                     <div style={{paddingTop: '10px'}}>                        
                         <Link className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" to="cadastrarCliente">Adicionar</Link>

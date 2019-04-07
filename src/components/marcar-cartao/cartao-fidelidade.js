@@ -26,7 +26,7 @@ class CartaoFidelidade extends Component{
         let altura = window.innerHeight;
         let largura = window.innerWidth;
 
-        let alturaCartao = Math.round(altura * 0.70);
+        let alturaCartao = Math.round(altura * 0.55);
         //let larguraCartao = Math.round(largura * 0.65);
         if (largura < 980)
         {            

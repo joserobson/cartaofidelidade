@@ -88,7 +88,7 @@ class  CartaoService{
             cartaoFidelidade:{
                 id: 'abcasdasfqweqwe',                
                 CriadoEm: '01/01/2010',
-                configuracao: new CartaoModel("Ganhe Corte Cabelo","Corte de Cabelo",10),
+                configuracao: new CartaoModel("Ganhe Corte Cabelo","Corte de Cabelo",8),
                 status: 'aberto',
                 ocorrencias: ["01/01/2019 10:10","08/01/2019 13:10","16/01/2019 09:40"]
             }
@@ -111,12 +111,12 @@ class  CartaoService{
         } 
 
 
-        let respostas = [resposta2];
+        //let respostas = [resposta2];
 
         return new Promise(resolve=>{
             setTimeout(() => {            
  
-             resolve(respostas);
+             resolve(resposta2);
              
             }, 2000);
              
