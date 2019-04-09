@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ConfiguracaoCartao from '../marcar-cartao/configuracao-cartao';
+import ConfiguracaoCartao from './configuracao-cartao';
 import { Link } from 'react-router-dom'
 import BuscarCliente from '../cliente/buscar-cliente';
 import { ClienteModel } from '../../models/cliente-model';

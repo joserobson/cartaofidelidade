@@ -1,11 +1,11 @@
 
 import React, {Component} from "react";
-import {CartaoModel} from "../../models/cartao-model";
+import {ModeloCartaoFidelidadeModel} from "../../models/modelo-cartao-model";
 import {CartaoService} from "../../services/cartao-service";
 import Loading from "../loading/loading";
 import TipoDeAlerta from "../modal/tipo-alerta";
 
-class CadastrarCartao extends Component{    
+class CadastrarModeloCartao extends Component{    
 
     constructor(props){
         super(props);
@@ -24,7 +24,7 @@ class CadastrarCartao extends Component{
 
         Loading.show();
 
-        let cartao = new CartaoModel(this.state.nome, this.state.beneficio, this.state.qtdMarcacoes);
+        let cartao = new ModeloCartaoFidelidadeModel(this.state.nome, this.state.beneficio, this.state.qtdMarcacoes);
 
         let retornoCadastrarCartao = CartaoService.CadastrarCartao(cartao);
 
@@ -32,7 +32,7 @@ class CadastrarCartao extends Component{
             Loading.close();                        
             
             let mensagemModal = {
-                texto: 'Cartão Cadastrado Com Sucesso!!!',
+                texto: 'Modelo de Cartão Cadastrado Com Sucesso!!!',
                 tipo: TipoDeAlerta.SUCESS
             }
     
@@ -42,7 +42,7 @@ class CadastrarCartao extends Component{
             Loading.close();            
 
             let mensagemModal = {
-                texto: 'Erro ao cadastrar cartão',
+                texto: 'Erro ao cadastrar Modelo de cartão',
                 tipo: TipoDeAlerta.WARNING
             }
     
@@ -84,4 +84,4 @@ class CadastrarCartao extends Component{
     }
 }
 
-export default CadastrarCartao;
+export default CadastrarModeloCartao;

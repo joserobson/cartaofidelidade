@@ -1,4 +1,4 @@
-class CartaoModel{
+class ModeloCartaoFidelidadeModel{
 
     Nome;
     Beneficio;
@@ -12,4 +12,4 @@ class CartaoModel{
     }    
 }
 
-export {CartaoModel};
+export {ModeloCartaoFidelidadeModel};

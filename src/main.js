@@ -2,7 +2,7 @@ import React,{Component} from "react";
 
 import Home from "./components/home/home"
 
-import GerirCartao from "./components/cartao/gerir-cartao";
+import GerirModeloCartao from "./components/modelo-cartao/gerir-modelo-cartao";
 
 import GerirCliente from "./components/cliente/gerir-cliente";
 
@@ -10,13 +10,13 @@ import PaginaNaoEncontrada from "./components/pagina-nao-encontrada/pagina-nao-e
 
 import CadastrarCliente from './components/cliente/cadastrar-cliente';
 
-import CadastrarCartao from './components/cartao/cadastrar-cartao';
+import CadastrarModeloCartao from './components/modelo-cartao/cadastrar-modelo-cartao';
 
 import { Switch, Route, HashRouter } from 'react-router-dom';
 
-import MarcarCartao from './components/cartao/marcar-cartao';
+import MarcarCartao from './components/marcar-cartao/marcar-cartao';
 
-import SelecionarClienteCartao from './components/cartao/selecionar-cliente-cartao';
+import SelecionarClienteCartao from './components/marcar-cartao/selecionar-cliente-cartao';
 
 class Main extends Component{
 
@@ -36,8 +36,8 @@ render(){
                     path='/'
                     render={(props)=> <SelecionarClienteCartao{...props} handleModal={this.props.handleModal}/>}/>
                 <Route 
-                    path='/gerirCartao/' 
-                    render={(props)=> <GerirCartao{...props} handleModal={this.props.handleModal}/>}/>
+                    path='/gerirModeloCartao/' 
+                    render={(props)=> <GerirModeloCartao{...props} handleModal={this.props.handleModal}/>}/>
                 <Route 
                     path='/gerirCliente/' 
                     render={(props)=> <GerirCliente{...props} handleModal={this.props.handleModal}/>}/>                
@@ -46,8 +46,8 @@ render(){
                     render={(props)=> <CadastrarCliente{...props} handleModal={this.props.handleModal}/>}/>
 
                 <Route 
-                    path='/cadastrarCartao/' 
-                    render={(props)=> <CadastrarCartao{...props} handleModal={this.props.handleModal}/>}/>
+                    path='/cadastrarModeloCartao/' 
+                    render={(props)=> <CadastrarModeloCartao{...props} handleModal={this.props.handleModal}/>}/>
                
                <Route 
                     path='/marcarCartao/:telefone' 

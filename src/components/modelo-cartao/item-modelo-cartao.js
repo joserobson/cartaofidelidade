@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-class ItemCartao extends Component{
+class ItemModeloCartao extends Component{
 
     constructor(props){
         super(props);        
@@ -26,4 +26,4 @@ class ItemCartao extends Component{
 
 }
 
-export default ItemCartao;
+export default ItemModeloCartao;

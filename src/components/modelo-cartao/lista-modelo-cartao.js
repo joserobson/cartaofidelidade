@@ -1,9 +1,9 @@
 
 import React, { Component } from 'react';
 
-import ItemCartao from './item-cartao';
+import ItemModeloCartao from './item-modelo-cartao';
 
-class ListaDeCartoes extends Component{
+class ListaModeloCartao extends Component{
 
     constructor(props){
         super(props);        
@@ -48,7 +48,7 @@ class ListaDeCartoes extends Component{
               {
                   this.props.cartoes.map(cartao =>
                     (
-                       <ItemCartao cartao={cartao} key={cartao.Id}></ItemCartao>
+                       <ItemModeloCartao cartao={cartao} key={cartao.Id}></ItemModeloCartao>
                     ))
                }              
             </ul>
@@ -56,4 +56,4 @@ class ListaDeCartoes extends Component{
 
 }
 
-export default ListaDeCartoes;
+export default ListaModeloCartao;

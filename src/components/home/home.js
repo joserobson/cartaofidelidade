@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SelecionarClienteCartao from '../cartao/selecionar-cliente-cartao';
+import SelecionarClienteCartao from '../marcar-cartao/selecionar-cliente-cartao';
 
 const Home = () =>(
     

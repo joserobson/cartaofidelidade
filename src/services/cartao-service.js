@@ -1,6 +1,6 @@
 
 import {ClienteModel} from '../models/cliente-model';
-import {CartaoModel} from '../models/cartao-model'
+import {ModeloCartaoFidelidadeModel} from '../models/modelo-cartao-model'
 
 class  CartaoService{
     
@@ -29,7 +29,7 @@ class  CartaoService{
          
     }       
 
-    static ObterCartoes(textoParaPesquisa){
+    static ObterModeloDeCartoes(textoParaPesquisa){
         
         let cartoes = [];
         let cartoesEncontrados = [];
@@ -72,7 +72,7 @@ class  CartaoService{
             cartaoFidelidade:{
                 id: '',                
                 CriadoEm: '',
-                configuracao: new CartaoModel("Ganhe Corte Cabelo","Corte de Cabelo",10),
+                configuracao: new ModeloCartaoFidelidadeModel("Ganhe Corte Cabelo","Corte de Cabelo",10),
                 status: 'Pendente',
                 ocorrencias: [""]
             }
@@ -88,7 +88,7 @@ class  CartaoService{
             cartaoFidelidade:{
                 id: 'abcasdasfqweqwe',                
                 CriadoEm: '01/01/2010',
-                configuracao: new CartaoModel("Ganhe Corte Cabelo","Corte de Cabelo",8),
+                configuracao: new ModeloCartaoFidelidadeModel("Ganhe Corte Cabelo","Corte de Cabelo",8),
                 status: 'aberto',
                 ocorrencias: ["01/01/2019 10:10","08/01/2019 13:10","16/01/2019 09:40"]
             }
@@ -104,7 +104,7 @@ class  CartaoService{
             cartaoFidelidade:{
                 id: '',                
                 CriadoEm: '',
-                configuracao: new CartaoModel("Ganhe Corte Cabelo","Corte de Cabelo",10),
+                configuracao: new ModeloCartaoFidelidadeModel("Ganhe Corte Cabelo","Corte de Cabelo",10),
                 status: 'Pendente',
                 ocorrencias: [""]
             }

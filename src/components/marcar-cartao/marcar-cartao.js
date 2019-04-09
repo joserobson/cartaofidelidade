@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import CartaoFidelidade from '../marcar-cartao/cartao-fidelidade';
-import ConfiguracaoCartao from '../marcar-cartao/configuracao-cartao';
+import CartaoFidelidade from './cartao-fidelidade';
+import ConfiguracaoCartao from './configuracao-cartao';
 import Loading from '../loading/loading';
 import { CartaoService } from '../../services/cartao-service';
 

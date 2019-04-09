@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 
 import { Link } from 'react-router-dom'
 
-import ListaDeCartoes from './lista-cartao.js';
+import ListaModeloCartao from './lista-modelo-cartao';
 import Loading from '../loading/loading';
 import TipoAlerta from "../modal/tipo-alerta";
 import {CartaoService} from '../../services/cartao-service';
 
-class GerirCartao extends Component{
+class GerirModeloCartao extends Component{
    
 
     constructor(props){
         super(props);                
                 
         this.state = {cartoes: [], textoParaPesquisa: ''};               
-        this.buscarCartoes = this.buscarCartoes.bind(this);
+        this.buscarModeloDeCartoes = this.buscarModeloDeCartoes.bind(this);
         this.handleChangePesquisa = this.handleChangePesquisa.bind(this);
         this.handleAtivarDesativar = this.handleAtivarDesativar.bind(this);
     }
@@ -26,18 +26,18 @@ class GerirCartao extends Component{
     handleAtivarDesativar(){
 
         let mensagemModal = {
-            texto: 'Gerar Cartao',
+            texto: 'Gerir Modelo de Cartao',
             tipo: 'sucess'
         }
 
         this.props.handleModal(mensagemModal);
     }
 
-    buscarCartoes(){
+    buscarModeloDeCartoes(){
 
         Loading.show();
                      
-        const resposta = CartaoService.ObterCartoes(this.state.textoParaPesquisa);
+        const resposta = CartaoService.ObterModeloDeCartoes(this.state.textoParaPesquisa);
 
         resposta.then((res)=>{
             
@@ -93,19 +93,19 @@ class GerirCartao extends Component{
                                     <input className="w3-input w3-border" name="first" type="text" placeholder="Nome do Cartão" onChange={this.handleChangePesquisa}/>
                                 </div>
                                 <div className="w3-col s1 w3-center" style={{paddingLeft: '2px'}}>
-                                    <i className="w3-xxlarge fa fa-search"  style={{cursor: 'pointer'}} onClick={this.buscarCartoes}></i>
+                                    <i className="w3-xxlarge fa fa-search"  style={{cursor: 'pointer'}} onClick={this.buscarModeloDeCartoes}></i>
                                 </div>
                             </div>
                         </form>
                     </div>                
                     
                     <div style={{paddingTop: '3px'}}>                
-                        <ListaDeCartoes cartoes={this.state.cartoes}></ListaDeCartoes>
+                        <ListaModeloCartao cartoes={this.state.cartoes}></ListaModeloCartao>
                      </div>    
                         
                     <div style={{paddingTop: '10px'}}>
                         <button className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" onClick={this.handleAtivarDesativar}>Ativar/Desativar</button>                                                      
-                        <Link className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" to="cadastrarCartao">Adicionar</Link>              
+                        <Link className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" to="cadastrarModeloCartao">Adicionar</Link>              
                     </div>
                 </div>                
     }
@@ -115,5 +115,5 @@ class GerirCartao extends Component{
     }
 }
 
-export default GerirCartao;
+export default GerirModeloCartao;
 

@@ -34,14 +34,10 @@ class Header extends Component{
                         </div>
 
                         <div className="w3-bar-block">
-                            {/* <a href="#" onclick="App.abrirMarcarCartao()" class="w3-bar-item w3-button w3-hover-white">Marcar Cartão</a>
-                            <a href="#listarCartoes" onclick="App.abrirListarCartoes()" class="w3-bar-item w3-button w3-hover-white">Gerir Cartões</a>
-                            <a href="#listarClientes" onclick="App.abrirListarClientes()" class="w3-bar-item w3-button w3-hover-white">Gerir Clientes</a>
-                            <a href="#sair" onclick="" class="w3-bar-item w3-button w3-hover-white">Sair</a> */}
-
+                           
                             <NavLink onClick={this.closeMenuClick} className="w3-bar-item w3-button w3-hover-white" to="/">Marcar Cartão</NavLink>
-                            <NavLink onClick={this.closeMenuClick} className="w3-bar-item w3-button w3-hover-white" to="gerirCartao">Gerir Cartão</NavLink>
-                            <NavLink onClick={this.closeMenuClick} className="w3-bar-item w3-button w3-hover-white" to="gerirCliente">Gerir Cliente</NavLink>
+                            <NavLink onClick={this.closeMenuClick} className="w3-bar-item w3-button w3-hover-white" to="/gerirModeloCartao">Gerir Cartão</NavLink>
+                            <NavLink onClick={this.closeMenuClick} className="w3-bar-item w3-button w3-hover-white" to="/gerirCliente">Gerir Cliente</NavLink>
 
                         </div>
                     </nav>     
