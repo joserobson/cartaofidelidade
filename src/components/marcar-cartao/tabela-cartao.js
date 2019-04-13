@@ -14,7 +14,13 @@ class TabelaCartao extends Component{
                     {
                         this.props.linhas.map((linha,index) =>
                             (
-                                <LinhaCartao key={index} colunas={linha.colunas} cssDivColuna={this.props.cssDivColuna} alturaDaLinha={this.props.alturaDaLinha}></LinhaCartao>    
+                                <LinhaCartao 
+                                    key={index} 
+                                    colunas={linha.colunas} 
+                                    cssDivColuna={this.props.cssDivColuna} 
+                                    alturaDaLinha={this.props.alturaDaLinha}
+                                    clickCartao={this.props.clickCartao}>
+                                </LinhaCartao>    
                             ))
                     }
                </div>

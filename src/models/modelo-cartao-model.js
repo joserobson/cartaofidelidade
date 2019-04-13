@@ -1,5 +1,8 @@
+import { GuidHelper } from "../helpers/guid-helper";
+
 class ModeloCartaoFidelidadeModel{
 
+    Id;
     Nome;
     Beneficio;
     QtdMarcacoes;
@@ -9,6 +12,7 @@ class ModeloCartaoFidelidadeModel{
         this.Nome = nome;
         this.Beneficio = beneficio;
         this.QtdMarcacoes = qtd;
+        this.Id = GuidHelper.NewGuid();
     }    
 }
 

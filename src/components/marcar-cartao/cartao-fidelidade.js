@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TabelaCartao from './tabela-cartao';
 import ConfiguracaoCartao from './configuracao-cartao';
+import StatusColunaCartao from './status-coluna-cartao';
 
 class CartaoFidelidade extends Component{
 
@@ -13,13 +14,66 @@ class CartaoFidelidade extends Component{
             cssDivColuna: "",            
             valorMarcacao: '2',
             diasMarcados: this.props.diasMarcados
-        }        
+        }   
+        
+        //this.adicionarDiaMarcado = this.adicionarDiaMarcado.bind(this);
+        //this.removerDiaMarcado = this.removerDiaMarcado.bind(this);
+        this.onClickCartao = this.onClickCartao.bind(this);
+    }
+
+    adicionarDiaMarcado(dia){
+
+        let diasMarcados = this.state.diasMarcados;
+        diasMarcados.push(dia);
+        this.setState({
+            diasMarcados: diasMarcados
+        },()=>{
+            this.props.onChange(this.state.diasMarcados);
+        });
+    }
+
+    removerDiaMarcado(dia){
+
+        let diasMarcados = this.state.diasMarcados;
+
+        let index = diasMarcados.indexOf(dia);
+
+        if (index > -1){
+            
+            diasMarcados.splice(index,1);
+
+            this.setState({
+                diasMarcados: diasMarcados
+            },()=>{
+                this.props.onChange(this.state.diasMarcados);
+            });
+        }
+
+    }
+
+    onClickCartao(event){
+
+        debugger;
+        console.info(event);
+    
+        let dia = event.diaDaMarcacao;
+
+        if (event.status === StatusColunaCartao.MARCADO){
+
+            this.adicionarDiaMarcado(dia);
+
+        }else{
+            if (event.status === StatusColunaCartao.PENDENTE){
+                
+                this.removerDiaMarcado(dia);
+            }
+        }
     }
 
 
     carregaCartao(configuracaoCartao){
 
-        debugger;
+        
         let diasMarcados = this.state.diasMarcados;        
         
         //calculo altura e largura        
@@ -72,7 +126,13 @@ class CartaoFidelidade extends Component{
 
     render(){
         return <div>                
-                    <TabelaCartao linhas={this.state.linhas} altura={this.state.alturaTabela} alturaDaLinha={this.state.alturaDaLinha} cssDivColuna={this.state.cssDivColuna}></TabelaCartao>
+                    <TabelaCartao 
+                        linhas={this.state.linhas} 
+                        altura={this.state.alturaTabela} 
+                        alturaDaLinha={this.state.alturaDaLinha} 
+                        cssDivColuna={this.state.cssDivColuna}
+                        clickCartao={this.onClickCartao}>
+                    </TabelaCartao>
                </div>
     }
 

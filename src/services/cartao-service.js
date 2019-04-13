@@ -71,8 +71,8 @@ class  CartaoService{
             cliente: new ClienteModel("3299934311","robsbq@gmail.com","06542045600"),            
             cartaoFidelidade:{
                 id: '',                
-                CriadoEm: '',
-                configuracao: new ModeloCartaoFidelidadeModel("Ganhe Corte Cabelo","Corte de Cabelo",10),
+                criadoEm: '',
+                modelo: new ModeloCartaoFidelidadeModel("Ganhe Corte Cabelo","Corte de Cabelo",10),
                 status: 'Pendente',
                 ocorrencias: [""]
             }
@@ -87,8 +87,8 @@ class  CartaoService{
             cliente: new ClienteModel("3299934311","robsbq@gmail.com","06542045600"),            
             cartaoFidelidade:{
                 id: 'abcasdasfqweqwe',                
-                CriadoEm: '01/01/2010',
-                configuracao: new ModeloCartaoFidelidadeModel("Ganhe Corte Cabelo","Corte de Cabelo",8),
+                criadoEm: '01/01/2010',
+                modelo: new ModeloCartaoFidelidadeModel("Ganhe Corte Cabelo","Corte de Cabelo",8),
                 status: 'aberto',
                 ocorrencias: ["01/01/2019 10:10","08/01/2019 13:10","16/01/2019 09:40"]
             }
@@ -103,8 +103,8 @@ class  CartaoService{
             cliente: null,            
             cartaoFidelidade:{
                 id: '',                
-                CriadoEm: '',
-                configuracao: new ModeloCartaoFidelidadeModel("Ganhe Corte Cabelo","Corte de Cabelo",10),
+                criadoEm: '',
+                modelo: new ModeloCartaoFidelidadeModel("Ganhe Corte Cabelo","Corte de Cabelo",10),
                 status: 'Pendente',
                 ocorrencias: [""]
             }
@@ -122,6 +122,39 @@ class  CartaoService{
              
          });
  
+    }
+
+
+    static salvarCartaoFidelidade(cartaoFidelidade){
+
+
+        //no caso de uma atualização vou só atualizar as ocorrencias
+
+        //cartaoCliente
+            //id
+            //id do modelo
+            //id do cliente
+            //ocorrencias
+            //criadoEm
+    
+        debugger;
+        let cartaoFidelidadeStorage = localStorage.getItem("cartaoFidelidade")
+        let cartoes = [];
+        
+        if (cartaoFidelidadeStorage){                    
+            cartoes = JSON.parse(localStorage.getItem("cartaoFidelidade"));                
+        }
+
+        cartoes.push(cartaoFidelidade);    
+        localStorage.setItem("cartaoFidelidade",JSON.stringify(cartoes));
+
+        return new Promise(resolve=>{
+            setTimeout(() => {
+            resolve(cartaoFidelidade);
+        }, 2000);
+         
+     });
+
     }
 
 }

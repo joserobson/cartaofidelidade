@@ -14,7 +14,12 @@ class LinhaCartao extends Component{
                     {
                         this.props.colunas.map((coluna,index) =>
                             (
-                                <ColunaCartao key={index} diaMarcado={coluna} cssDivColuna={this.props.cssDivColuna}></ColunaCartao>    
+                                <ColunaCartao 
+                                    key={index} 
+                                    diaMarcado={coluna} 
+                                    cssDivColuna={this.props.cssDivColuna}
+                                    clickCartao={this.props.clickCartao}>
+                                </ColunaCartao>    
                             ))
                     }
                </div>

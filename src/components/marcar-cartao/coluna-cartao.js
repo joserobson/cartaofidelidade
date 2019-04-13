@@ -15,14 +15,23 @@ class ColunaCartao extends Component{
             diaDaMarcacao: ""                         
         };        
         
+        Number.prototype.padLeft = function(base,chr){
+            var  len = (String(base || 10).length - String(this).length)+1;
+            return len > 0? new Array(len).join(chr || '0')+this : this;
+        }
     }
     
     dataAtualFormatada(){
-        var data = new Date(),
-            dia  = data.getDate().toString().padStart(2, '0'),
-            mes  = (data.getMonth()+1).toString().padStart(2, '0'), //+1 pois no getMonth Janeiro começa com zero.
-            ano  = data.getFullYear();
-        return dia+"/"+mes+"/"+ano;
+        
+        var d = new Date,
+        dformat = [(d.getMonth()+1).padLeft(),
+               d.getDate().padLeft(),
+               d.getFullYear()].join('/') +' ' +
+              [d.getHours().padLeft(),
+               d.getMinutes().padLeft(),
+               d.getSeconds().padLeft()].join(':');
+
+        return dformat;
     }
 
     colunaFoiMarcada(){
@@ -31,7 +40,13 @@ class ColunaCartao extends Component{
             cssColuna: "w3-col " + this.props.cssDivColuna + " w3-yellow w3-center w3-border w3-border-red",
             cssIcon:"w3-xxlarge fa fa-check",
             diaDaMarcacao: this.dataAtualFormatada()
-        });
+        },()=>{
+            this.props.clickCartao(
+                {
+                    status: StatusColunaCartao.MARCADO,
+                    diaDaMarcacao: this.state.diaDaMarcacao
+                });
+        });        
     }
 
     colunaFoiDesmarcada(){
@@ -40,6 +55,7 @@ class ColunaCartao extends Component{
             cssColuna: "w3-col " + this.props.cssDivColuna + " w3-center w3-border w3-border-red",
             cssIcon: "w3-xxlarge fa fa-question",
             diaDaMarcacao: ""
+        },()=>{
         });  
     }
 
@@ -47,12 +63,24 @@ class ColunaCartao extends Component{
     handleIconClick(event){
         
         if (this.state.status === StatusColunaCartao.PENDENTE){
+            
             this.colunaFoiMarcada();
+
         }else{
             if (this.state.status == StatusColunaCartao.MARCADO){
-               this.colunaFoiDesmarcada();
+               
+                this.colunaFoiDesmarcada();
+
+                this.props.clickCartao(
+                    {
+                        status: StatusColunaCartao.PENDENTE,
+                        diaDaMarcacao: this.state.diaDaMarcacao
+                    });
+
             }
         }
+
+        
     }
 
     render(){

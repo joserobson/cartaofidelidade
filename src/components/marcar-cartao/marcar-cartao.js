@@ -3,12 +3,65 @@ import CartaoFidelidade from './cartao-fidelidade';
 import ConfiguracaoCartao from './configuracao-cartao';
 import Loading from '../loading/loading';
 import { CartaoService } from '../../services/cartao-service';
+import TipoDeAlerta from "../modal/tipo-alerta";
+import {CartaoFidelidadeModel } from "../../models/cartao-fidelidade";
 
 class MarcarCartao extends Component{
 
     constructor(props){
         super(props);            
+
+        this.handleClickSalvarCartao = this.handleClickSalvarCartao.bind(this);
+        this.handleChangeCartao = this.handleChangeCartao.bind(this);
     }   
+
+    handleChangeCartao(diasMarcados){
+
+        console.info("handle change cartao",diasMarcados);
+        this.setState({
+            diasMarcados: diasMarcados
+        });
+    }
+
+    handleClickSalvarCartao(event){
+
+        Loading.show();
+
+        debugger;
+
+        let cartaoDoCliente = this.state.cartaoDoCliente;
+        let novasMarcacoes = this.state.diasMarcados;
+
+        let cartao = new CartaoFidelidadeModel(cartaoDoCliente.cliente,cartaoDoCliente.modelo,
+            novasMarcacoes); 
+
+        let retorno = CartaoService.salvarCartaoFidelidade(cartao);
+
+        retorno.then((r)=>{
+            Loading.close();                        
+            
+            let mensagemModal = {
+                texto: 'Cartão Salvo Com Sucesso!!!',
+                tipo: TipoDeAlerta.SUCESS
+            }
+    
+            this.props.handleModal(mensagemModal);
+
+        },(reject)=>{
+            Loading.close();            
+
+            let mensagemModal = {
+                texto: 'Erro ao Salvar Cartão',
+                tipo: TipoDeAlerta.WARNING
+            }
+    
+            this.props.handleModal(mensagemModal);
+        });        
+
+        
+        event.preventDefault();
+    }
+
 
     render(){
         return (
@@ -24,10 +77,11 @@ class MarcarCartao extends Component{
 
                     <CartaoFidelidade 
                         configuracao = {this.state.configuracaoCartao} 
-                        diasMarcados={this.state.diasMarcados}>
+                        diasMarcados={this.state.diasMarcados}
+                        onChange={this.handleChangeCartao}>
                     </CartaoFidelidade>
 
-                    <button type="submit" className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom">Salvar</button>
+                    <button type="button" className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" onClick={this.handleClickSalvarCartao}>Salvar</button>
                </div>
             }   
         </div>
@@ -48,14 +102,14 @@ class MarcarCartao extends Component{
                 
                 console.log("Cartao Cliente", resp);
 
-                debugger;
+                //debugger;
                 
-                let configuracao = this.definirDesenhoDoCartao(resp.cartaoFidelidade.configuracao.QtdMarcacoes);
+                let configuracao = this.definirDesenhoDoCartao(resp.cartaoFidelidade.modelo.QtdMarcacoes);
                 
                 this.setState({
                     cartaoDoCliente: resp,
                     diasMarcados: resp.cartaoFidelidade.ocorrencias,
-                    nomeCartao: resp.cartaoFidelidade.configuracao.Nome,
+                    nomeCartao: resp.cartaoFidelidade.modelo.Nome,
                     telefoneCliente: telefone,
                     configuracaoCartao: configuracao
                 });

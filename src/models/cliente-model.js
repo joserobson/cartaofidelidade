@@ -1,5 +1,8 @@
+import { GuidHelper } from "../helpers/guid-helper";
+
 class ClienteModel{
 
+    Id;
     Telefone;
     Email;
     Cpf;
@@ -9,7 +12,9 @@ class ClienteModel{
         this.Telefone = telefone;
         this.Email = email;
         this.Cpf = cpf;
-    }    
+        this.Id = GuidHelper.NewGuid();
+    }
+    
 }
 
 export {ClienteModel};
