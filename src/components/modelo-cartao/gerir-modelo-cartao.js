@@ -13,24 +13,58 @@ class GerirModeloCartao extends Component{
     constructor(props){
         super(props);                
                 
-        this.state = {cartoes: [], textoParaPesquisa: ''};               
+        this.state = {modelosCartoes: [], textoParaPesquisa: ''};               
+       
         this.buscarModeloDeCartoes = this.buscarModeloDeCartoes.bind(this);
         this.handleChangePesquisa = this.handleChangePesquisa.bind(this);
         this.handleAtivarDesativar = this.handleAtivarDesativar.bind(this);
+        this.setModeloCartao = this.setModeloCartao.bind(this);        
+        
     }
 
     handleChangePesquisa(event){
         this.setState({textoParaPesquisa: event.target.value});
     }
 
+    setModeloCartao(modeloCartao){
+        this.setState({
+            modeloCartao: modeloCartao
+        });
+    }
+
     handleAtivarDesativar(){
 
-        let mensagemModal = {
-            texto: 'Gerir Modelo de Cartao',
-            tipo: 'sucess'
+        if (this.state.modelosCartoes.length === 0 ){ 
+    
+            this.props.handleModal({
+                texto: 'Lista de Modelos está Vazia',
+                tipo: TipoAlerta.WARNING
+            });    
+
+            return;
         }
 
-        this.props.handleModal(mensagemModal);
+        //pegar o modelo selecionado em vermelho
+        debugger;
+        let modelo = this.state.modeloCartao;
+
+        if (!modelo){
+            modelo = this.state.modelosCartoes[0];
+        }
+
+        //setar status para ativado
+        //chamar servicec para atualizar o modelo
+        CartaoService.AtivarModeloCartao(modelo);        
+
+
+        // let mensagemModal = {
+        //     texto: 'Cartão Ativado com Sucesso!!!',
+        //     tipo: TipoAlerta.SUCESS
+        // }
+
+        // this.props.handleModal(mensagemModal);
+
+        this.buscarModeloDeCartoes();
     }
 
     buscarModeloDeCartoes(){
@@ -45,12 +79,12 @@ class GerirModeloCartao extends Component{
 
             if (res && res.length > 0){
                 this.setState(state => ({                
-                    cartoes: res
+                    modelosCartoes: res
                 }));   
             }else{
 
                 this.setState(state => ({                
-                    cartoes: []
+                    modelosCartoes: []
                 })); 
 
                 let mensagemModal = {
@@ -62,29 +96,10 @@ class GerirModeloCartao extends Component{
             }     
         })
     }
-
-
-    addEventoDestacarCartaoSelecionado(){
-        var ulClientes = document.querySelectorAll("ul[id*=ulCartoes] li");
-        ulClientes.forEach((element)=>{
-            element.addEventListener("click", function(){
-               
-                ulClientes.forEach((element)=>{
-                    if (element.classList.contains("w3-red")){
-                        element.classList.remove("w3-red");
-                    }
-                });
-                
-                element.classList.add("w3-red");
-                
-          });
-        }); 
-    }    
+ 
 
     render(){
         return <div className="w3-container" id="gerirCartao" style={{marginTop:'75px'}}>
-        
-                     
                     <h1 className="w3-medium w3-text-black"><b>Busque e Selecione um Cartão:</b></h1>
                     <div className="w3-border">
                         <form className="w3-container">
@@ -100,7 +115,11 @@ class GerirModeloCartao extends Component{
                     </div>                
                     
                     <div style={{paddingTop: '3px'}}>                
-                        <ListaModeloCartao cartoes={this.state.cartoes}></ListaModeloCartao>
+                        <ListaModeloCartao 
+                            modelosCartoes={this.state.modelosCartoes}
+                            setModeloCartao={this.setModeloCartao}
+                        >
+                        </ListaModeloCartao>
                      </div>    
                         
                     <div style={{paddingTop: '10px'}}>
@@ -111,7 +130,7 @@ class GerirModeloCartao extends Component{
     }
 
     componentDidMount(){
-        this.addEventoDestacarCartaoSelecionado();
+        //this.addEventoDestacarCartaoSelecionado();
     }
 }
 

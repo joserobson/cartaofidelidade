@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import TabelaCartao from './tabela-cartao';
-import ConfiguracaoCartao from './configuracao-cartao';
 import StatusColunaCartao from './status-coluna-cartao';
 
 class CartaoFidelidade extends Component{

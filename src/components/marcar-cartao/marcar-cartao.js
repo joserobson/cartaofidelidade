@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import CartaoFidelidade from './cartao-fidelidade';
-import ConfiguracaoCartao from './configuracao-cartao';
+import LayoutCartao from './layout-cartao';
 import Loading from '../loading/loading';
 import { CartaoService } from '../../services/cartao-service';
 import TipoDeAlerta from "../modal/tipo-alerta";
-import {CartaoFidelidadeModel } from "../../models/cartao-fidelidade";
+import {CartaoFidelidadeModel } from "../../models/cartao-fidelidade-model";
 
 class MarcarCartao extends Component{
 
@@ -30,12 +30,9 @@ class MarcarCartao extends Component{
         debugger;
 
         let cartaoDoCliente = this.state.cartaoDoCliente;
-        let novasMarcacoes = this.state.diasMarcados;
+        let novasMarcacoes = this.state.diasMarcados;        
 
-        let cartao = new CartaoFidelidadeModel(cartaoDoCliente.cliente,cartaoDoCliente.modelo,
-            novasMarcacoes); 
-
-        let retorno = CartaoService.salvarCartaoFidelidade(cartao);
+        let retorno = CartaoService.salvarCartaoFidelidade(cartaoDoCliente,novasMarcacoes);
 
         retorno.then((r)=>{
             Loading.close();                        
@@ -46,6 +43,9 @@ class MarcarCartao extends Component{
             }
     
             this.props.handleModal(mensagemModal);
+
+            //navegar para tela home
+            this.props.history.push("/");
 
         },(reject)=>{
             Loading.close();            
@@ -97,19 +97,20 @@ class MarcarCartao extends Component{
         let telefone = this.props.match.params.telefone;
         //alert(telefone);
 
-        CartaoService.obterCartoesDoCliente(telefone)
+        CartaoService.obterCartaoDoCliente(telefone)
             .then((resp)=>{
                 
                 console.log("Cartao Cliente", resp);
 
-                //debugger;
-                
-                let configuracao = this.definirDesenhoDoCartao(resp.cartaoFidelidade.modelo.QtdMarcacoes);
+                debugger;
+                let qtdMarcacoes = parseInt(resp.cartaoFidelidade.Modelo.QtdMarcacoes,10);
+                let configuracao = this.definirDesenhoDoCartao(qtdMarcacoes);
                 
                 this.setState({
-                    cartaoDoCliente: resp,
-                    diasMarcados: resp.cartaoFidelidade.ocorrencias,
-                    nomeCartao: resp.cartaoFidelidade.modelo.Nome,
+                    respostaCartao: resp,
+                    cartaoDoCliente: resp.cartaoFidelidade,
+                    diasMarcados: resp.cartaoFidelidade.Ocorrencias,
+                    nomeCartao: resp.cartaoFidelidade.Modelo.Nome,
                     telefoneCliente: telefone,
                     configuracaoCartao: configuracao
                 });
@@ -125,28 +126,28 @@ class MarcarCartao extends Component{
 
         switch (qtdMarcacoes) {
             case 2:
-                configuracao = ConfiguracaoCartao.TAMANHO_2;
+                configuracao = LayoutCartao.TAMANHO_2;
                 break;
             case 4:
-                configuracao = ConfiguracaoCartao.TAMANHO_4;
+                configuracao = LayoutCartao.TAMANHO_4;
                 break;
             case 6:
-                configuracao = ConfiguracaoCartao.TAMANHO_6;
+                configuracao = LayoutCartao.TAMANHO_6;
                 break;
             case 8:
-                configuracao = ConfiguracaoCartao.TAMANHO_8;
+                configuracao = LayoutCartao.TAMANHO_8;
                 break;
             case 10:
-                configuracao = ConfiguracaoCartao.TAMANHO_10;
+                configuracao = LayoutCartao.TAMANHO_10;
                 break;
             case 12:
-                configuracao = ConfiguracaoCartao.TAMANHO_12;
+                configuracao = LayoutCartao.TAMANHO_12;
                 break;
             case 14:
-                configuracao = ConfiguracaoCartao.TAMANHO_14;
+                configuracao = LayoutCartao.TAMANHO_14;
                 break;
             default:
-                configuracao = ConfiguracaoCartao.TAMANHO_8;
+                configuracao = LayoutCartao.TAMANHO_8;
                 break;
         }  
 

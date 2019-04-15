@@ -6,6 +6,7 @@ class ModeloCartaoFidelidadeModel{
     Nome;
     Beneficio;
     QtdMarcacoes;
+    Ativo;
 
     constructor(nome, beneficio, qtd){
 
@@ -13,6 +14,7 @@ class ModeloCartaoFidelidadeModel{
         this.Beneficio = beneficio;
         this.QtdMarcacoes = qtd;
         this.Id = GuidHelper.NewGuid();
+        this.Ativo = false;
     }    
 }
 

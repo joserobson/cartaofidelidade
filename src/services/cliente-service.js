@@ -45,8 +45,7 @@ class  ClienteService{
                 return cliente.Cpf.indexOf(textoParaPesquisa) !== -1 | cliente.Telefone.indexOf(textoParaPesquisa) !== -1;   
             });
         }
-
-        debugger;
+        
 
         return new Promise(resolve=>{
            setTimeout(() => {            

@@ -1,5 +1,5 @@
 
-const ConfiguracaoCartao = {
+const LayoutCartao = {
 
     TAMANHO_8:{
         NUMERO_LINHAS: 2,
@@ -38,4 +38,4 @@ const ConfiguracaoCartao = {
     }
 }
 
-export default ConfiguracaoCartao;
+export default LayoutCartao;

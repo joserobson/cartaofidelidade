@@ -34,7 +34,10 @@ class BuscarCliente extends Component
             if (res && res.length > 0){
                 this.setState(state => ({                
                     clientes: res
-                }));   
+                }));
+                
+                this.props.setCliente(res[0]);
+                
             }else{
 
                 this.setState(state => ({                

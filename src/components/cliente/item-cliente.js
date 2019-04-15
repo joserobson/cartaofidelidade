@@ -8,7 +8,7 @@ class ItemCliente extends Component{
         super(props);
 
         this.handleOnClick = this.handleOnClick.bind(this);
-        console.log(props.cliente);
+        
     }
    
 
@@ -20,8 +20,6 @@ class ItemCliente extends Component{
     }
 
     handleOnClick(event){
-
-        debugger;
 
         this.props.desmarcarClientes();
        
