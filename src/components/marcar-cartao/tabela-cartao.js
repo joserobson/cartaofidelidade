@@ -10,7 +10,7 @@ class TabelaCartao extends Component{
 
 
     render(){
-        return <div className="w3-panel" style={{height: this.props.altura, width:'100%'}}>
+        return <div style={{height: this.props.altura, width:'100%'}}>
                     {
                         this.props.linhas.map((linha,index) =>
                             (

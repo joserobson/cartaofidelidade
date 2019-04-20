@@ -9,7 +9,7 @@ class  CartaoService{
 
     static AtivarModeloCartao(modeloCartao){
 
-        let modelos = JSON.parse(localStorage.getItem("cartoes"));
+        let modelos = JSON.parse(localStorage.getItem("modelosDeCartao"));
 
         modelos.forEach((item)=>{
             item.Ativo = false;
@@ -20,23 +20,23 @@ class  CartaoService{
         })
         modeloEncontrado.Ativo = true;
         
-        localStorage.setItem("cartoes",JSON.stringify(modelos));
+        localStorage.setItem("modelosDeCartao",JSON.stringify(modelos));
 
     }
 
     static CadastrarModeloCartao(modeloCartao){
 
-        let cartaoStorage = localStorage.getItem("cartoes")
+        let cartaoStorage = localStorage.getItem("modelosDeCartao")
         let cartoes = [];
         
         if (!cartaoStorage){            
             cartoes.push(modeloCartao);            
         }else{
-            cartoes = JSON.parse(localStorage.getItem("cartoes"));
+            cartoes = JSON.parse(localStorage.getItem("modelosDeCartao"));
             cartoes.push(modeloCartao);        
         }
 
-        localStorage.setItem("cartoes",JSON.stringify(cartoes));
+        localStorage.setItem("modelosDeCartao",JSON.stringify(cartoes));
 
         return new Promise(resolve=>{
                 setTimeout(() => {
@@ -52,7 +52,7 @@ class  CartaoService{
         let cartoes = [];
         let cartoesEncontrados = [];
 
-        let cartaoStorage = localStorage.getItem("cartoes");
+        let cartaoStorage = localStorage.getItem("modelosDeCartao");
         if (cartaoStorage){
             cartoes = JSON.parse(cartaoStorage);
         }                    
@@ -80,7 +80,7 @@ class  CartaoService{
 
     static obterCartaoDoCliente(telefone){
 
-        debugger;
+        //debugger;
 
         let respostaCartaoFidelidade = {};
 
@@ -89,7 +89,7 @@ class  CartaoService{
         let clienteStorage = localStorage.getItem("clientes");    
         let clientes = JSON.parse(clienteStorage);
 
-        let modeloCartaoStorage = localStorage.getItem("cartoes");  
+        let modeloCartaoStorage = localStorage.getItem("modelosDeCartao");  
         let modelosDeCartao = JSON.parse(modeloCartaoStorage);
         let modeloAtivo = modelosDeCartao.find((modelo)=>{return modelo.Ativo});
 
@@ -166,7 +166,7 @@ class  CartaoService{
 
     static salvarCartaoFidelidade(cartaoDoCliente, novasMarcacoes){
 
-        debugger;
+        //debugger;
         let cartaoFidelidadeStorage = localStorage.getItem("cartaoFidelidade")
         let cartoes = [];
 

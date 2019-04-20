@@ -32,7 +32,7 @@ class SelecionarClienteCartao extends Component{
             tipo: 'sucess'
         }
 
-        this.handleModal(mensagemModal);
+        this.props.handleModal(mensagemModal);
     
     }
 

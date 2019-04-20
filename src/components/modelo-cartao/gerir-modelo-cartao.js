@@ -45,7 +45,7 @@ class GerirModeloCartao extends Component{
         }
 
         //pegar o modelo selecionado em vermelho
-        debugger;
+        //debugger;
         let modelo = this.state.modeloCartao;
 
         if (!modelo){

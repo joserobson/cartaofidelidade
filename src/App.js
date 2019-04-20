@@ -22,7 +22,7 @@ class App extends Component {
 
   handleModal(mensagemModal){
     //alert(msg);
-    debugger;
+    //debugger;
 
     this.setState({
       exibirMensagem: true,

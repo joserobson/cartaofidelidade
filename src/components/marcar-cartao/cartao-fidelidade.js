@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TabelaCartao from './tabela-cartao';
 import StatusColunaCartao from './status-coluna-cartao';
+import LayoutCartao from './layout-cartao';
 
 class CartaoFidelidade extends Component{
 
@@ -52,7 +53,7 @@ class CartaoFidelidade extends Component{
 
     onClickCartao(event){
 
-        debugger;
+        //debugger;
         console.info(event);
     
         let dia = event.diaDaMarcacao;
@@ -70,28 +71,34 @@ class CartaoFidelidade extends Component{
     }
 
 
-    carregaCartao(configuracaoCartao){
+    carregaCartao(qtdMarcacoes){
 
-        
+                
         let diasMarcados = this.state.diasMarcados;        
         
         //calculo altura e largura        
         let altura = window.innerHeight;
         let largura = window.innerWidth;
 
-        let alturaCartao = Math.round(altura * 0.55);
-        //let larguraCartao = Math.round(largura * 0.65);
+        let alturaCartao = Math.round(altura * 0.55);      
+        let alturaEmPx = alturaCartao.toString() +"px";        
+        let numeroColunasPorLinha,numeroDelinhas,cssDivCol,layoutCartao;
+
         if (largura < 980)
-        {            
-            //alturaCartao = Math.round(altura * 0.50);
+        {                    
+           layoutCartao = this.definirLayoutDoCartaoMenor980(qtdMarcacoes);           
+        }else{
+            layoutCartao = this.definirLayoutDoCartaoMaior980(qtdMarcacoes);            
         }
 
-        let alturaEmPx = alturaCartao.toString() +"px";        
-        let alturaDaLinha = alturaCartao / configuracaoCartao.NUMERO_LINHAS;
+        numeroDelinhas = layoutCartao.NUMERO_LINHAS;
+        numeroColunasPorLinha =  layoutCartao.NUMERO_COLUNAS;
+        cssDivCol = layoutCartao.CSS_DIV_COL;
+        
+        let alturaDaLinha = alturaCartao / numeroDelinhas;
         let alturaDalinhaEmPx = alturaDaLinha.toString() + "px";            
 
-        const numeroColunasPorLinha = configuracaoCartao.NUMERO_COLUNAS;
-        const numeroDelinhas = configuracaoCartao.NUMERO_LINHAS;
+        
         let linhas = [];
 
         for (let indexLinha = 0; indexLinha < numeroDelinhas; indexLinha++) {
@@ -118,7 +125,7 @@ class CartaoFidelidade extends Component{
         this.setState({
             linhas: linhas,            
             alturaTabela: alturaEmPx,
-            cssDivColuna: configuracaoCartao.CSS_DIV_COL,
+            cssDivColuna: cssDivCol,
             alturaDaLinha: alturaDalinhaEmPx               
         });
     }    
@@ -135,25 +142,77 @@ class CartaoFidelidade extends Component{
                </div>
     }
 
-    componentWillUnmount(){
-        //alert('desmontaou');
+    componentWillUnmount(){        
     }
 
-    componentDidMount(){
-        //alert('mount');
-        this.carregaCartao(this.props.configuracao);
+    componentDidMount(){        
+        this.carregaCartao(this.props.qtdMarcacoes);
     }
 
-    componentDidUpdate(prevProps){
-        //alert('update');
+    componentDidUpdate(prevProps){        
 
         if (this.props.configuracao !== prevProps.configuracao){
             this.carregaCartao(this.props.configuracao);        
         }
     }
 
-    componentWillUpdate(){
-        //this.carregaCartao(this.props.configuracao);
+    componentWillUpdate(){        
+    }
+
+    definirLayoutDoCartaoMenor980(qtdMarcacoes){
+
+        let layout;
+
+        switch (qtdMarcacoes) {           
+            case 6:
+                layout = LayoutCartao.MENOR_980.TAMANHO_6;
+                break;
+            case 8:
+                layout = LayoutCartao.MENOR_980.TAMANHO_8;
+                break;
+            case 10:
+                layout = LayoutCartao.MENOR_980.TAMANHO_10;
+                break;
+            case 12:
+                layout = LayoutCartao.MENOR_980.TAMANHO_12;
+                break;
+            case 14:
+                layout = LayoutCartao.MENOR_980.TAMANHO_14;
+                break;
+            default:
+                layout = LayoutCartao.MENOR_980.TAMANHO_8;
+                break;
+        }  
+
+        return layout;
+    }
+
+    definirLayoutDoCartaoMaior980(qtdMarcacoes){
+
+        let layout;
+
+        switch (qtdMarcacoes) {           
+            case 6:
+                layout = LayoutCartao.TAMANHO_6;
+                break;
+            case 8:
+                layout = LayoutCartao.TAMANHO_8;
+                break;
+            case 10:
+                layout = LayoutCartao.TAMANHO_10;
+                break;
+            case 12:
+                layout = LayoutCartao.TAMANHO_12;
+                break;
+            case 14:
+                layout = LayoutCartao.TAMANHO_14;
+                break;
+            default:
+                layout = LayoutCartao.TAMANHO_8;
+                break;
+        }  
+
+        return layout;
     }
     
 }

@@ -13,7 +13,7 @@ class CadastrarModeloCartao extends Component{
         this.state = {
             nome: "",
             beneficio: "",
-            qtdMarcacoes: 0
+            qtdMarcacoes: 6
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,7 +26,7 @@ class CadastrarModeloCartao extends Component{
 
         let cartao = new ModeloCartaoFidelidadeModel(this.state.nome, this.state.beneficio, this.state.qtdMarcacoes);
 
-        let retornoCadastrarCartao = CartaoService.CadastrarCartao(cartao);
+        let retornoCadastrarCartao = CartaoService.CadastrarModeloCartao(cartao);
 
         retornoCadastrarCartao.then(()=>{
             Loading.close();                        
@@ -76,7 +76,16 @@ class CadastrarModeloCartao extends Component{
                         </div>
                         <div className="w3-section">
                             <label>Qtd Marcações</label>
-                            <input className="w3-input w3-border" type="number" name="qtdMarcacoes" value={this.state.qtdMarcacoes} onChange={this.handleInputChange} required />
+                            {/* <input className="w3-input w3-border" type="number" name="qtdMarcacoes" value={this.state.qtdMarcacoes} onChange={this.handleInputChange} required /> */}
+
+                            <select name="qtdMarcacoes" className="w3-input w3-border" value={this.state.qtdMarcacoes} onChange={this.handleInputChange} required>
+                                 <option value="6">6</option>
+                                 <option value="8">8</option>
+                                 <option value="10">10</option>
+                                 <option value="12">12</option>
+                                 <option value="14">14</option>
+                            </select>
+
                         </div>
                         <button type="submit" className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom">Salvar</button>
                     </form>

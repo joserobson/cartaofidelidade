@@ -10,6 +10,7 @@ class Modal extends Component{
         super(props);             
 
         this.handleClose = this.handleClose.bind(this);
+        this.state = {titulo:""}
     }
 
     handleClose(event){
@@ -20,14 +21,23 @@ class Modal extends Component{
 
     render(){        
 
-        return <div id="modalId" className="w3-modal">
+        return <div id="modalId" className="w3-modal">                    
+
                         <div className="w3-modal-content w3-animate-top" style={{width:'50%'}}>                        
-                                <div id="alertMessage" className={'w3-panel'}>
+
+                                <header id="alertMessage" className="w3-container w3-red">
                                     <span onClick={this.handleClose} 
-                                        className="w3-button w3-display-topright">&times;</span>
-                                    <h3>Teste</h3>
-                                    <p>{this.props.mensagem}</p>
-                                </div>                         
+                                        className="w3-button w3-display-topright">&times;</span>        
+                                        <h3 id="titulo"></h3>                                  
+                                </header>
+
+                                <div className="w3-container">                                                                                                         
+                                    <p>{this.props.mensagem}</p>                                       
+                                </div>                                
+
+                                <footer class="w3-container w3-right-align">
+                                    <button type="button" class="w3-button w3-blue w3-margin-bottom" onClick={this.handleClose}>Fechar</button>
+                                </footer>                     
                         </div>      
                 </div>
     }
@@ -42,10 +52,12 @@ class Modal extends Component{
 
             switch (this.props.tipo) {
                 case TipoDeAlerta.WARNING:
-                    document.getElementById("alertMessage").classList.add('w3-yellow');
+                    //document.getElementById("alertMessage").classList.add('w3-yellow');
+                    document.getElementById("titulo").innerText = "Alerta";
                     break;
                 case TipoDeAlerta.SUCESS:
-                    document.getElementById("alertMessage").classList.add('w3-green');
+                    //document.getElementById("alertMessage").classList.add('w3-green');
+                    document.getElementById("titulo").innerText = "Sucesso";
                     break;
 
                 default:

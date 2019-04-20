@@ -27,7 +27,7 @@ class MarcarCartao extends Component{
 
         Loading.show();
 
-        debugger;
+        //debugger;
 
         let cartaoDoCliente = this.state.cartaoDoCliente;
         let novasMarcacoes = this.state.diasMarcados;        
@@ -76,11 +76,12 @@ class MarcarCartao extends Component{
                     </div>
 
                     <CartaoFidelidade 
-                        configuracao = {this.state.configuracaoCartao} 
+                        qtdMarcacoes = {this.state.qtdMarcacoes} 
                         diasMarcados={this.state.diasMarcados}
                         onChange={this.handleChangeCartao}>
                     </CartaoFidelidade>
 
+                    <br></br>
                     <button type="button" className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" onClick={this.handleClickSalvarCartao}>Salvar</button>
                </div>
             }   
@@ -102,9 +103,9 @@ class MarcarCartao extends Component{
                 
                 console.log("Cartao Cliente", resp);
 
-                debugger;
+                //debugger;
                 let qtdMarcacoes = parseInt(resp.cartaoFidelidade.Modelo.QtdMarcacoes,10);
-                let configuracao = this.definirDesenhoDoCartao(qtdMarcacoes);
+                //let configuracao = this.definirDesenhoDoCartao(qtdMarcacoes);
                 
                 this.setState({
                     respostaCartao: resp,
@@ -112,47 +113,13 @@ class MarcarCartao extends Component{
                     diasMarcados: resp.cartaoFidelidade.Ocorrencias,
                     nomeCartao: resp.cartaoFidelidade.Modelo.Nome,
                     telefoneCliente: telefone,
-                    configuracaoCartao: configuracao
+                    qtdMarcacoes: qtdMarcacoes
                 });
 
             }).finally(()=>{
                 Loading.close();
             });
-    }
-
-    definirDesenhoDoCartao(qtdMarcacoes){
-
-        let configuracao;
-
-        switch (qtdMarcacoes) {
-            case 2:
-                configuracao = LayoutCartao.TAMANHO_2;
-                break;
-            case 4:
-                configuracao = LayoutCartao.TAMANHO_4;
-                break;
-            case 6:
-                configuracao = LayoutCartao.TAMANHO_6;
-                break;
-            case 8:
-                configuracao = LayoutCartao.TAMANHO_8;
-                break;
-            case 10:
-                configuracao = LayoutCartao.TAMANHO_10;
-                break;
-            case 12:
-                configuracao = LayoutCartao.TAMANHO_12;
-                break;
-            case 14:
-                configuracao = LayoutCartao.TAMANHO_14;
-                break;
-            default:
-                configuracao = LayoutCartao.TAMANHO_8;
-                break;
-        }  
-
-        return configuracao;
-    }
+    }   
 }
 
 export default MarcarCartao;

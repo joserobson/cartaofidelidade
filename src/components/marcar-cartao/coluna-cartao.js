@@ -37,8 +37,8 @@ class ColunaCartao extends Component{
     colunaFoiMarcada(){
         this.setState({
             status: StatusColunaCartao.MARCADO,
-            cssColuna: "w3-col " + this.props.cssDivColuna + " w3-yellow w3-center w3-border w3-border-red",
-            cssIcon:"w3-xxlarge fa fa-check",
+            cssColuna: "w3-col " + this.props.cssDivColuna + " cor-coluna-marcada2 w3-center w3-border w3-border-black",
+            cssIcon:"w3-xxlarge fa fa-times",
             diaDaMarcacao: this.dataAtualFormatada()
         },()=>{
             this.props.clickCartao(
@@ -52,8 +52,8 @@ class ColunaCartao extends Component{
     colunaFoiDesmarcada(){
         this.setState({
             status: StatusColunaCartao.PENDENTE,
-            cssColuna: "w3-col " + this.props.cssDivColuna + " w3-center w3-border w3-border-red",
-            cssIcon: "w3-xxlarge fa fa-question",
+            cssColuna: "w3-col " + this.props.cssDivColuna + " w3-center w3-border w3-border-black",
+            cssIcon: "w3-xxlarge fa fa-pencil",
             diaDaMarcacao: ""
         },()=>{
         });  
@@ -85,25 +85,27 @@ class ColunaCartao extends Component{
 
     render(){
         return <div className={this.state.cssColuna} style={{height: '100%', cursor:'pointer'}} onClick={this.handleIconClick}>
-                    <div>
-                        <i className={this.state.cssIcon}></i>
-                        <span className="w3-small">{this.state.diaDaMarcacao}</span>
-                    </div>
+                    <div className="div-coluna-cartao">
+                        <i className={this.state.cssIcon}></i>                             
+                    </div>      
+                    {/* <div>
+                        <span className="font-coluna-cartao">{this.state.diaDaMarcacao}</span>   
+                    </div>                            */}
                 </div>
     }
 
     componentDidMount(){
 
-        debugger;
+        //debugger;
         if (this.props.diaMarcado === ""){
             this.setState({
-                cssColuna: "w3-col " + this.props.cssDivColuna + " w3-center w3-border w3-border-red",
-                cssIcon: "w3-xxlarge fa fa-question"
+                cssColuna: "w3-col " + this.props.cssDivColuna + " w3-center w3-border w3-border-black",
+                cssIcon: "w3-xxlarge fa fa-pencil"
             })
         }else{
             this.setState({
-                cssColuna: "w3-col " + this.props.cssDivColuna + " w3-yellow w3-center w3-border w3-border-red",
-                cssIcon:"w3-xxlarge fa fa-check",
+                cssColuna: "w3-col " + this.props.cssDivColuna + " cor-coluna-marcada2 w3-center w3-border w3-border-black",
+                cssIcon:"w3-xxlarge fa fa-times",
                 status: StatusColunaCartao.BLOQUEADO,
                 diaDaMarcacao: this.props.diaMarcado
             })
