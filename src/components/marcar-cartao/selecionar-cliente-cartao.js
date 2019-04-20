@@ -8,14 +8,14 @@ class SelecionarClienteCartao extends Component{
 
     constructor(props){
         super(props);     
-        
-        this.handleChange = this.handleChange.bind(this);
-
+                
         this.state = {
-            valorMarcacao: '6',
+            telefoneOUCpf: '',
             configuracaoCartao: LayoutCartao.TAMANHO_6,
-            clienteSelecionado: new ClienteModel('','',''),
+            clienteSelecionado: null,            
         }
+
+        this.handleChangeValorParaPesquisa = this.handleChangeValorParaPesquisa.bind(this);
 
         this.setarClienteSelecionado = this.setarClienteSelecionado.bind(this);
         
@@ -36,9 +36,9 @@ class SelecionarClienteCartao extends Component{
     
     }
 
-    handleChange(event) {     
+    handleChangeValorParaPesquisa(value) {     
         this.setState({
-             valorMarcacao: event.target.value             
+            telefoneOUCpf: value            
          });  
     }
 
@@ -53,13 +53,21 @@ class SelecionarClienteCartao extends Component{
     render(){
         return <div className="w3-container" id="marcarCartao" style={{marginTop:'75px'}}>
 
-            <BuscarCliente setCliente={this.setarClienteSelecionado} handleModal={this.props.handleModal}></BuscarCliente>           
+            <BuscarCliente 
+                setCliente={this.setarClienteSelecionado} 
+                handleModal={this.props.handleModal}
+                handleValorDaPesquisa={this.handleChangeValorParaPesquisa}>
+            </BuscarCliente>           
             
-            <p></p>
-            <Link className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" to={"marcarCartao/"+ this.state.clienteSelecionado.Telefone}>Continuar</Link>
-           
+            {this.state.clienteSelecionado &&
+                <div>
+                    <br></br>
+                    <Link className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" to={"marcarCartao/"+ this.state.clienteSelecionado.Telefone}>Exibir Cartão</Link>                                
+                </div>
+            }
+
             <br></br>
-            <Link className="w3-button w3-block w3-padding-large w3-gray w3-margin-bottom" to={"cadastrarCliente/"+ this.state.clienteSelecionado.Telefone}>Cadastrar Cliente</Link>
+            <Link className="w3-button w3-block w3-padding-large w3-blue-gray w3-margin-bottom" to={"cadastrarCliente/"+this.state.telefoneOUCpf}>Cadastrar Cliente</Link>
             <button className="w3-button w3-block w3-padding-large w3-gray w3-margin-bottom" onClick={this.handleClickLimparCache}>Limpar cache</button>
         </div>
     }

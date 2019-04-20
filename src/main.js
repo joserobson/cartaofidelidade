@@ -42,6 +42,9 @@ render(){
                     path='/gerirCliente/' 
                     render={(props)=> <GerirCliente{...props} handleModal={this.props.handleModal}/>}/>                
                 <Route 
+                    path='/cadastrarCliente/:telefoneOuCpf' 
+                    render={(props)=> <CadastrarCliente{...props} handleModal={this.props.handleModal}/>}/>
+                <Route 
                     path='/cadastrarCliente/' 
                     render={(props)=> <CadastrarCliente{...props} handleModal={this.props.handleModal}/>}/>
 

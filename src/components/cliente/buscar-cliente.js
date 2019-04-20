@@ -18,7 +18,10 @@ class BuscarCliente extends Component
     }
 
     handleChangePesquisa(event){
+        
         this.setState({textoParaPesquisa: event.target.value});
+
+        this.props.handleValorDaPesquisa(event.target.value);
     }
 
     buscarClientes(){
@@ -71,8 +74,15 @@ class BuscarCliente extends Component
                             </div>    
                         </form>
                     </div>
-                    <div style={{paddingTop: '3px'}}>                
-                        <ListaDeClientes setCliente={this.props.setCliente} clientes={this.state.clientes}></ListaDeClientes>
+                    <div style={{paddingTop: '3px'}}>     
+
+                        {this.state.clientes.length == 0 
+                            ? <div className="w3-border w3-center">
+                                <h6 className="w3-opacity">Lista de Clientes Vazia</h6>
+                              </div>
+                            : <ListaDeClientes setCliente={this.props.setCliente} clientes={this.state.clientes}></ListaDeClientes>
+                        }                        
+                        
                      </div>                 
                 </div>
     }

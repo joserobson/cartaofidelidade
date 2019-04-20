@@ -13,7 +13,8 @@ class CadastrarCliente extends Component{
         this.state = {
             telefone: '',
             cpf: '',
-            email:''
+            email:'',
+            irParaTelaDeCartao:false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -40,6 +41,10 @@ class CadastrarCliente extends Component{
             }
     
             this.props.handleModal(mensagemModal);
+
+            if (this.state.irParaTelaDeCartao){
+                this.props.history.push("/marcarCartao/"+this.state.telefone);
+            }
 
         },(reject)=>{
             Loading.close();            
@@ -86,6 +91,19 @@ class CadastrarCliente extends Component{
                         <button type="submit" className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom">Salvar</button>                        
                     </form>                    
                 </div>
+    }
+
+    componentDidMount(){
+        
+        let telefone = this.props.match.params.telefoneOuCpf;
+
+        if (telefone)
+        {
+            this.setState({
+                telefone: telefone,
+                irParaTelaDeCartao:true
+            });
+        }
     }
 }
 
