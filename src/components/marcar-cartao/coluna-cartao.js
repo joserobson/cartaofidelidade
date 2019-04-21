@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import StatusColunaCartao from './status-coluna-cartao';
-
+import './coluna-cartao.css';
 class ColunaCartao extends Component{
 
     constructor(props){
@@ -11,6 +11,7 @@ class ColunaCartao extends Component{
         this.state = {
             cssColuna: "",
             cssIcon: "",
+            cssImg:"",
             status: StatusColunaCartao.PENDENTE,
             diaDaMarcacao: ""                         
         };        
@@ -37,8 +38,9 @@ class ColunaCartao extends Component{
     colunaFoiMarcada(){
         this.setState({
             status: StatusColunaCartao.MARCADO,
-            cssColuna: "w3-col " + this.props.cssDivColuna + " cor-coluna-marcada2 w3-center w3-border w3-border-black",
+            cssColuna: "w3-col " + this.props.cssDivColuna + " cor-coluna-marcada w3-center w3-border w3-border-black",
             cssIcon:"w3-xxlarge fa fa-times",
+            cssImg:"img-marcada",
             diaDaMarcacao: this.dataAtualFormatada()
         },()=>{
             this.props.clickCartao(
@@ -54,6 +56,7 @@ class ColunaCartao extends Component{
             status: StatusColunaCartao.PENDENTE,
             cssColuna: "w3-col " + this.props.cssDivColuna + " w3-center w3-border w3-border-black",
             cssIcon: "w3-xxlarge fa fa-pencil",
+            cssImg:"img-nao-marcada",
             diaDaMarcacao: ""
         },()=>{
         });  
@@ -86,7 +89,8 @@ class ColunaCartao extends Component{
     render(){
         return <div className={this.state.cssColuna} style={{height: '100%', cursor:'pointer'}} onClick={this.handleIconClick}>
                     <div className="div-coluna-cartao">
-                        <i className={this.state.cssIcon}></i>                             
+                        {/* <i className={this.state.cssIcon}></i>    */}
+                        <img className={this.state.cssImg} src={require("./icone-cafe-50.png")}></img>                          
                     </div>      
                     {/* <div>
                         <span className="font-coluna-cartao">{this.state.diaDaMarcacao}</span>   
@@ -100,12 +104,14 @@ class ColunaCartao extends Component{
         if (this.props.diaMarcado === ""){
             this.setState({
                 cssColuna: "w3-col " + this.props.cssDivColuna + " w3-center w3-border w3-border-black",
-                cssIcon: "w3-xxlarge fa fa-pencil"
+                cssIcon: "w3-xxlarge fa fa-pencil",
+                cssImg:"img-nao-marcada"
             })
         }else{
             this.setState({
-                cssColuna: "w3-col " + this.props.cssDivColuna + " cor-coluna-marcada2 w3-center w3-border w3-border-black",
+                cssColuna: "w3-col " + this.props.cssDivColuna + " cor-coluna-marcada w3-center w3-border w3-border-black",
                 cssIcon:"w3-xxlarge fa fa-times",
+                cssImg:"img-marcada",
                 status: StatusColunaCartao.BLOQUEADO,
                 diaDaMarcacao: this.props.diaMarcado
             })

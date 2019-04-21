@@ -35,8 +35,8 @@ class Modal extends Component{
                                     <p>{this.props.mensagem}</p>                                       
                                 </div>                                
 
-                                <footer class="w3-container w3-right-align">
-                                    <button type="button" class="w3-button w3-blue w3-margin-bottom" onClick={this.handleClose}>Fechar</button>
+                                <footer className="w3-container w3-right-align">
+                                    <button type="button" className="w3-button w3-blue w3-margin-bottom" onClick={this.handleClose}>Fechar</button>
                                 </footer>                     
                         </div>      
                 </div>
