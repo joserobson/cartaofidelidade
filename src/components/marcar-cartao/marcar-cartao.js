@@ -78,7 +78,8 @@ class MarcarCartao extends Component{
                     <CartaoFidelidade 
                         qtdMarcacoes = {this.state.qtdMarcacoes} 
                         diasMarcados={this.state.diasMarcados}
-                        onChange={this.handleChangeCartao}>
+                        onChange={this.handleChangeCartao}
+                        handleModal={this.props.handleModal}>
                     </CartaoFidelidade>
 
                     <br></br>
@@ -102,10 +103,8 @@ class MarcarCartao extends Component{
             .then((resp)=>{
                 
                 console.log("Cartao Cliente", resp);
-
-                //debugger;
-                let qtdMarcacoes = parseInt(resp.cartaoFidelidade.Modelo.QtdMarcacoes,10);
-                //let configuracao = this.definirDesenhoDoCartao(qtdMarcacoes);
+                
+                let qtdMarcacoes = parseInt(resp.cartaoFidelidade.Modelo.QtdMarcacoes,10);                
                 
                 this.setState({
                     respostaCartao: resp,

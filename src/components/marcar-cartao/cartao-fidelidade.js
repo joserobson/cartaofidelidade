@@ -137,7 +137,8 @@ class CartaoFidelidade extends Component{
                         altura={this.state.alturaTabela} 
                         alturaDaLinha={this.state.alturaDaLinha} 
                         cssDivColuna={this.state.cssDivColuna}
-                        clickCartao={this.onClickCartao}>
+                        clickCartao={this.onClickCartao}
+                        handleModal={this.props.handleModal}>
                     </TabelaCartao>
                </div>
     }

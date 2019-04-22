@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import StatusColunaCartao from './status-coluna-cartao';
 import './coluna-cartao.css';
+import { ConfiguracaoHelper } from '../../helpers/configuracao-helper';
+import TipoDeAlerta from "../modal/tipo-alerta";
 class ColunaCartao extends Component{
 
     constructor(props){
@@ -24,13 +26,14 @@ class ColunaCartao extends Component{
     
     dataAtualFormatada(){
         
+        debugger;
         var d = new Date,
-        dformat = [(d.getMonth()+1).padLeft(),
-               d.getDate().padLeft(),
-               d.getFullYear()].join('/') +' ' +
-              [d.getHours().padLeft(),
-               d.getMinutes().padLeft(),
-               d.getSeconds().padLeft()].join(':');
+        dformat = [d.getDate().padLeft(),
+                    (d.getMonth()+1).padLeft(),
+                    d.getFullYear()].join('/') +' ' +
+                    [d.getHours().padLeft(),
+                    d.getMinutes().padLeft(),
+                    d.getSeconds().padLeft()].join(':');
 
         return dformat;
     }
@@ -70,16 +73,36 @@ class ColunaCartao extends Component{
             this.colunaFoiMarcada();
 
         }else{
-            if (this.state.status == StatusColunaCartao.MARCADO){
+            if (this.state.status === StatusColunaCartao.MARCADO){
                
                 this.colunaFoiDesmarcada();
-
+                
                 this.props.clickCartao(
                     {
                         status: StatusColunaCartao.PENDENTE,
                         diaDaMarcacao: this.state.diaDaMarcacao
                     });
 
+            }else{
+                if (this.state.status === StatusColunaCartao.BLOQUEADO){
+
+                    //exibir popup com a dia da compra e a opção para excluir a marcação
+                    //alert(this.state.diaDaMarcacao);
+                    let mensagemModal = {
+                        texto: this.state.diaDaMarcacao,
+                        tipo: TipoDeAlerta.EVENTO_EXIBIR_MARCACAO,
+                        eventos: [
+                            { 
+                                Nome: 'Excluir Dia',
+                                onClick: function(){
+                                    alert('teste');
+                                }                                
+                            }
+                        ]
+                    }
+
+                    this.props.handleModal(mensagemModal);
+                }
             }
         }
 
@@ -88,13 +111,9 @@ class ColunaCartao extends Component{
 
     render(){
         return <div className={this.state.cssColuna} style={{height: '100%', cursor:'pointer'}} onClick={this.handleIconClick}>
-                    <div className="div-coluna-cartao">
-                        {/* <i className={this.state.cssIcon}></i>    */}
-                        <img className={this.state.cssImg} src={require("./icone-cafe-50.png")}></img>                          
-                    </div>      
-                    {/* <div>
-                        <span className="font-coluna-cartao">{this.state.diaDaMarcacao}</span>   
-                    </div>                            */}
+                    <div className="div-coluna-cartao">                        
+                        <img className={this.state.cssImg} src={require("./img/"+ConfiguracaoHelper.TIPO_DE_COMERCIO.ICONE)}></img>                          
+                    </div>                          
                 </div>
     }
 

@@ -1,12 +1,12 @@
 const TipoDeComercio = {
 
     CAFETERIA:{
-        ICONE: "",
+        ICONE: "icone-cafe-2.png",
         COR:""
     },
 
     SORVETERIA:{
-        ICONE:"",
+        ICONE:"icone-sorvete-48.png",
         COR:""
     },
 
@@ -15,3 +15,5 @@ const TipoDeComercio = {
         COR:""
     }
 }
+
+export{TipoDeComercio}

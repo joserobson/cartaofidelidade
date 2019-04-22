@@ -18,7 +18,8 @@ class LinhaCartao extends Component{
                                     key={index} 
                                     diaMarcado={coluna} 
                                     cssDivColuna={this.props.cssDivColuna}
-                                    clickCartao={this.props.clickCartao}>
+                                    clickCartao={this.props.clickCartao}
+                                    handleModal={this.props.handleModal}>
                                 </ColunaCartao>    
                             ))
                     }

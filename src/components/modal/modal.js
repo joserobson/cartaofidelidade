@@ -35,8 +35,14 @@ class Modal extends Component{
                                     <p>{this.props.mensagem}</p>                                       
                                 </div>                                
 
-                                <footer className="w3-container w3-right-align">
-                                    <button type="button" className="w3-button w3-blue w3-margin-bottom" onClick={this.handleClose}>Fechar</button>
+                                <footer className="w3-container w3-right-align">                                            
+                                        {
+                                            this.props.eventos && this.props.eventos.map((evento,index)=>{
+                                            return <button type="button" key={index} className="w3-button w3-blue w3-margin-bottom" onClick={evento.onClick}>{evento.Nome}</button>
+                                            })
+                                        }
+                                        
+                                        <button type="button" className="w3-button w3-blue w3-margin-bottom w3-margin-left" onClick={this.handleClose}>Fechar</button>                                    
                                 </footer>                     
                         </div>      
                 </div>
@@ -59,7 +65,9 @@ class Modal extends Component{
                     //document.getElementById("alertMessage").classList.add('w3-green');
                     document.getElementById("titulo").innerText = "Sucesso";
                     break;
-
+                case TipoDeAlerta.EVENTO_EXIBIR_MARCACAO:                    
+                    document.getElementById("titulo").innerText = "Informações da Marcação";
+                    break;
                 default:
                     break;
             }

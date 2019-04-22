@@ -19,7 +19,8 @@ class TabelaCartao extends Component{
                                     colunas={linha.colunas} 
                                     cssDivColuna={this.props.cssDivColuna} 
                                     alturaDaLinha={this.props.alturaDaLinha}
-                                    clickCartao={this.props.clickCartao}>
+                                    clickCartao={this.props.clickCartao}
+                                    handleModal={this.props.handleModal}>
                                 </LinhaCartao>    
                             ))
                     }
