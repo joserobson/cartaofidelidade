@@ -34,15 +34,13 @@ class App extends Component {
   }
 
   handleModal(mensagemModal){
-    //alert(msg);
-    //debugger;
-
-    this.setState({
-      exibirMensagem: true,
-      mensagem: mensagemModal.texto,
-      tipo: mensagemModal.tipo,
-      eventos: mensagemModal.eventos
-    })
+    
+      this.setState({
+        exibirMensagem: true,
+        mensagem: mensagemModal.texto,
+        tipo: mensagemModal.tipo,
+        eventos: mensagemModal.eventos      
+      });      
   }
 
   render() {

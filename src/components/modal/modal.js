@@ -10,12 +10,20 @@ class Modal extends Component{
         super(props);             
 
         this.handleClose = this.handleClose.bind(this);
+        this.handleSoFecharPopup = this.handleSoFecharPopup.bind(this);
         this.state = {titulo:""}
     }
 
+    handleSoFecharPopup(){
+        document.getElementById("modalId").style.display = 'none';  
+    }
+
     handleClose(event){
-        event.preventDefault();
-        document.getElementById("modalId").style.display = 'none';
+        
+        debugger;        
+        document.getElementById("modalId").style.display = 'none';  
+        
+        event();
     }
    
 
@@ -26,7 +34,7 @@ class Modal extends Component{
                         <div className="w3-modal-content w3-animate-top" style={{width:'50%'}}>                        
 
                                 <header id="alertMessage" className="w3-container w3-red">
-                                    <span onClick={this.handleClose} 
+                                    <span onClick={this.handleSoFecharPopup} 
                                         className="w3-button w3-display-topright">&times;</span>        
                                         <h3 id="titulo"></h3>                                  
                                 </header>
@@ -38,11 +46,11 @@ class Modal extends Component{
                                 <footer className="w3-container w3-right-align">                                            
                                         {
                                             this.props.eventos && this.props.eventos.map((evento,index)=>{
-                                            return <button type="button" key={index} className="w3-button w3-blue w3-margin-bottom" onClick={evento.onClick}>{evento.Nome}</button>
+                                                return <button type="button" key={index} className="w3-button w3-blue w3-margin-bottom w3-margin-left" onClick={()=>this.handleClose(evento.onClick)}>{evento.Nome}</button>
                                             })
                                         }
                                         
-                                        <button type="button" className="w3-button w3-blue w3-margin-bottom w3-margin-left" onClick={this.handleClose}>Fechar</button>                                    
+                                        {/* <button type="button" className="w3-button w3-blue w3-margin-bottom w3-margin-left" onClick={this.handleClose}>Fechar</button>                                     */}
                                 </footer>                     
                         </div>      
                 </div>
@@ -66,7 +74,7 @@ class Modal extends Component{
                     document.getElementById("titulo").innerText = "Sucesso";
                     break;
                 case TipoDeAlerta.EVENTO_EXIBIR_MARCACAO:                    
-                    document.getElementById("titulo").innerText = "Informações da Marcação";
+                    document.getElementById("titulo").innerText = "Data da Marcação";
                     break;
                 default:
                     break;

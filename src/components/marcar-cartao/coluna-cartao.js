@@ -25,8 +25,7 @@ class ColunaCartao extends Component{
     }
     
     dataAtualFormatada(){
-        
-        debugger;
+                
         var d = new Date,
         dformat = [d.getDate().padLeft(),
                     (d.getMonth()+1).padLeft(),
@@ -88,15 +87,28 @@ class ColunaCartao extends Component{
 
                     //exibir popup com a dia da compra e a opção para excluir a marcação
                     //alert(this.state.diaDaMarcacao);
+                    const colunaCartao = this;
                     let mensagemModal = {
                         texto: this.state.diaDaMarcacao,
                         tipo: TipoDeAlerta.EVENTO_EXIBIR_MARCACAO,
                         eventos: [
                             { 
-                                Nome: 'Excluir Dia',
+                                Nome: 'Excluir',
                                 onClick: function(){
-                                    alert('teste');
+                                    
+                                    //desmarcar a coluna
+                                    colunaCartao.colunaFoiDesmarcada();
+
+                                    colunaCartao.props.clickCartao(
+                                        {
+                                            status: StatusColunaCartao.DESBLOQUEADO,
+                                            diaDaMarcacao: colunaCartao.state.diaDaMarcacao
+                                        });
                                 }                                
+                            },
+                            { 
+                                Nome: 'Fechar',
+                                onClick: function(){}     
                             }
                         ]
                     }

@@ -13,11 +13,10 @@ class CartaoFidelidade extends Component{
             alturaTabela: "",
             cssDivColuna: "",            
             valorMarcacao: '2',
-            diasMarcados: this.props.diasMarcados
+            diasMarcados: this.props.diasMarcados,
+            diasDesbloqueados: []
         }   
-        
-        //this.adicionarDiaMarcado = this.adicionarDiaMarcado.bind(this);
-        //this.removerDiaMarcado = this.removerDiaMarcado.bind(this);
+                
         this.onClickCartao = this.onClickCartao.bind(this);
     }
 
@@ -48,7 +47,21 @@ class CartaoFidelidade extends Component{
                 this.props.onChange(this.state.diasMarcados);
             });
         }
+    }
 
+    desbloquearDia(dia){
+
+        let dias = this.state.diasDesbloqueados;
+
+        dias.push(dia);
+
+        if (dia){
+            this.setState({
+                diasDesbloqueados: dias
+            },()=>{
+                this.props.onChange(this.state.diasMarcados, this.state.diasDesbloqueados);
+            });
+        }
     }
 
     onClickCartao(event){
@@ -58,16 +71,39 @@ class CartaoFidelidade extends Component{
     
         let dia = event.diaDaMarcacao;
 
-        if (event.status === StatusColunaCartao.MARCADO){
-
-            this.adicionarDiaMarcado(dia);
-
-        }else{
-            if (event.status === StatusColunaCartao.PENDENTE){
-                
-                this.removerDiaMarcado(dia);
+        switch (event.status) {
+            case StatusColunaCartao.MARCADO:
+            {
+                this.adicionarDiaMarcado(dia);
+                break;
             }
+            case StatusColunaCartao.PENDENTE:
+            {
+                this.removerDiaMarcado(dia);            
+                break;
+            }
+            case StatusColunaCartao.DESBLOQUEADO:
+            {
+                this.desbloquearDia(dia);
+                break;
+            }
+           
+            default:
+                break;
         }
+
+
+
+        // if (event.status === StatusColunaCartao.MARCADO){
+
+        //     this.adicionarDiaMarcado(dia);
+
+        // }else{
+        //     if (event.status === StatusColunaCartao.PENDENTE){
+                
+        //         this.removerDiaMarcado(dia);
+        //     }
+        // }
     }
 
 

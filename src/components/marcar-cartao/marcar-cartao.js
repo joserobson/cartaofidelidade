@@ -15,11 +15,14 @@ class MarcarCartao extends Component{
         this.handleChangeCartao = this.handleChangeCartao.bind(this);
     }   
 
-    handleChangeCartao(diasMarcados){
+    handleChangeCartao(diasMarcados, diasDesbloqueados){
 
-        console.info("handle change cartao",diasMarcados);
+        console.info("handle change cartao=> dias marcados",diasMarcados);
+        console.info("handle change cartao=> dias desbloqueados",diasDesbloqueados);
+        
         this.setState({
-            diasMarcados: diasMarcados
+            diasMarcados: diasMarcados,
+            diasDesbloqueados: diasDesbloqueados
         });
     }
 
@@ -30,22 +33,31 @@ class MarcarCartao extends Component{
         //debugger;
 
         let cartaoDoCliente = this.state.cartaoDoCliente;
-        let novasMarcacoes = this.state.diasMarcados;        
+        const diasMarcados = this.state.diasMarcados;        
+        const diasDesbloqueados = this.state.diasDesbloqueados;
 
-        let retorno = CartaoService.salvarCartaoFidelidade(cartaoDoCliente,novasMarcacoes);
+        let retorno = CartaoService.salvarCartaoFidelidade(cartaoDoCliente, diasMarcados, diasDesbloqueados);
 
         retorno.then((r)=>{
             Loading.close();                        
             
+            const marcarCartao = this;
             let mensagemModal = {
                 texto: 'Cartão Salvo Com Sucesso!!!',
-                tipo: TipoDeAlerta.SUCESS
+                tipo: TipoDeAlerta.SUCESS,
+                eventos: [
+                    { 
+                        Nome: 'Fechar',
+                        onClick: function(){
+                            //navegar para tela home
+                            marcarCartao.props.history.push("/");                                                                                 
+                        }                                
+                    }
+                ]
             }
     
             this.props.handleModal(mensagemModal);
-
-            //navegar para tela home
-            this.props.history.push("/");
+            
 
         },(reject)=>{
             Loading.close();            
@@ -59,8 +71,8 @@ class MarcarCartao extends Component{
         });        
 
         
-        event.preventDefault();
-    }
+        //event.preventDefault();
+    }    
 
 
     render(){

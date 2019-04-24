@@ -164,9 +164,9 @@ class  CartaoService{
 
     }
 
-    static salvarCartaoFidelidade(cartaoDoCliente, novasMarcacoes){
+    static salvarCartaoFidelidade(cartaoDoCliente, novasMarcacoes, marcacoesDesbloqueadas){
 
-        //debugger;
+        debugger;
         let cartaoFidelidadeStorage = localStorage.getItem("cartaoFidelidade")
         let cartoes = [];
 
@@ -186,7 +186,16 @@ class  CartaoService{
 
                 novasMarcacoes.forEach(element => {
                     cartaoEncontrado.Ocorrencias.push(element);    
-                });                
+                });        
+                       
+                if (marcacoesDesbloqueadas && marcacoesDesbloqueadas.length > 0){
+                    marcacoesDesbloqueadas.forEach(dia=>{                    
+                        let index = cartaoEncontrado.Ocorrencias.indexOf(dia);                    
+                        if (index > -1){
+                            cartaoEncontrado.Ocorrencias.splice(index,1);
+                        }
+                    });
+                }
                 
             }else{
 
