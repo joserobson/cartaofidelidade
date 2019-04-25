@@ -1,9 +1,9 @@
 import { UsuarioModel } from "../models/usuario-model";
 import { TipoDeComercio } from "../enums/tipo-comercio";
+import { MockDadosHelper } from "../helpers/mock-dados-helper";
 
 class UsuarioService{
-
-    STORAGE_NAME = "usuarios"
+    
     
     static Logar(){
         
@@ -33,6 +33,11 @@ class UsuarioService{
         //com o retorno eu vou setar as configurações do app
             //exemplo setar o icone
 
+    }
+
+    static ObterUsuarioLogado(){
+
+        return MockDadosHelper.ObterEmissor(0);
     }
     
 

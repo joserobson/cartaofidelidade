@@ -14,7 +14,7 @@ class ModeloCartaoFidelidadeModel{
         this.Beneficio = beneficio;
         this.QtdMarcacoes = qtd;
         this.Id = GuidHelper.NewGuid();
-        this.Ativo = false;
+        this.Ativo = true;
     }    
 }
 

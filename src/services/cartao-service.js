@@ -1,8 +1,7 @@
 
-import {ClienteModel} from '../models/cliente-model';
-import {ModeloCartaoFidelidadeModel} from '../models/modelo-cartao-model'
-import { ClienteService } from './cliente-service';
 import { CartaoFidelidadeModel } from '../models/cartao-fidelidade-model';
+import { MockDadosHelper } from '../helpers/mock-dados-helper';
+import { UsuarioService } from './usuario-service';
 
 class  CartaoService{
     
@@ -84,31 +83,31 @@ class  CartaoService{
 
         let respostaCartaoFidelidade = {};
 
-        let cartaoFidelidadeStorage = localStorage.getItem("cartaoFidelidade");
+        let cartaoFidelidadeStorage = localStorage.getItem(MockDadosHelper.STORAGE_NAME_CARTOES);
         
-        let clienteStorage = localStorage.getItem("clientes");    
+        let clienteStorage = localStorage.getItem(MockDadosHelper.STORAGE_NAME_CLIENTES);    
         let clientes = JSON.parse(clienteStorage);
 
-        let modeloCartaoStorage = localStorage.getItem("modelosDeCartao");  
-        let modelosDeCartao = JSON.parse(modeloCartaoStorage);
-        let modeloAtivo = modelosDeCartao.find((modelo)=>{return modelo.Ativo});
+        //let modeloCartaoStorage = localStorage.getItem("modelosDeCartao");  
+        //let modelosDeCartao = JSON.parse(modeloCartaoStorage);
+        let usuarioLogado = UsuarioService.ObterUsuarioLogado();        
 
         //procurar cartao fidelidade pelo cliente
         let cartoes = [];
         
         if (cartaoFidelidadeStorage){                    
-            cartoes = JSON.parse(localStorage.getItem("cartaoFidelidade"));                
+            cartoes = JSON.parse(cartaoFidelidadeStorage);                
         }else{
             
             //não existe nenhum cartão, preciso gerar um novo cartao para o cliente            
-            return this.MontarRespostaClienteNaoPossuiCartao(clientes,modeloAtivo,telefone)
+            return this.MontarRespostaClienteNaoPossuiCartao(clientes,usuarioLogado,telefone)
            
         }
 
         //agora já temos cartoes fidelidade cadastrados
         //procurar se cliente já existe cartão fidelidade
         let cartaoDoCliente = cartoes.find((cartao)=>{
-            return cartao.Cliente.Telefone === telefone && cartao.Modelo.Id === modeloAtivo.Id;
+            return cartao.Cliente.Telefone === telefone && cartao.Emissor.Id === usuarioLogado.Id;
         })
 
         //se cartao encontrado
@@ -131,13 +130,13 @@ class  CartaoService{
             });            
         }else{ //cliente não possui cartao
 
-            return this.MontarRespostaClienteNaoPossuiCartao(clientes,modeloAtivo,telefone)
+            return this.MontarRespostaClienteNaoPossuiCartao(clientes,usuarioLogado,telefone)
         }      
  
     }
 
 
-    static MontarRespostaClienteNaoPossuiCartao(clientes, modeloAtivo, telefone){
+    static MontarRespostaClienteNaoPossuiCartao(clientes, usuarioLogado, telefone){
 
         //buscar o cliente
         let primeiroCliente = clientes.find((cliente)=>{
@@ -149,7 +148,7 @@ class  CartaoService{
         let respostaCartaoFidelidade = {
             clientePossuiCadastro: true,
             clientePossuiCartaoAberto: false,                    
-            cartaoFidelidade: new CartaoFidelidadeModel(primeiroCliente,modeloAtivo,[]),
+            cartaoFidelidade: new CartaoFidelidadeModel(primeiroCliente,usuarioLogado,[]),
             status: 'Pendente',                    
         }
         
@@ -167,7 +166,7 @@ class  CartaoService{
     static salvarCartaoFidelidade(cartaoDoCliente, novasMarcacoes, marcacoesDesbloqueadas){
 
         debugger;
-        let cartaoFidelidadeStorage = localStorage.getItem("cartaoFidelidade")
+        let cartaoFidelidadeStorage = localStorage.getItem(MockDadosHelper.STORAGE_NAME_CARTOES)
         let cartoes = [];
 
         //checar se não existe nenhum cartao
@@ -177,7 +176,7 @@ class  CartaoService{
             cartoes.push(cartaoDoCliente);
         }else{
 
-            cartoes = JSON.parse(localStorage.getItem("cartaoFidelidade"));   
+            cartoes = JSON.parse(cartaoFidelidadeStorage);   
             let cartaoEncontrado = cartoes.find((cartao)=>{
                 return cartao.Id === cartaoDoCliente.Id
             })
@@ -205,7 +204,7 @@ class  CartaoService{
         }
                 
           
-        localStorage.setItem("cartaoFidelidade",JSON.stringify(cartoes));
+        localStorage.setItem(MockDadosHelper.STORAGE_NAME_CARTOES,JSON.stringify(cartoes));
 
         return new Promise(resolve=>{
             setTimeout(() => {

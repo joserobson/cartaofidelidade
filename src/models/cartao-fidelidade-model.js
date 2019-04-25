@@ -7,23 +7,18 @@ class CartaoFidelidadeModel {
     Modelo;
     Ocorrencias;
     CriadoEm;
+    Emissor;
 
-    constructor(cliente, modelo, ocorrencias){
+    constructor(cliente,emissor,ocorrencias){
+        
 
         this.Cliente = cliente;
-        this.Modelo = modelo;
+        this.Modelo = emissor.ModeloCartaoFidelidade;
         this.Ocorrencias = ocorrencias;
         this.Id = GuidHelper.NewGuid();
         this.CriadoEm = new Date();
-    }
-
-    // constructor(cliente, modelo, ocorrencias, criadoEm, id){
-    //     this.Cliente = cliente;
-    //     this.Modelo = modelo;
-    //     this.Ocorrencias = ocorrencias;
-    //     this.CriadoEm = criadoEm;
-    //     this.Id = id;
-    // }
+        this.Emissor = emissor;
+    }    
 }
 
 export {CartaoFidelidadeModel}

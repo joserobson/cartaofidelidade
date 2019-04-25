@@ -7,12 +7,17 @@ import Modal from './components/modal/modal';
 import { ConfiguracaoHelper } from './helpers/configuracao-helper';
 import {TipoDeComercio} from './enums/tipo-comercio';
 import { UsuarioService } from './services/usuario-service';
+import { MockDadosHelper } from './helpers/mock-dados-helper';
 
 
 class App extends Component {
 
   constructor(){
     super();
+
+    //criar amostra de dados para teste do app
+    MockDadosHelper.ZerarDados();
+    MockDadosHelper.carregarDadosDeTeste();
 
     this.handleModal = this.handleModal.bind(this);      
     

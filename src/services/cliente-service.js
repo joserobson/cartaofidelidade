@@ -4,7 +4,7 @@ import {ClienteModel} from '../models/cliente-model'
 
 class  ClienteService{
     
-
+    
     static CadastrarCliente(cliente){
 
 
