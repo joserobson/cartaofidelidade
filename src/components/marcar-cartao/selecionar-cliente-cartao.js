@@ -26,6 +26,7 @@ class SelecionarClienteCartao extends Component{
     handleClickLimparCache(){
 
         localStorage.removeItem("cartaoFidelidade");
+        localStorage.removeItem("user");
         
         let mensagemModal = {
             texto: 'Cacche de cartões deletado com sucesso!!!"',

@@ -9,7 +9,8 @@ class Header extends Component{
     constructor(props){
         super(props);
         this.openMenuClick = this.openMenuClick.bind(this);
-        this.closeMenuClick = this.closeMenuClick.bind(this);
+        this.closeMenuClick = this.closeMenuClick.bind(this);        
+        this.logout = this.logout.bind(this);
     }
 
     openMenuClick(){
@@ -20,6 +21,11 @@ class Header extends Component{
     closeMenuClick(){
         document.getElementById("mySidebar").style.display = "none";
         document.getElementById("myOverlay").style.display = "none";
+    }
+
+    logout(){
+        
+        localStorage.removeItem("user");        
     }
 
     render(){
@@ -38,7 +44,8 @@ class Header extends Component{
                             <NavLink onClick={this.closeMenuClick} className="w3-bar-item w3-button w3-hover-white" to="/">Marcar Cartão</NavLink>
                             <NavLink onClick={this.closeMenuClick} className="w3-bar-item w3-button w3-hover-white" to="/gerirModeloCartao">Gerir Cartão</NavLink>
                             <NavLink onClick={this.closeMenuClick} className="w3-bar-item w3-button w3-hover-white" to="/gerirCliente">Gerir Cliente</NavLink>
-
+                            <NavLink onClick={this.logout} className="w3-bar-item w3-button w3-hover-white" to="/">Sair</NavLink>
+                            
                         </div>
                     </nav>     
                             

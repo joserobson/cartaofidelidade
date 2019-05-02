@@ -12,12 +12,14 @@ import CadastrarCliente from './components/cliente/cadastrar-cliente';
 
 import CadastrarModeloCartao from './components/modelo-cartao/cadastrar-modelo-cartao';
 
-import { Switch, Route, HashRouter } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import MarcarCartao from './components/marcar-cartao/marcar-cartao';
 
 import SelecionarClienteCartao from './components/marcar-cartao/selecionar-cliente-cartao';
+import Login from "./components/login/login";
 
+import {PrivateRoute} from "./PrivateRoute";
 class Main extends Component{
 
 constructor(props){
@@ -34,7 +36,13 @@ render(){
             <Switch>
                 <Route exact 
                     path='/'
-                    render={(props)=> <SelecionarClienteCartao{...props} handleModal={this.props.handleModal}/>}/>
+                    render={
+                            (props) => (                                                    
+                                localStorage.getItem('user')
+                                ? <SelecionarClienteCartao{...props} handleModal={this.props.handleModal}/> 
+                                : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+                            )}                                                                                    
+                        />
                 <Route 
                     path='/gerirModeloCartao/' 
                     render={(props)=> <GerirModeloCartao{...props} handleModal={this.props.handleModal}/>}/>
@@ -56,7 +64,7 @@ render(){
                     path='/marcarCartao/:telefone' 
                     render={(props)=> <MarcarCartao{...props} handleModal={this.props.handleModal}/>}/>
 
-                <Route path='*' exact={true} component={PaginaNaoEncontrada} />            
+                <Route path='/login' exact={true} component={Login} />            
             </Switch>            
         </div> 
     }        
