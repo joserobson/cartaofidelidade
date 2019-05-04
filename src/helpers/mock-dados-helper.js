@@ -4,6 +4,7 @@ import { TipoDeComercio } from "../enums/tipo-comercio";
 import { ModeloCartaoFidelidadeModel } from "../models/modelo-cartao-model";
 import { CartaoFidelidadeModel } from "../models/cartao-fidelidade-model";
 import { DateHelper } from "./date-helper";
+import { StatusDoCartao } from "../enums/status-cartao";
 
 class MockDadosHelper{
 
@@ -80,24 +81,24 @@ class MockDadosHelper{
 
 
         let cartoes = [
-            new CartaoFidelidadeModel(this.ObterCliente(0), this.ObterEmissor(0),this.GerarListaDeOcorrencias(3)),
-            new CartaoFidelidadeModel(this.ObterCliente(1), this.ObterEmissor(0),this.GerarListaDeOcorrencias(2)),
-            new CartaoFidelidadeModel(this.ObterCliente(2), this.ObterEmissor(0),this.GerarListaDeOcorrencias(1)),
-            new CartaoFidelidadeModel(this.ObterCliente(3), this.ObterEmissor(0),this.GerarListaDeOcorrencias(9)),
-            new CartaoFidelidadeModel(this.ObterCliente(4), this.ObterEmissor(0),this.GerarListaDeOcorrencias(9)),
-            new CartaoFidelidadeModel(this.ObterCliente(5), this.ObterEmissor(0),this.GerarListaDeOcorrencias(3)),
-            new CartaoFidelidadeModel(this.ObterCliente(0), this.ObterEmissor(1),this.GerarListaDeOcorrencias(3)),
-            new CartaoFidelidadeModel(this.ObterCliente(1), this.ObterEmissor(1),this.GerarListaDeOcorrencias(2)),
-            new CartaoFidelidadeModel(this.ObterCliente(2), this.ObterEmissor(1),this.GerarListaDeOcorrencias(9)),
-            new CartaoFidelidadeModel(this.ObterCliente(3), this.ObterEmissor(1),this.GerarListaDeOcorrencias(8)),
-            new CartaoFidelidadeModel(this.ObterCliente(4), this.ObterEmissor(1),this.GerarListaDeOcorrencias(11)),
-            new CartaoFidelidadeModel(this.ObterCliente(5), this.ObterEmissor(1),this.GerarListaDeOcorrencias(11)),
-            new CartaoFidelidadeModel(this.ObterCliente(0), this.ObterEmissor(2),this.GerarListaDeOcorrencias(3)),
-            new CartaoFidelidadeModel(this.ObterCliente(1), this.ObterEmissor(2),this.GerarListaDeOcorrencias(4)),
-            new CartaoFidelidadeModel(this.ObterCliente(2), this.ObterEmissor(2),this.GerarListaDeOcorrencias(5)),
-            new CartaoFidelidadeModel(this.ObterCliente(3), this.ObterEmissor(2),this.GerarListaDeOcorrencias(6)),
-            new CartaoFidelidadeModel(this.ObterCliente(4), this.ObterEmissor(2),this.GerarListaDeOcorrencias(5)),
-            new CartaoFidelidadeModel(this.ObterCliente(5), this.ObterEmissor(2),this.GerarListaDeOcorrencias(2)),
+            new CartaoFidelidadeModel(this.ObterCliente(0), this.ObterEmissor(0),this.GerarListaDeOcorrencias(3),1, StatusDoCartao.ABERTO),
+            new CartaoFidelidadeModel(this.ObterCliente(1), this.ObterEmissor(0),this.GerarListaDeOcorrencias(2),2, StatusDoCartao.ABERTO),
+            new CartaoFidelidadeModel(this.ObterCliente(2), this.ObterEmissor(0),this.GerarListaDeOcorrencias(1),3, StatusDoCartao.ABERTO),
+            new CartaoFidelidadeModel(this.ObterCliente(3), this.ObterEmissor(0),this.GerarListaDeOcorrencias(9),4, StatusDoCartao.ABERTO),
+            new CartaoFidelidadeModel(this.ObterCliente(4), this.ObterEmissor(0),this.GerarListaDeOcorrencias(9),1, StatusDoCartao.ABERTO),
+            new CartaoFidelidadeModel(this.ObterCliente(5), this.ObterEmissor(0),this.GerarListaDeOcorrencias(3),4, StatusDoCartao.ABERTO),
+            new CartaoFidelidadeModel(this.ObterCliente(0), this.ObterEmissor(1),this.GerarListaDeOcorrencias(3),6, StatusDoCartao.ABERTO),
+            new CartaoFidelidadeModel(this.ObterCliente(1), this.ObterEmissor(1),this.GerarListaDeOcorrencias(2),1, StatusDoCartao.ABERTO),
+            new CartaoFidelidadeModel(this.ObterCliente(2), this.ObterEmissor(1),this.GerarListaDeOcorrencias(9),3, StatusDoCartao.ABERTO),
+            new CartaoFidelidadeModel(this.ObterCliente(3), this.ObterEmissor(1),this.GerarListaDeOcorrencias(8),4, StatusDoCartao.ABERTO),
+            new CartaoFidelidadeModel(this.ObterCliente(4), this.ObterEmissor(1),this.GerarListaDeOcorrencias(11),5, StatusDoCartao.ABERTO),
+            new CartaoFidelidadeModel(this.ObterCliente(5), this.ObterEmissor(1),this.GerarListaDeOcorrencias(11),1, StatusDoCartao.ABERTO),
+            new CartaoFidelidadeModel(this.ObterCliente(0), this.ObterEmissor(2),this.GerarListaDeOcorrencias(3),1, StatusDoCartao.ABERTO),
+            new CartaoFidelidadeModel(this.ObterCliente(1), this.ObterEmissor(2),this.GerarListaDeOcorrencias(4),5, StatusDoCartao.ABERTO),
+            new CartaoFidelidadeModel(this.ObterCliente(2), this.ObterEmissor(2),this.GerarListaDeOcorrencias(5),6, StatusDoCartao.ABERTO),
+            new CartaoFidelidadeModel(this.ObterCliente(3), this.ObterEmissor(2),this.GerarListaDeOcorrencias(6),3, StatusDoCartao.ABERTO),
+            new CartaoFidelidadeModel(this.ObterCliente(4), this.ObterEmissor(2),this.GerarListaDeOcorrencias(5),1, StatusDoCartao.ABERTO),
+            new CartaoFidelidadeModel(this.ObterCliente(5), this.ObterEmissor(2),this.GerarListaDeOcorrencias(2),1, StatusDoCartao.ABERTO),
         ]
 
         let cartaoStorage = localStorage.getItem(this.STORAGE_NAME_CARTOES);

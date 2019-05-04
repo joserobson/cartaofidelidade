@@ -2,6 +2,7 @@
 import { CartaoFidelidadeModel } from '../models/cartao-fidelidade-model';
 import { MockDadosHelper } from '../helpers/mock-dados-helper';
 import { UsuarioService } from './usuario-service';
+import { StatusDoCartao } from '../enums/status-cartao';
 
 class  CartaoService{
     
@@ -79,7 +80,7 @@ class  CartaoService{
 
     static obterCartaoDoCliente(telefone){
 
-        //debugger;
+        debugger;
 
         let respostaCartaoFidelidade = {};
 
@@ -107,7 +108,7 @@ class  CartaoService{
         //agora já temos cartoes fidelidade cadastrados
         //procurar se cliente já existe cartão fidelidade
         let cartaoDoCliente = cartoes.find((cartao)=>{
-            return cartao.Cliente.Telefone === telefone && cartao.Emissor.Id === usuarioLogado.Id;
+            return cartao.Cliente.Telefone === telefone && cartao.Emissor.Id === usuarioLogado.Id && cartao.Status != StatusDoCartao.FINALIZADO;
         })
 
         //se cartao encontrado
@@ -144,11 +145,10 @@ class  CartaoService{
         })
 
         //pegar o primeiro modelo        
-
         let respostaCartaoFidelidade = {
             clientePossuiCadastro: true,
             clientePossuiCartaoAberto: false,                    
-            cartaoFidelidade: new CartaoFidelidadeModel(primeiroCliente,usuarioLogado,[]),
+            cartaoFidelidade: new CartaoFidelidadeModel(primeiroCliente,usuarioLogado,[],2,StatusDoCartao.ABERTO),
             status: 'Pendente',                    
         }
         
@@ -163,9 +163,29 @@ class  CartaoService{
 
     }
 
+    static FecharCartao(cartaoFechado){
+
+        let cartaoFidelidadeStorage = localStorage.getItem(MockDadosHelper.STORAGE_NAME_CARTOES)
+        let cartoes = JSON.parse(cartaoFidelidadeStorage);   
+        let cartaoEncontrado = cartoes.find((cartao)=>{
+            return cartao.Id === cartaoFechado.Id
+        });
+
+        cartaoEncontrado.Status = StatusDoCartao.FINALIZADO;
+        localStorage.setItem(MockDadosHelper.STORAGE_NAME_CARTOES,JSON.stringify(cartoes));
+
+        return new Promise(resolve=>{
+                setTimeout(() => {
+                resolve();
+            }, 2000);
+        });
+
+    }
+
+
     static salvarCartaoFidelidade(cartaoDoCliente, novasMarcacoes, marcacoesDesbloqueadas){
 
-        debugger;
+        
         let cartaoFidelidadeStorage = localStorage.getItem(MockDadosHelper.STORAGE_NAME_CARTOES)
         let cartoes = [];
 
@@ -204,11 +224,23 @@ class  CartaoService{
         }
                 
           
+        //buscar o cartao para ver sele foi completado
+        let cartaoFidelidade = cartoes.find((cartao)=>{
+            return cartao.Id === cartaoDoCliente.Id
+        })
+
+        let cartaoCompleto = false;
+        if (cartaoFidelidade.Ocorrencias.length === cartaoFidelidade.Modelo.QtdMarcacoes)
+        {
+            cartaoCompleto = true;
+            cartaoFidelidade.Status = StatusDoCartao.COMPLETO;
+        }
+
         localStorage.setItem(MockDadosHelper.STORAGE_NAME_CARTOES,JSON.stringify(cartoes));
 
         return new Promise(resolve=>{
             setTimeout(() => {
-            resolve();
+            resolve(cartaoCompleto);
         }, 2000);
          
      });
