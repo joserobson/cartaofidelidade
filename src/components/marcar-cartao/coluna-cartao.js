@@ -96,14 +96,19 @@ class ColunaCartao extends Component{
                                 Nome: 'Excluir',
                                 onClick: function(){
                                     
-                                    //desmarcar a coluna
-                                    colunaCartao.colunaFoiDesmarcada();
+                                   var resposta = window.confirm("Deseja realmente excluir essa marcação?");
+                                    
+                                   if (resposta == true)
+                                   {
+                                        //desmarcar a coluna
+                                        colunaCartao.colunaFoiDesmarcada();
 
-                                    colunaCartao.props.clickCartao(
-                                        {
-                                            status: StatusColunaCartao.DESBLOQUEADO,
-                                            diaDaMarcacao: colunaCartao.state.diaDaMarcacao
-                                        });
+                                        colunaCartao.props.clickCartao(
+                                            {
+                                                status: StatusColunaCartao.DESBLOQUEADO,
+                                                diaDaMarcacao: colunaCartao.state.diaDaMarcacao
+                                            });
+                                    }
                                 }                                
                             },
                             { 
@@ -121,10 +126,10 @@ class ColunaCartao extends Component{
         
     }
 
-    render(){
+    render(){        
         return <div className={this.state.cssColuna} style={{height: '100%', cursor:'pointer'}} onClick={this.handleIconClick}>
                     <div className="div-coluna-cartao">                        
-                        <img className={this.state.cssImg} src={require("./img/"+ConfiguracaoHelper.TIPO_DE_COMERCIO.ICONE)}></img>                          
+                        <img className={this.state.cssImg} src={require("./img/"+ConfiguracaoHelper.ObterIcone())}></img>                          
                     </div>                          
                 </div>
     }

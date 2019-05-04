@@ -31,7 +31,7 @@ class ListaDeClientes extends Component {
   }
 
   componentDidUpdate() {
-    this.addEventoDestacarClienteSelecionado();
+    //this.addEventoDestacarClienteSelecionado();
   }
 
   componentWillUnmount() {
@@ -44,7 +44,7 @@ class ListaDeClientes extends Component {
 
   render() {
     return (
-      <ul className="w3-ul w3-card-4" id="ulClientes">
+      <ul className="w3-ul w3-border" id="ulClientes" style={{cursor: "pointer"}}>
         {this.props.clientes.map(cliente => (
           <ItemCliente
             cliente={cliente}

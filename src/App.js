@@ -16,18 +16,11 @@ class App extends Component {
     super();
 
     //criar amostra de dados para teste do app
+    console.log("Zerar os dados");
     MockDadosHelper.ZerarDados();
     MockDadosHelper.carregarDadosDeTeste();
 
     this.handleModal = this.handleModal.bind(this);      
-    
-    //essa parte vai para tela de login
-    let respostaLoginUsuario = UsuarioService.Logar();
-    respostaLoginUsuario
-      .then((usuario)=>{
-          ConfiguracaoHelper.TIPO_DE_COMERCIO = usuario.TipoDeComercio;
-      });
-
     
     this.state = {
         mensagem: '',

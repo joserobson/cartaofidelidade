@@ -33,10 +33,33 @@ class ItemCliente extends Component{
     }
 
   render(){
-    return  <li className="w3-bar" onClick={this.handleOnClick}>
-                <span className="w3-medium"> <b>Tel.:</b> {this.props.cliente.Telefone} - <b>CPF:</b>{this.props.cliente.Cpf}</span>
-                <br></br>
-                <span className="w3-small"><b>E-mail:</b> {this.props.cliente.Email}</span>
+    return  <li className="w3-bar w3-hover-red" onClick={this.handleOnClick}>
+                 <div className="w3-row">
+                    
+                    <div className="w3-col s12">
+                        <span className="w3-medium"> <b>Tel:</b> {this.props.cliente.Telefone}</span>
+                        
+                        <span className="w3-small"><b> Cpf:</b> {this.props.cliente.Cpf}</span>
+                        <br></br>
+                        <span className="w3-small"><b>E-mail:</b> {this.props.cliente.Email}</span>
+                    </div>
+                    
+                    {/* <div className="w3-col s1 w3-center">
+                            <i className="fa fa-arrow-right fa-3x w3-right" aria-hidden="true"></i>
+                          <img className="w3-round" src={require("../marcar-cartao/img/register.png")}></img>
+                        
+                    </div> */}
+
+                </div> 
+
+                {/* <div className="w3-bar-item">
+                         <span className="w3-medium"> <b>Tel:</b> {this.props.cliente.Telefone} <b>Cpf:</b>{this.props.cliente.Cpf}</span>
+                        <br></br>
+                        <span className="w3-small"><b>E-mail:</b> {this.props.cliente.Email}</span>
+                </div> */}
+                
+                {/* <img className="w3-round w3-right" src={require("../marcar-cartao/img/register2.png")} style={{width:'8%'}}></img>  */}
+                {/* <i className="fa fa-arrow-right fa-3x w3-right" aria-hidden="true"></i> */}
             </li>              
     }
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-
+import { UsuarioService } from '../../services/usuario-service';
+import { ConfiguracaoHelper } from '../../helpers/configuracao-helper';
+import Loading from '../loading/loading';
 class Login extends Component
 {
 
@@ -18,9 +20,18 @@ class Login extends Component
 
     handleFormSubmit(event){        
 
-        localStorage.setItem("user",true);
+        event.preventDefault();
 
-        this.props.history.push("/");
+        Loading.show();
+
+        let resp = UsuarioService.Logar(this.state.userName,this.state.password)
+        resp.then((usuario)=>{
+
+            Loading.close();
+                                            
+            this.props.history.push("/");
+        });
+
 
     }
 
@@ -38,6 +49,11 @@ class Login extends Component
     render(){
 
         return <div style={{ marginTop: '75px' }}>
+
+                    <div className="w3-center">
+                        <img src={require("./img_avatar4.png")} alt="Avatar" style={{width:'120px'}} className="w3-circle w3-margin-top"/>
+                    </div>
+                    
                     <form onSubmit={this.handleFormSubmit} className="w3-container">
                         <div className="w3-section">
                             <label><b>Login</b></label>

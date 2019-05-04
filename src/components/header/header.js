@@ -11,6 +11,7 @@ class Header extends Component{
         this.openMenuClick = this.openMenuClick.bind(this);
         this.closeMenuClick = this.closeMenuClick.bind(this);        
         this.logout = this.logout.bind(this);
+        this.handleClickLimparCache = this.handleClickLimparCache.bind(this);
     }
 
     openMenuClick(){
@@ -21,6 +22,14 @@ class Header extends Component{
     closeMenuClick(){
         document.getElementById("mySidebar").style.display = "none";
         document.getElementById("myOverlay").style.display = "none";
+    }
+
+    handleClickLimparCache(){
+
+        localStorage.clear();
+        
+        alert('cache limpo');
+    
     }
 
     logout(){
@@ -41,10 +50,9 @@ class Header extends Component{
 
                         <div className="w3-bar-block">
                            
-                            <NavLink onClick={this.closeMenuClick} className="w3-bar-item w3-button w3-hover-white" to="/">Marcar Cartão</NavLink>
-                            <NavLink onClick={this.closeMenuClick} className="w3-bar-item w3-button w3-hover-white" to="/gerirModeloCartao">Gerir Cartão</NavLink>
-                            <NavLink onClick={this.closeMenuClick} className="w3-bar-item w3-button w3-hover-white" to="/gerirCliente">Gerir Cliente</NavLink>
+                            <NavLink onClick={this.closeMenuClick} className="w3-bar-item w3-button w3-hover-white" to="/">Marcar Cartão</NavLink>                            
                             <NavLink onClick={this.logout} className="w3-bar-item w3-button w3-hover-white" to="/">Sair</NavLink>
+                            <NavLink onClick={this.handleClickLimparCache} className="w3-bar-item w3-button w3-hover-white" to="/">Limpar Cache</NavLink>
                             
                         </div>
                     </nav>     

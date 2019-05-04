@@ -5,26 +5,32 @@ import { MockDadosHelper } from "../helpers/mock-dados-helper";
 class UsuarioService{
     
     
-    static Logar(){
+    static Logar(login, senha){
         
-        //chamar o serviço para fazer o login
-            //criar um mock de usuario de um cafeteria
-        var usuarioCafeteria = new UsuarioModel("123","Prosa & Café", TipoDeComercio.CAFETERIA);
-        // let usuarioStorage = localStorage.getItem(this.STORAGE_NAME);
-        // let usuarios = [];
+        var usuarioLogado;
 
-        // if (!usuarioStorage){            
-        //     usuarios.push(usuarioCafeteria);            
-        // }else{
-        //     usuarios = JSON.parse(localStorage.getItem(this.STORAGE_NAME));
-        //     usuarios.push(usuarioCafeteria);        
-        // }
-
-        // localStorage.setItem(this.STORAGE_NAME,JSON.stringify(usuarios));
+        if (login === "Prosa&Cafe" && senha === "123"){
+                usuarioLogado = MockDadosHelper.ObterEmissor(0);
+                localStorage.setItem("user",JSON.stringify(usuarioLogado));
+            }
+        else{
+                if (login === "PontoDoAcai" && senha === "123")
+                {
+                    usuarioLogado = MockDadosHelper.ObterEmissor(1);
+                    localStorage.setItem("user",JSON.stringify(usuarioLogado));
+                }else
+                {
+                    if (login === "BarbeariaImpério" && senha === "123")
+                    {
+                        usuarioLogado = MockDadosHelper.ObterEmissor(2);
+                        localStorage.setItem("user",JSON.stringify(usuarioLogado));
+                    }
+                }
+            }                    
 
         return new Promise(resolve=>{
                 setTimeout(() => {
-                resolve(usuarioCafeteria);
+                resolve(usuarioLogado);
             }, 2000);
              
          });
@@ -37,7 +43,9 @@ class UsuarioService{
 
     static ObterUsuarioLogado(){
 
-        return MockDadosHelper.ObterEmissor(0);
+        const jsonUsuario = localStorage.getItem("user");
+        const usuario = JSON.parse(jsonUsuario);
+        return usuario;
     }
     
 

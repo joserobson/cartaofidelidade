@@ -39,7 +39,7 @@ class BuscarCliente extends Component
                     clientes: res
                 }));
                 
-                this.props.setCliente(res[0]);
+                //this.props.setCliente(res[0]);
                 
             }else{
 
@@ -60,12 +60,12 @@ class BuscarCliente extends Component
     }
 
     render(){
-        return <div>
-                    <h1 className="w3-medium w3-text-black"><b>Busque e Selecione um Cliente:</b></h1>
-                    <div className="w3-border">
-                        <form className="w3-container">    
+        return <div className="">                    
+                    <label class="w3-text-red"><b>Busque e clique no Cliente:</b></label>
+                    <div className="">
+                        <form className="">    
                             <div className="w3-row w3-section">
-                                <div className="w3-col s11">
+                                <div className="w3-col s11">                                    
                                     <input className="w3-input w3-border" name="first" type="text" placeholder="Telefone ou CPF" onChange={this.handleChangePesquisa}/>
                                 </div>
                                 <div className="w3-col s1 w3-center" style={{paddingLef: '2px'}}>
@@ -85,6 +85,27 @@ class BuscarCliente extends Component
                         
                      </div>                 
                 </div>
+    }
+
+    componentDidMount(){
+
+        Loading.show();
+
+        ClienteService.obterTopClientes()
+        .then((topClientes)=>{
+           
+            if (topClientes.length > 0)
+            {
+                this.setState(state => ({                
+                    clientes: topClientes
+                }),()=>{
+                    //this.props.setCliente(topClientes[0]);
+                    Loading.close();
+                }); 
+
+                
+            }
+        });
     }
 
 }

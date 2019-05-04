@@ -11,7 +11,7 @@ const TipoDeComercio = {
     },
 
     BARBEARIA:{
-        ICONE:"",
+        ICONE:"icone-cafe-2.png",
         COR:""
     }
 }

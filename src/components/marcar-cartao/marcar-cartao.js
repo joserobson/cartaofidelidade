@@ -81,9 +81,9 @@ class MarcarCartao extends Component{
 
             {   this.state && this.state.cartaoDoCliente &&
                 <div>
-                    <div className="w3-container">
+                    <div className="">
                         <h1 className="w3-xlarge w3-text-red"><b>{this.state.nomeCartao}</b></h1>
-                        <h1 className="w3-small w3-text-black"><b>Cliente:</b> {this.state.telefoneCliente}</h1>
+                        <h1 className="w3-medium w3-text-black"><b>Cliente:</b> {this.state.telefoneCliente}</h1>
                         {/* <h1 className="w3-small w3-text-black"><b>Benefício:</b> 40% de Desconto</h1> */}
                     </div>
 

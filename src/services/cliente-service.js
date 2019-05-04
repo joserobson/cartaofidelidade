@@ -1,6 +1,7 @@
 
 
 import {ClienteModel} from '../models/cliente-model'
+import { MockDadosHelper } from '../helpers/mock-dados-helper';
 
 class  ClienteService{
     
@@ -60,6 +61,33 @@ class  ClienteService{
             
         });
 
+    }
+
+    static obterTopClientes(){
+        let clientes = [];
+        let clientesEncontrados = [];
+
+        let clienteStorage = localStorage.getItem(MockDadosHelper.STORAGE_NAME_CLIENTES);
+        if (clienteStorage){
+            clientes = JSON.parse(clienteStorage);
+        }                    
+        
+        if (clientes.length > 0){
+
+            if (clientes.length < 4){
+                clientesEncontrados.push(clientes);
+            }else{
+                    
+                clientesEncontrados = clientes.slice(0,3);
+            }
+        }
+
+        return new Promise(resolve=>{
+           setTimeout(() => {            
+                resolve(clientesEncontrados);
+           }, 2000);
+            
+        });
     }
 
 }

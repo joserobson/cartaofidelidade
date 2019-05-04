@@ -17,8 +17,6 @@ class MockDadosHelper{
     }
 
     static carregarDadosDeTeste(){
-        
-        debugger;
 
         this.criarUsuarios();
         this.criarClientes();
