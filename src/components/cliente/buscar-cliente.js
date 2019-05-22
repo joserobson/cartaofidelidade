@@ -34,12 +34,11 @@ class BuscarCliente extends Component
             
             Loading.close();
 
+            debugger;
             if (res && res.length > 0){
                 this.setState(state => ({                
                     clientes: res
-                }));
-                
-                //this.props.setCliente(res[0]);
+                }));                            
                 
             }else{
 
@@ -54,6 +53,8 @@ class BuscarCliente extends Component
         
                 this.props.handleModal(mensagemModal);
             }     
+        }).catch(erro=>{
+            alert(erro);
         })        
 
         console.log("buscar clientes");
@@ -76,7 +77,7 @@ class BuscarCliente extends Component
                     </div>
                     <div style={{paddingTop: '3px'}}>     
 
-                        {this.state.clientes.length == 0 
+                        {this.state.clientes.length === 0 
                             ? <div className="w3-border w3-center">
                                 <h6 className="w3-opacity">Lista de Clientes Vazia</h6>
                               </div>
@@ -91,21 +92,37 @@ class BuscarCliente extends Component
 
         Loading.show();
 
-        ClienteService.obterTopClientes()
-        .then((topClientes)=>{
-           
-            if (topClientes.length > 0)
-            {
-                this.setState(state => ({                
-                    clientes: topClientes
-                }),()=>{
-                    //this.props.setCliente(topClientes[0]);
-                    Loading.close();
-                }); 
+        let resposta = ClienteService.obterTopClientes();
 
-                
-            }
-        });
+        resposta.then(topClientes=>{
+            if (topClientes.length > 0)
+                {
+                    this.setState(state => ({                
+                        clientes: topClientes
+                    }),()=>{                        
+                        Loading.close();
+                    });                 
+                }else{
+                    Loading.close();
+                }
+        }).catch(error=>{
+            console.error(error);
+            alert("Erro ao buscar top clientes!!!");
+        })
+
+        // ClienteService.obterTopClientes()
+        // .then((topClientes)=>{
+           
+        //     if (topClientes.length > 0)
+        //     {
+        //         this.setState(state => ({                
+        //             clientes: topClientes
+        //         }),()=>{
+        //             //this.props.setCliente(topClientes[0]);
+        //             Loading.close();
+        //         });                 
+        //     }
+        // });
     }
 
 }

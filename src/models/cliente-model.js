@@ -12,7 +12,7 @@ class ClienteModel{
         this.Telefone = telefone;
         this.Email = email;
         this.Cpf = cpf;
-        this.Id = GuidHelper.NewGuid();
+        this.Id = null;
     }
     
 }

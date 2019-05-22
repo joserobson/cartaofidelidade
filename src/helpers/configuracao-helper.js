@@ -3,6 +3,7 @@ import { Usuario } from "../models/usuario-model";
 
 class ConfiguracaoHelper{
 
+    static URI_API_MAIS_FIDELIDADE = "http://localhost/MaisFidelidade.Api/";
     
     static ObterIcone(){
 

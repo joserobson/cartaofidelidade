@@ -5,9 +5,8 @@ class UsuarioModel{
     Nome;
     TipoDeComercio;
     ModeloCartaoFidelidade;
-    Login;
-    Senha;
-
+    PlanoDeAssociacao;
+    
     constructor(id, nome, tipoDeComercio, modeloCartaoFidelidade){
         this.Id = id;
         this.Nome = nome;

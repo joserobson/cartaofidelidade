@@ -3,8 +3,8 @@ import React, {Component} from "react";
 import { ClienteModel } from "../../models/cliente-model";
 import { ClienteService } from "../../services/cliente-service";
 import Loading from "../loading/loading";
-import TipoDeAlerta from "../modal/tipo-alerta";
-
+    import TipoDeAlerta from "../modal/tipo-alerta";
+import MaskedInput from "react-maskedinput";
 class CadastrarCliente extends Component{    
 
     constructor(props){
@@ -45,8 +45,10 @@ class CadastrarCliente extends Component{
             if (this.state.irParaTelaDeCartao){
                 this.props.history.push("/marcarCartao/"+this.state.telefone);
             }
+        }
+        ).catch((erro)=>{
 
-        },(reject)=>{
+            console.error(erro);
             Loading.close();            
 
             let mensagemModal = {
@@ -55,7 +57,18 @@ class CadastrarCliente extends Component{
             }
     
             this.props.handleModal(mensagemModal);
-        });        
+        })
+
+        // },(reject)=>{
+        //     Loading.close();            
+
+        //     let mensagemModal = {
+        //         texto: 'Erro ao cadastrar cliente',
+        //         tipo: TipoDeAlerta.WARNING
+        //     }
+    
+        //     this.props.handleModal(mensagemModal);
+        // });        
 
         
         event.preventDefault();
@@ -78,7 +91,7 @@ class CadastrarCliente extends Component{
                     <form onSubmit={this.handleSubmit}>
                         <div className="w3-section">
                             <label>Telefone</label>
-                            <input className="w3-input w3-border" type="text" name="Telefone" required value={this.state.telefone} onChange={this.handleTelefoneChange} />
+                            <MaskedInput mask="(11) 1 1111-1111" className="w3-input w3-border" type="text" name="Telefone" required value={this.state.telefone} onChange={this.handleTelefoneChange} />
                         </div>
                         <div className="w3-section">
                             <label>Cpf</label>

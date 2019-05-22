@@ -35,6 +35,7 @@ class Header extends Component{
     logout(){
         
         localStorage.removeItem("user");        
+        localStorage.removeItem("acess_token"); 
     }
 
     render(){
