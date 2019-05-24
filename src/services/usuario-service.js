@@ -1,10 +1,7 @@
-import { UsuarioModel } from "../models/usuario-model";
-import { TipoDeComercio } from "../enums/tipo-comercio";
-import { MockDadosHelper } from "../helpers/mock-dados-helper";
+
 import { TokenService } from "./token-service";
 import { ConfiguracaoHelper } from "../helpers/configuracao-helper";
-import { RetornoService } from "./retorno-service";
-import { ErroService } from "./erro-service";
+
 
 class UsuarioService{
         
@@ -32,8 +29,7 @@ class UsuarioService{
     
     static async Logar(login, senha){
                    
-        return await TokenService.ObterToken();                
-        //TokenService.SetTokenLocal(dataToken.access_token);                           
+        return await TokenService.ObterToken();                                              
     }    
 
 

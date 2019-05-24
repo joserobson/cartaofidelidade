@@ -1,5 +1,5 @@
 import { UsuarioService } from "../services/usuario-service";
-import { Usuario } from "../models/usuario-model";
+import { TipoDeComercio } from "../enums/tipo-comercio";
 
 class ConfiguracaoHelper{
 
@@ -7,11 +7,11 @@ class ConfiguracaoHelper{
     
     static ObterIcone(){
 
-        var usuario = UsuarioService.ObterUsuarioLogado();
-        
-        return usuario.TipoDeComercio.ICONE;
-    }
+        var usuario = UsuarioService.ObterUsuarioLogado();            
 
+        const tipo = TipoDeComercio.ObterTipoDeComercio(usuario.TipoDeComercio)
+        return tipo.ICONE;
+    }
 
 }
 

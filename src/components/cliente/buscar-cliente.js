@@ -24,24 +24,23 @@ class BuscarCliente extends Component
         this.props.handleValorDaPesquisa(event.target.value);
     }
 
-    buscarClientes(){
+    async buscarClientes(){
 
         Loading.show();
              
-        const resposta = ClienteService.ObterClientes(this.state.textoParaPesquisa);
+        const resposta = await ClienteService.ObterClientes(this.state.textoParaPesquisa);
 
-        resposta.then((res)=>{
-            
-            Loading.close();
+        Loading.close();
 
-            debugger;
-            if (res && res.length > 0){
+        if (resposta.ok){
+
+            const clientesEncontrados = await resposta.json();
+
+            if (clientesEncontrados && clientesEncontrados.length > 0){
                 this.setState(state => ({                
-                    clientes: res
-                }));                            
-                
+                    clientes: clientesEncontrados
+                })); 
             }else{
-
                 this.setState(state => ({                
                     clientes: []
                 })); 
@@ -52,12 +51,18 @@ class BuscarCliente extends Component
                 }
         
                 this.props.handleModal(mensagemModal);
-            }     
-        }).catch(erro=>{
-            alert(erro);
-        })        
+            }
+        }else{
 
-        console.log("buscar clientes");
+            const erro = await resposta.json();
+
+            let mensagemModal = {
+                texto: erro.Message,
+                tipo: TipoAlerta.WARNING
+            }
+    
+            this.props.handleModal(mensagemModal);
+        }        
     }
 
     render(){
@@ -88,41 +93,33 @@ class BuscarCliente extends Component
                 </div>
     }
 
-    componentDidMount(){
+    async componentDidMount(){
 
         Loading.show();
 
-        let resposta = ClienteService.obterTopClientes();
+        let resposta = await ClienteService.obterTopClientes();
 
-        resposta.then(topClientes=>{
+        Loading.close();
+        
+        if (resposta.ok){
+            const topClientes = await resposta.json();
+
             if (topClientes.length > 0)
                 {
                     this.setState(state => ({                
                         clientes: topClientes
-                    }),()=>{                        
-                        Loading.close();
-                    });                 
-                }else{
-                    Loading.close();
+                    }))
                 }
-        }).catch(error=>{
-            console.error(error);
-            alert("Erro ao buscar top clientes!!!");
-        })
+        }else{
+            const erro = await resposta.json();
 
-        // ClienteService.obterTopClientes()
-        // .then((topClientes)=>{
-           
-        //     if (topClientes.length > 0)
-        //     {
-        //         this.setState(state => ({                
-        //             clientes: topClientes
-        //         }),()=>{
-        //             //this.props.setCliente(topClientes[0]);
-        //             Loading.close();
-        //         });                 
-        //     }
-        // });
+            let mensagemModal = {
+                texto: erro.Message,
+                tipo: TipoAlerta.WARNING
+            }
+    
+            this.props.handleModal(mensagemModal);
+        }       
     }
 
 }

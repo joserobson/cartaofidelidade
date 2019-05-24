@@ -2,9 +2,9 @@
 import React, {Component} from "react";
 import { ClienteModel } from "../../models/cliente-model";
 import { ClienteService } from "../../services/cliente-service";
-import Loading from "../loading/loading";
-    import TipoDeAlerta from "../modal/tipo-alerta";
+import Loading from "../loading/loading"; 
 import MaskedInput from "react-maskedinput";
+import TipoDeAlerta from "../modal/tipo-alerta";
 class CadastrarCliente extends Component{    
 
     constructor(props){
@@ -17,61 +17,63 @@ class CadastrarCliente extends Component{
             irParaTelaDeCartao:false
         }
 
-        this.handleSubmit = this.handleSubmit.bind(this);
+        //this.handleSubmit = this.handleSubmit.bind(this);
         this.handleTelefoneChange = this.handleTelefoneChange.bind(this);
         this.handleCpfChange = this.handleCpfChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);        
     }  
 
 
-    handleSubmit(event){
-
+     handleSubmit = async event =>{
+        
         Loading.show();
+
+        event.preventDefault();
 
         let cliente = new ClienteModel(this.state.telefone,this.state.email,this.state.cpf);
 
-        let retornoCadastrarCliente = ClienteService.CadastrarCliente(cliente);
+        let retornoCadastrarCliente = await ClienteService.CadastrarCliente(cliente);
 
-        retornoCadastrarCliente.then((r)=>{
-            Loading.close();                        
+        Loading.close();    
+
+        if (retornoCadastrarCliente.ok){
             
+            this.props.history.push("/marcarCartao/"+this.state.telefone);
+
+            // let mensagemModal = {
+            //     texto: 'Cliente Cadastrado Com Sucesso!!!',
+            //     tipo: TipoDeAlerta.SUCESS,
+            //     eventos: [
+            //         { 
+            //             Nome: 'Fechar',
+            //             onClick:(self)=>{     
+                            
+            //                 if (this.state.irParaTelaDeCartao){
+            //                     this.props.history.push("/marcarCartao/"+this.state.telefone);
+            //                 }                                                                         
+            //             }                                
+            //         }
+            //     ]
+            // };
+
+            // this.props.handleModal(mensagemModal);
+
+
+            //if (this.state.irParaTelaDeCartao){
+            //this.props.history.push("/marcarCartao/"+this.state.telefone);
+            //}       
+
+        }else{
+            const erro = await retornoCadastrarCliente.json();
+
             let mensagemModal = {
-                texto: 'Cliente Cadastrado Com Sucesso!!!',
-                tipo: TipoDeAlerta.SUCESS
-            }
-    
-            this.props.handleModal(mensagemModal);
-
-            if (this.state.irParaTelaDeCartao){
-                this.props.history.push("/marcarCartao/"+this.state.telefone);
-            }
-        }
-        ).catch((erro)=>{
-
-            console.error(erro);
-            Loading.close();            
-
-            let mensagemModal = {
-                texto: 'Erro ao cadastrar cliente',
+                texto: erro.Message,
                 tipo: TipoDeAlerta.WARNING
             }
     
-            this.props.handleModal(mensagemModal);
-        })
-
-        // },(reject)=>{
-        //     Loading.close();            
-
-        //     let mensagemModal = {
-        //         texto: 'Erro ao cadastrar cliente',
-        //         tipo: TipoDeAlerta.WARNING
-        //     }
-    
-        //     this.props.handleModal(mensagemModal);
-        // });        
-
-        
-        event.preventDefault();
+            this.props.handleModal(mensagemModal);            
+        }  
+            
     }
 
     handleTelefoneChange(event){
@@ -95,11 +97,11 @@ class CadastrarCliente extends Component{
                         </div>
                         <div className="w3-section">
                             <label>Cpf</label>
-                            <input className="w3-input w3-border" type="text" name="Cpf" required value={this.state.cpf} onChange={this.handleCpfChange}/>
+                            <MaskedInput mask="111.111.111-11" className="w3-input w3-border" type="text" name="Cpf" required value={this.state.cpf} onChange={this.handleCpfChange}/>
                         </div>
                         <div className="w3-section">
                             <label>E-mail</label>
-                            <input className="w3-input w3-border" type="text" name="Email" required value={this.state.email} onChange={this.handleEmailChange}/>
+                            <input className="w3-input w3-border" type="email" name="Email" required value={this.state.email} onChange={this.handleEmailChange}/>
                         </div>
                         <button type="submit" className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom">Salvar</button>                        
                     </form>                    
