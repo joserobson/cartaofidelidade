@@ -16,9 +16,9 @@ class App extends Component {
     super();
 
     //criar amostra de dados para teste do app
-    console.log("Zerar os dados");
-    MockDadosHelper.ZerarDados();
-    MockDadosHelper.carregarDadosDeTeste();
+    //console.log("Zerar os dados");
+    //MockDadosHelper.ZerarDados();
+    //MockDadosHelper.carregarDadosDeTeste();
 
     this.handleModal = this.handleModal.bind(this);      
     

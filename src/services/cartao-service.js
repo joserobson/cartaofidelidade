@@ -178,28 +178,44 @@ class  CartaoService{
 
     // }
 
-    static FecharCartao(cartaoFechado){
+    static async FecharCartao(idDoCartao){
 
-        let cartaoFidelidadeStorage = localStorage.getItem(MockDadosHelper.STORAGE_NAME_CARTOES)
-        let cartoes = JSON.parse(cartaoFidelidadeStorage);   
-        let cartaoEncontrado = cartoes.find((cartao)=>{
-            return cartao.Id === cartaoFechado.Id
-        });
 
-        cartaoEncontrado.Status = StatusDoCartao.FINALIZADO;
-        localStorage.setItem(MockDadosHelper.STORAGE_NAME_CARTOES,JSON.stringify(cartoes));
+        const token = TokenService.ObterTokenLocal();
+        
+        let cartao = {IdDoCartao: idDoCartao};
 
-        return new Promise(resolve=>{
-                setTimeout(() => {
-                resolve();
-            }, 2000);
-        });
+        return await fetch(ConfiguracaoHelper.URI_API_MAIS_FIDELIDADE + "api/cartaofidelidade/FecharCartao/", {
+            method: 'POST',
+            body: JSON.stringify(cartao),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer ' + token                
+            })
+        }); 
+
+
+        // let cartaoFidelidadeStorage = localStorage.getItem(MockDadosHelper.STORAGE_NAME_CARTOES)
+        // let cartoes = JSON.parse(cartaoFidelidadeStorage);   
+        // let cartaoEncontrado = cartoes.find((cartao)=>{
+        //     return cartao.Id === cartaoFechado.Id
+        // });
+
+        // cartaoEncontrado.Status = StatusDoCartao.FINALIZADO;
+        // localStorage.setItem(MockDadosHelper.STORAGE_NAME_CARTOES,JSON.stringify(cartoes));
+
+        // return new Promise(resolve=>{
+        //         setTimeout(() => {
+        //         resolve();
+        //     }, 2000);
+        // });
 
     }
 
 
     static async salvarCartaoFidelidade(cartao){
 
+        console.info("Cartao-Service-> Salvar Cartão", cartao);
 
         const token = TokenService.ObterTokenLocal();
         

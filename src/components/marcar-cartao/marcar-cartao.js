@@ -33,13 +33,40 @@ class MarcarCartao extends Component{
 
         Loading.show();
 
-        const resp = CartaoService.FecharCartao(this.state.cartaoDoCliente);
+        console.info(this.state.cartaoDoCliente.Id);
+        const respostaFecharCartao = CartaoService.FecharCartao(this.state.cartaoDoCliente.Id);
 
-        resp.then(()=>{
+        respostaFecharCartao.then((resp)=>{
             
             Loading.close();   
 
-            window.location.reload();
+            if (resp.ok)            
+            {
+                
+                let mensagemModal = {
+                    texto: "Cartão Finalizado Com Sucesso.",
+                    tipo: TipoDeAlerta.SUCESS
+                }
+        
+                this.props.handleModal(mensagemModal);
+
+                this.props.history.push("/");
+
+            }else{
+                
+                resp.json().then((erro)=>{                                    
+
+                    let mensagemModal = {
+                        texto: erro.Message,
+                        tipo: TipoDeAlerta.WARNING
+                    }
+            
+                    this.props.handleModal(mensagemModal);
+
+                });
+
+                
+            }
         });
 
     }
@@ -64,7 +91,25 @@ class MarcarCartao extends Component{
 
             Loading.close(); 
 
-            alert("Salvo com sucesso")
+            const bodyResposta = await respostaSalvarCartao.json();
+
+            if (bodyResposta.CompletouCartao){
+                
+                console.log("Cartão Completo!!!");
+
+                let cartao = this.state.cartaoDoCliente;
+                cartao.Status = StatusDoCartao.COMPLETO;
+
+                this.setState({
+                    cartaoDoCliente: cartao
+                });
+            }else{
+                   
+                console.log("Cartão em Aberto");
+
+                this.props.history.push("/");      
+            }
+
         }else{
 
             Loading.close(); 

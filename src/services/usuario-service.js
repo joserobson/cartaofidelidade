@@ -39,6 +39,11 @@ class UsuarioService{
         const usuario = JSON.parse(jsonUsuario);
         return usuario;
     }
+
+    static RemoverUsuarioLogado(){
+
+        const jsonUsuario = localStorage.removeItem("user");        
+    }
     
 
 }

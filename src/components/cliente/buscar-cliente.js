@@ -4,6 +4,8 @@ import {ClienteService} from '../../services/cliente-service';
 import ListaDeClientes from './lista-clientes';
 import Loading from '../loading/loading';
 import TipoAlerta from "../modal/tipo-alerta";
+import { UsuarioService } from '../../services/usuario-service';
+
 
 class BuscarCliente extends Component
 {
@@ -111,6 +113,13 @@ class BuscarCliente extends Component
                     }))
                 }
         }else{
+
+            if (resposta.status === 401){     
+                
+                UsuarioService.RemoverUsuarioLogado();
+                window.location.reload();
+            }
+
             const erro = await resposta.json();
 
             let mensagemModal = {
