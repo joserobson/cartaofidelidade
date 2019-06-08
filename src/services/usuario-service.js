@@ -29,7 +29,7 @@ class UsuarioService{
     
     static async Logar(login, senha){
                    
-        return await TokenService.ObterToken();                                              
+        return await TokenService.ObterToken(login,senha);                                              
     }    
 
 

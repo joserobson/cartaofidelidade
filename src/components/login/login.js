@@ -28,7 +28,11 @@ class Login extends Component
         if (respostaObterDados.ok){
 
             const usuario = await respostaObterDados.json();
+            usuario.Login = this.state.userName;
+            usuario.Senha = this.state.password;
+
             console.log("Usuario Logado:", usuario);      
+            
             localStorage.setItem("user",JSON.stringify(usuario));                     
             this.props.history.push("/");
         }else{

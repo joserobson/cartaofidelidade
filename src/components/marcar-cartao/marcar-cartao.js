@@ -242,14 +242,18 @@ class MarcarCartao extends Component{
 
             const usuarioLogado = UsuarioService.ObterUsuarioLogado();
 
+            console.log("Usuario logado",usuarioLogado);
+
             this.setState({                
                 cartaoDoCliente: cartaoCliente,
                 diasMarcados: cartaoCliente.DiasMarcados,
-                nomeCartao: usuarioLogado.NomeModeloCartao,
+                nomeCartao: usuarioLogado.ModeloCartaoFidelidade.Nome,
                 telefoneCliente: telefone,
-                qtdMarcacoes: usuarioLogado.qtdMarcacoes
+                qtdMarcacoes: usuarioLogado.ModeloCartaoFidelidade.QtdMarcacoes
             },()=>{
                 Loading.close();
+
+                console.log("State Mount",this.state);
             });
         }else{
 

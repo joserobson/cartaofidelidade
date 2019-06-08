@@ -29,7 +29,7 @@ const TipoDeComercio = {
             case this.BARBEARIA.ID:
                 return this.BARBEARIA;
             default:
-                break;
+                return this.CAFETERIA;
         }
     }
 }
