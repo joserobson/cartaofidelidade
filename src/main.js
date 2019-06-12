@@ -1,13 +1,10 @@
 import React,{Component} from "react";
-
-import CadastrarCliente from './components/cliente/cadastrar-cliente';
-
 import { Switch, Route, Redirect } from 'react-router-dom';
-
+import CadastrarCliente from './components/cliente/cadastrar-cliente';
 import MarcarCartao from './components/marcar-cartao/marcar-cartao';
-
 import SelecionarClienteCartao from './components/marcar-cartao/selecionar-cliente-cartao';
 import Login from "./components/login/login";
+import TabMarcarCartao from "./components/marcar-cartao/tab-marcar-cartao/tab-marcar-cartao";
 
 class Main extends Component{
 
@@ -31,7 +28,8 @@ render(){
                     render={(props) => 
                                 (                                                    
                                     this.PossuiUsuarioLogado()
-                                    ? <SelecionarClienteCartao{...props} handleModal={this.props.handleModal}/> 
+                                    //? <SelecionarClienteCartao{...props} handleModal={this.props.handleModal}/> 
+                                    ? <TabMarcarCartao{...props} handleModal={this.props.handleModal}/> 
                                     : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
                                 )
                             }                                                                                    

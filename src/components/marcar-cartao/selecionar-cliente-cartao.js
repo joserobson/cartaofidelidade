@@ -39,7 +39,7 @@ class SelecionarClienteCartao extends Component{
 
 
     render(){
-        return <div className="w3-container" id="marcarCartao" style={{marginTop:'75px'}}>
+        return <div className="" id="marcarCartao" style={{marginTop:'15px'}}>
 
              
             <BuscarCliente 
@@ -47,16 +47,10 @@ class SelecionarClienteCartao extends Component{
                 handleModal={this.props.handleModal}
                 handleValorDaPesquisa={this.handleChangeValorParaPesquisa}>
             </BuscarCliente>           
-            
-            {/* {this.state.clienteSelecionado &&
-                <div>
-                    <br></br>
-                    <Link className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" to={"marcarCartao/"+ this.state.clienteSelecionado.Telefone}>Exibir Cartão</Link>                                
-                </div>
-            } */}
-            <br></br>
+                       
+            {/* <br></br>
             <Link className="w3-button w3-block w3-padding-large w3-blue-gray w3-margin-bottom" to={"cadastrarCliente/"+this.state.telefoneOUCpf}>Cadastrar Cliente</Link>
-             
+              */}
         </div>
     }
 }

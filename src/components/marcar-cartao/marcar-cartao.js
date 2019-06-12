@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import CartaoFidelidade from './cartao-fidelidade';
-import LayoutCartao from './layout-cartao';
 import Loading from '../loading/loading';
 import { CartaoService } from '../../services/cartao-service';
 import TipoDeAlerta from "../modal/tipo-alerta";
-import {CartaoFidelidadeModel } from "../../models/cartao-fidelidade-model";
 import { StatusDoCartao } from '../../enums/status-cartao';
 import { UsuarioService } from '../../services/usuario-service';
+import {NotificationManager} from 'react-notifications';
 
 class MarcarCartao extends Component{
 
@@ -89,7 +88,9 @@ class MarcarCartao extends Component{
 
         if (respostaSalvarCartao.ok){
 
-            Loading.close(); 
+            Loading.close();             
+
+            NotificationManager.success('Cartão Marcado Com Sucesso','',3000);
 
             const bodyResposta = await respostaSalvarCartao.json();
 
@@ -103,8 +104,8 @@ class MarcarCartao extends Component{
                 this.setState({
                     cartaoDoCliente: cartao
                 });
-            }else{
-                   
+            }else{                                
+
                 console.log("Cartão em Aberto");
 
                 this.props.history.push("/");      
@@ -116,63 +117,10 @@ class MarcarCartao extends Component{
             
             const erro = respostaSalvarCartao.json();
 
-            alert(erro.Message);
-        }
+            //alert(erro.Message);
 
-        // let cartaoDoCliente = this.state.cartaoDoCliente;
-        // const diasMarcados = this.state.diasMarcados;        
-        // const diasDesbloqueados = this.state.diasDesbloqueados;
-
-        // //nesse retorno eu tenho a resposta se o cartão foi completado ou não
-        // let retorno = CartaoService.salvarCartaoFidelidade(cartaoDoCliente, diasMarcados, diasDesbloqueados);
-
-        // retorno.then((cartaoCompleto)=>{
-        //     Loading.close();                        
-            
-        //     const marcarCartao = this;
-        //     let mensagemModal = {
-        //         texto: 'Cartão Salvo Com Sucesso!!!',
-        //         tipo: TipoDeAlerta.SUCESS,
-        //         eventos: [
-        //             { 
-        //                 Nome: 'Fechar',
-        //                 onClick: function(){
-                            
-        //                     if (cartaoCompleto){
-                                
-        //                         let cartao = marcarCartao.state.cartaoDoCliente;
-        //                         cartao.Status = StatusDoCartao.COMPLETO;
-
-        //                         marcarCartao.setState({
-        //                             cartaoDoCliente: cartao
-        //                         });
-
-
-        //                     }else{
-        //                         //navegar para tela home
-        //                         marcarCartao.props.history.push("/");                                                                                 
-        //                     }                            
-        //                 }                                
-        //             }
-        //         ]
-        //     }
-    
-        //     this.props.handleModal(mensagemModal);
-            
-
-        // },(reject)=>{
-        //     Loading.close();            
-
-        //     let mensagemModal = {
-        //         texto: 'Erro ao Salvar Cartão',
-        //         tipo: TipoDeAlerta.WARNING
-        //     }
-    
-        //     this.props.handleModal(mensagemModal);
-        // });        
-
-        
-        //event.preventDefault();
+            NotificationManager.success(erro.Message,'',3000);
+        }       
     }    
 
 

@@ -4,10 +4,7 @@ import Header from './components/header/header';
 import Main from './main'
 import Loading from './components/loading/loading';
 import Modal from './components/modal/modal';
-import { ConfiguracaoHelper } from './helpers/configuracao-helper';
-import {TipoDeComercio} from './enums/tipo-comercio';
-import { UsuarioService } from './services/usuario-service';
-import { MockDadosHelper } from './helpers/mock-dados-helper';
+import {NotificationContainer} from 'react-notifications';
 
 
 class App extends Component {
@@ -51,6 +48,7 @@ class App extends Component {
           />
          <Loading/>             
          <Header/>
+         <NotificationContainer/>
          <Main handleModal={this.handleModal}/>
       </div> 
     );   

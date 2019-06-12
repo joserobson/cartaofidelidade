@@ -69,7 +69,7 @@ class BuscarCliente extends Component
 
     render(){
         return <div className="">                    
-                    <label className="w3-text-red"><b>Busque e clique no Cliente:</b></label>
+                    {/* <label className="w3-text-red"><b>Busque e clique no Cliente:</b></label> */}
                     <div className="">
                         <form className="">    
                             <div className="w3-row w3-section">

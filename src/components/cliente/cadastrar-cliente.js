@@ -5,6 +5,9 @@ import { ClienteService } from "../../services/cliente-service";
 import Loading from "../loading/loading"; 
 import MaskedInput from "react-maskedinput";
 import TipoDeAlerta from "../modal/tipo-alerta";
+import 'react-notifications/lib/notifications.css';
+import {NotificationManager} from 'react-notifications';
+
 class CadastrarCliente extends Component{    
 
     constructor(props){
@@ -13,15 +16,22 @@ class CadastrarCliente extends Component{
         this.state = {
             telefone: '',
             cpf: '',
-            email:'',
-            irParaTelaDeCartao:false
+            email:''            
         }
-
-        //this.handleSubmit = this.handleSubmit.bind(this);
+        
         this.handleTelefoneChange = this.handleTelefoneChange.bind(this);
         this.handleCpfChange = this.handleCpfChange.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);        
     }  
+
+
+    handleOnClickNotificar =() =>{
+        //NotificationManager.success('Cliente Cadastrado Com Sucesso', 'Cliente',3000);
+
+        NotificationManager.error('Error message', 'Click me!', 5000, () => {
+            alert('callback');
+          });
+    }
 
 
      handleSubmit = async event =>{
@@ -38,40 +48,20 @@ class CadastrarCliente extends Component{
 
         if (retornoCadastrarCliente.ok){
             
+            NotificationManager.success('Cliente Cadastrado Com Sucesso','',3000);            
             this.props.history.push("/marcarCartao/"+this.state.telefone);
-
-            // let mensagemModal = {
-            //     texto: 'Cliente Cadastrado Com Sucesso!!!',
-            //     tipo: TipoDeAlerta.SUCESS,
-            //     eventos: [
-            //         { 
-            //             Nome: 'Fechar',
-            //             onClick:(self)=>{     
-                            
-            //                 if (this.state.irParaTelaDeCartao){
-            //                     this.props.history.push("/marcarCartao/"+this.state.telefone);
-            //                 }                                                                         
-            //             }                                
-            //         }
-            //     ]
-            // };
-
-            // this.props.handleModal(mensagemModal);
-
-
-            //if (this.state.irParaTelaDeCartao){
-            //this.props.history.push("/marcarCartao/"+this.state.telefone);
-            //}       
 
         }else{
             const erro = await retornoCadastrarCliente.json();
 
-            let mensagemModal = {
-                texto: erro.Message,
-                tipo: TipoDeAlerta.WARNING
-            }
+            // let mensagemModal = {
+            //     texto: erro.Message,
+            //     tipo: TipoDeAlerta.WARNING
+            // }
     
-            this.props.handleModal(mensagemModal);            
+            // this.props.handleModal(mensagemModal);            
+
+            NotificationManager.warning(erro.Message,'',3000);
         }  
             
     }
@@ -89,7 +79,8 @@ class CadastrarCliente extends Component{
     }
 
     render(){
-        return <div className="w3-container" id="novoCliente" style={{ marginTop: '75px' }}>
+        return <div className="" id="novoCliente">                    
+                    
                     <form onSubmit={this.handleSubmit}>
                         <div className="w3-section">
                             <label>Telefone</label>
@@ -105,20 +96,13 @@ class CadastrarCliente extends Component{
                         </div>
                         <button type="submit" className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom">Salvar</button>                        
                     </form>                    
+
+                    <button type="button" className="w3-button w3-block w3-gray" onClick={this.handleOnClickNotificar}> Notificar Teste</button>
                 </div>
     }
 
     componentDidMount(){
-        
-        let telefone = this.props.match.params.telefoneOuCpf;
-
-        if (telefone)
-        {
-            this.setState({
-                telefone: telefone,
-                irParaTelaDeCartao:true
-            });
-        }
+                
     }
 }
 
