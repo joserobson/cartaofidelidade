@@ -23,11 +23,11 @@ class ClienteService{
         });                     
     }       
 
-    static async ObterClientes(textoParaPesquisa){
+    static async ObterClientesPor(telefone){
                 
         const token = TokenService.ObterTokenLocal();
         
-        return await fetch(ConfiguracaoHelper.URI_API_MAIS_FIDELIDADE + "api/consumidor/ObterPorTelefoneOuCpf?valor=" + textoParaPesquisa, {
+        return await fetch(ConfiguracaoHelper.URI_API_MAIS_FIDELIDADE + "api/consumidor/ObterClientesPorTelefone?telefone=" + telefone, {
                 headers: new Headers({
                     'Authorization': 'bearer ' + token,
                     'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ class ClienteService{
 
         const token = TokenService.ObterTokenLocal();
 
-        return await fetch(ConfiguracaoHelper.URI_API_MAIS_FIDELIDADE + "api/empresa/ObterConsumidoresMaisFrequentes?id="+usuario.Id+"&top="+10,{
+        return await fetch(ConfiguracaoHelper.URI_API_MAIS_FIDELIDADE + "api/empresa/ObterConsumidoresMaisFrequentes?idDaEmpresa="+usuario.Id+"&top="+10,{
             headers: new Headers({
                 'Authorization': 'bearer ' + token,
                 'Content-Type': 'application/json'

@@ -6,12 +6,15 @@ class ClienteModel{
     Telefone;
     Email;
     Cpf;
+    Nome;
+    DiaAniversario;
+    MesAniversario;
 
-    constructor(telefone, email, cpf){
+    constructor(telefone, email, nome){
 
         this.Telefone = telefone;
         this.Email = email;
-        this.Cpf = cpf;
+        this.Nome = nome;
         this.Id = null;
     }
     

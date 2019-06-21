@@ -117,9 +117,7 @@ class MarcarCartao extends Component{
             
             const erro = respostaSalvarCartao.json();
 
-            //alert(erro.Message);
-
-            NotificationManager.success(erro.Message,'',3000);
+            NotificationManager.warning(erro.Message,'',3000);
         }       
     }    
 
@@ -209,28 +207,8 @@ class MarcarCartao extends Component{
             
             const erro = respostaCartao.json();
 
-            alert(erro.Message);
+            NotificationManager.warning(erro.Message);
         }
-
-        // CartaoService.obterCartaoDoCliente(telefone)
-        //     .then((resp)=>{
-                
-        //         console.log("Cartao Cliente", resp);
-                
-        //         let qtdMarcacoes = parseInt(resp.cartaoFidelidade.Modelo.QtdMarcacoes,10);                
-                
-        //         this.setState({
-        //             respostaCartao: resp,
-        //             cartaoDoCliente: resp.cartaoFidelidade,
-        //             diasMarcados: resp.cartaoFidelidade.Ocorrencias,
-        //             nomeCartao: resp.cartaoFidelidade.Modelo.Nome,
-        //             telefoneCliente: telefone,
-        //             qtdMarcacoes: qtdMarcacoes
-        //         });
-
-        //     }).finally(()=>{
-        //         Loading.close();
-        //     });
     }   
 }
 

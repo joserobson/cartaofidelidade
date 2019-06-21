@@ -5,7 +5,7 @@ import ListaDeClientes from './lista-clientes';
 import Loading from '../loading/loading';
 import TipoAlerta from "../modal/tipo-alerta";
 import { UsuarioService } from '../../services/usuario-service';
-
+import { NotificationHelper } from '../../helpers/notificacao-helper';
 
 class BuscarCliente extends Component
 {
@@ -26,11 +26,18 @@ class BuscarCliente extends Component
         this.props.handleValorDaPesquisa(event.target.value);
     }
 
-    async buscarClientes(){
+    async buscarClientes(){        
+             
+        const telefone = this.state.textoParaPesquisa;
+
+        if (telefone.length < 4){
+            NotificationHelper.ExibirAlerta('Forneça pelo menos 4 números para pesquisa');
+            return;
+        }
 
         Loading.show();
-             
-        const resposta = await ClienteService.ObterClientes(this.state.textoParaPesquisa);
+
+        const resposta = await ClienteService.ObterClientesPor(telefone);
 
         Loading.close();
 
@@ -47,29 +54,17 @@ class BuscarCliente extends Component
                     clientes: []
                 })); 
 
-                let mensagemModal = {
-                    texto: 'Nenhum Cliente Foi Encontrado!!!',
-                    tipo: TipoAlerta.WARNING
-                }
-        
-                this.props.handleModal(mensagemModal);
+                NotificationHelper.ExibirAlerta("Nenhum Telefone foi encontrado!!!");
             }
         }else{
 
-            const erro = await resposta.json();
-
-            let mensagemModal = {
-                texto: erro.Message,
-                tipo: TipoAlerta.WARNING
-            }
-    
-            this.props.handleModal(mensagemModal);
+            const erro = await resposta.json();            
+            NotificationHelper.ExibirErro(erro.Message);
         }        
     }
 
     render(){
-        return <div className="">                    
-                    {/* <label className="w3-text-red"><b>Busque e clique no Cliente:</b></label> */}
+        return <div className="">                                        
                     <div className="">
                         <form className="">    
                             <div className="w3-row w3-section">
@@ -121,13 +116,7 @@ class BuscarCliente extends Component
             }
 
             const erro = await resposta.json();
-
-            let mensagemModal = {
-                texto: erro.Message,
-                tipo: TipoAlerta.WARNING
-            }
-    
-            this.props.handleModal(mensagemModal);
+            NotificationHelper.ExibirErro(erro.Message);
         }       
     }
 

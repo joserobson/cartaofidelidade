@@ -48,7 +48,7 @@ class ListaDeClientes extends Component {
         {this.props.clientes.map(cliente => (
           <ItemCliente
             cliente={cliente}
-            key={cliente.Cpf}
+            key={cliente.Id}
             setCliente={this.props.setCliente}
             desmarcarClientes={this.desmarcarClientes}
           />
