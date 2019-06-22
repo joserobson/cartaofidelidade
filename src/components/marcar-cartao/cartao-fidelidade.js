@@ -27,7 +27,7 @@ class CartaoFidelidade extends Component{
         this.setState({
             diasMarcados: diasMarcados
         },()=>{
-            this.props.onChange(this.state.diasMarcados);
+            this.props.onChange(this.state.diasMarcados, this.state.diasDesbloqueados);
         });
     }
 
@@ -44,7 +44,7 @@ class CartaoFidelidade extends Component{
             this.setState({
                 diasMarcados: diasMarcados
             },()=>{
-                this.props.onChange(this.state.diasMarcados);
+                this.props.onChange(this.state.diasMarcados, this.state.diasDesbloqueados);
             });
         }
     }
@@ -90,20 +90,7 @@ class CartaoFidelidade extends Component{
            
             default:
                 break;
-        }
-
-
-
-        // if (event.status === StatusColunaCartao.MARCADO){
-
-        //     this.adicionarDiaMarcado(dia);
-
-        // }else{
-        //     if (event.status === StatusColunaCartao.PENDENTE){
-                
-        //         this.removerDiaMarcado(dia);
-        //     }
-        // }
+        }        
     }
 
 

@@ -5,7 +5,7 @@ import { CartaoService } from '../../services/cartao-service';
 import TipoDeAlerta from "../modal/tipo-alerta";
 import { StatusDoCartao } from '../../enums/status-cartao';
 import { UsuarioService } from '../../services/usuario-service';
-import {NotificationManager} from 'react-notifications';
+import { NotificationHelper } from '../../helpers/notificacao-helper';
 
 class MarcarCartao extends Component{
 
@@ -40,28 +40,14 @@ class MarcarCartao extends Component{
             Loading.close();   
 
             if (resp.ok)            
-            {
-                
-                let mensagemModal = {
-                    texto: "Cartão Finalizado Com Sucesso.",
-                    tipo: TipoDeAlerta.SUCESS
-                }
-        
-                this.props.handleModal(mensagemModal);
-
+            {                                
+                NotificationHelper.ExibirSucesso("Cartão Finalizado Com Sucesso.")
                 this.props.history.push("/");
 
             }else{
                 
-                resp.json().then((erro)=>{                                    
-
-                    let mensagemModal = {
-                        texto: erro.Message,
-                        tipo: TipoDeAlerta.WARNING
-                    }
-            
-                    this.props.handleModal(mensagemModal);
-
+                resp.json().then((erro)=>{                                                        
+                    NotificationHelper.ExibirErro(erro.Message);
                 });
 
                 
@@ -90,7 +76,7 @@ class MarcarCartao extends Component{
 
             Loading.close();             
 
-            NotificationManager.success('Cartão Marcado Com Sucesso','',3000);
+            NotificationHelper.ExibirSucesso('Cartão Atualizado Com Sucesso');
 
             const bodyResposta = await respostaSalvarCartao.json();
 
@@ -117,7 +103,7 @@ class MarcarCartao extends Component{
             
             const erro = respostaSalvarCartao.json();
 
-            NotificationManager.warning(erro.Message,'',3000);
+            NotificationHelper.ExibirAlerta(erro.Message);
         }       
     }    
 
@@ -170,9 +156,8 @@ class MarcarCartao extends Component{
         )
     }
 
-    async componentDidMount(){        
-
-        //buscar as marcacoes do cliente        
+    async componentDidMount(){                
+           
         Loading.show();
        
         let telefone = this.props.match.params.telefone;        
@@ -207,7 +192,7 @@ class MarcarCartao extends Component{
             
             const erro = respostaCartao.json();
 
-            NotificationManager.warning(erro.Message);
+            NotificationHelper.ExibirAlerta(erro.Message);
         }
     }   
 }

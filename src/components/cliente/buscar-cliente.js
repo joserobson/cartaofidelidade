@@ -69,7 +69,7 @@ class BuscarCliente extends Component
                         <form className="">    
                             <div className="w3-row w3-section">
                                 <div className="w3-col s11">                                    
-                                    <input className="w3-input w3-border" name="first" type="text" placeholder="Telefone ou CPF" onChange={this.handleChangePesquisa}/>
+                                    <input className="w3-input w3-border" name="first" type="text" placeholder="Telefone ou CPF" value={this.state.textoParaPesquisa} onChange={this.handleChangePesquisa}/>
                                 </div>
                                 <div className="w3-col s1 w3-center" style={{paddingLef: '2px'}}>
                                     <i className="w3-xxlarge fa fa-search pointer" style={{cursor: 'pointer'}} onClick={this.buscarClientes}></i>
@@ -90,34 +90,49 @@ class BuscarCliente extends Component
                 </div>
     }
 
-    async componentDidMount(){
+    async componentDidMount(){        
 
-        Loading.show();
+        let telefonePesquisado = localStorage.getItem('telefoneParaPesquisa');
+        if (telefonePesquisado){
+            
+            console.log('Telefone Pesquisado:', telefonePesquisado);
+            this.setState({
+                textoParaPesquisa: telefonePesquisado
+            },()=>{
+                this.props.handleValorDaPesquisa(telefonePesquisado);
+                this.buscarClientes();
+            });
+                    
+            localStorage.removeItem('telefoneParaPesquisa');
+        }else{    
 
-        let resposta = await ClienteService.obterTopClientes();
+            Loading.show();
 
-        Loading.close();
-        
-        if (resposta.ok){
-            const topClientes = await resposta.json();
+            let resposta = await ClienteService.obterTopClientes();
 
-            if (topClientes.length > 0)
-                {
-                    this.setState(state => ({                
-                        clientes: topClientes
-                    }))
+            Loading.close();
+            
+            if (resposta.ok){
+                const topClientes = await resposta.json();
+
+                if (topClientes.length > 0)
+                    {
+                        this.setState(state => ({                
+                            clientes: topClientes
+                        }))
+                    }
+            }else{
+
+                if (resposta.status === 401){     
+                    
+                    UsuarioService.RemoverUsuarioLogado();
+                    window.location.reload();
                 }
-        }else{
 
-            if (resposta.status === 401){     
-                
-                UsuarioService.RemoverUsuarioLogado();
-                window.location.reload();
-            }
-
-            const erro = await resposta.json();
-            NotificationHelper.ExibirErro(erro.Message);
-        }       
+                const erro = await resposta.json();
+                NotificationHelper.ExibirErro(erro.Message);
+            }     
+        }  
     }
 
 }

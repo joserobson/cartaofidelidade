@@ -1,14 +1,16 @@
 
 import React, { Component } from 'react';
-import StatusColunaCartao from './status-coluna-cartao';
+import StatusColunaCartao from '../status-coluna-cartao';
 import './coluna-cartao.css';
-import { ConfiguracaoHelper } from '../../helpers/configuracao-helper';
-import TipoDeAlerta from "../modal/tipo-alerta";
+import {ConfiguracaoHelper} from "../../../helpers/configuracao-helper";
+import TipoDeAlerta from "../../modal/tipo-alerta";
+import { NotificationHelper } from './../../../helpers/notificacao-helper';
+
 class ColunaCartao extends Component{
 
     constructor(props){
         super(props);
-        this.handleIconClick = this.handleIconClick.bind(this);
+        this.handleIconClick = this.handleIconClick.bind(this);        
 
         this.state = {
             cssColuna: "",
@@ -16,12 +18,7 @@ class ColunaCartao extends Component{
             cssImg:"",
             status: StatusColunaCartao.PENDENTE,
             diaDaMarcacao: ""                         
-        };        
-        
-        // Number.prototype.padLeft = function(base,chr){
-        //     var  len = (String(base || 10).length - String(this).length)+1;
-        //     return len > 0? new Array(len).join(chr || '0')+this : this;
-        // }
+        };                   
     }
     
     dataAtualFormatada(){
@@ -63,13 +60,13 @@ class ColunaCartao extends Component{
         },()=>{
         });  
     }
-
-
+   
     handleIconClick(event){
         
+        debugger;
         if (this.state.status === StatusColunaCartao.PENDENTE){
             
-            this.colunaFoiMarcada();
+            this.colunaFoiMarcada();            
 
         }else{
             if (this.state.status === StatusColunaCartao.MARCADO){
@@ -80,63 +77,63 @@ class ColunaCartao extends Component{
                     {
                         status: StatusColunaCartao.PENDENTE,
                         diaDaMarcacao: this.state.diaDaMarcacao
-                    });
+                    });                
 
             }else{
                 if (this.state.status === StatusColunaCartao.BLOQUEADO){
-
-                    //exibir popup com a dia da compra e a opção para excluir a marcação
-                    //alert(this.state.diaDaMarcacao);
-                    const colunaCartao = this;
-                    let mensagemModal = {
-                        texto: this.state.diaDaMarcacao,
-                        tipo: TipoDeAlerta.EVENTO_EXIBIR_MARCACAO,
-                        eventos: [
-                            { 
-                                Nome: 'Excluir',
-                                onClick: function(){
-                                    
-                                   var resposta = window.confirm("Deseja realmente excluir essa marcação?");
-                                    
-                                   if (resposta == true)
-                                   {
-                                        //desmarcar a coluna
-                                        colunaCartao.colunaFoiDesmarcada();
-
-                                        colunaCartao.props.clickCartao(
-                                            {
-                                                status: StatusColunaCartao.DESBLOQUEADO,
-                                                diaDaMarcacao: colunaCartao.state.diaDaMarcacao
-                                            });
-                                    }
-                                }                                
-                            },
-                            { 
-                                Nome: 'Fechar',
-                                onClick: function(){}     
-                            }
-                        ]
+                   this.desbloquearColuna();
+                }else{
+                    if (this.state.status === StatusColunaCartao.DESBLOQUEADO){
+                        alert('E agora?');     
                     }
-
-                    this.props.handleModal(mensagemModal);
                 }
             }
+        }        
+    }
+
+    desbloquearColuna(){
+        const colunaCartao = this;
+        let mensagemModal = {
+            texto: this.state.diaDaMarcacao,
+            tipo: TipoDeAlerta.EVENTO_EXIBIR_MARCACAO,
+            eventos: [
+                { 
+                    Nome: 'Excluir',
+                    onClick: function(){
+                                                                                               
+                        colunaCartao.colunaFoiDesmarcada();
+
+                        colunaCartao.props.clickCartao(
+                            {
+                                status: StatusColunaCartao.DESBLOQUEADO,
+                                diaDaMarcacao: colunaCartao.state.diaDaMarcacao
+                            });
+                        
+                        NotificationHelper.ExibirAlerta('Marcação removida, salve o cartão para completar a exclusão!!');
+                                                            
+                    }                                
+                },
+                { 
+                    Nome: 'Fechar',
+                    onClick: function(){}     
+                }
+            ]
         }
 
-        
+        this.props.handleModal(mensagemModal);
     }
+
 
     render(){        
         return <div className={this.state.cssColuna} style={{height: '100%', cursor:'pointer'}} onClick={this.handleIconClick}>
                     <div className="div-coluna-cartao">                        
-                        <img className={this.state.cssImg} src={require("./img/"+ConfiguracaoHelper.ObterIcone())}></img>                          
+                        <img className={this.state.cssImg} src={require("./../img/" + ConfiguracaoHelper.ObterIcone())}></img>                          
                     </div>                          
                 </div>
     }
 
     componentDidMount(){
-
-        //debugger;
+        
         if (this.props.diaMarcado === ""){
             this.setState({
                 cssColuna: "w3-col " + this.props.cssDivColuna + " w3-center w3-border w3-border-black",

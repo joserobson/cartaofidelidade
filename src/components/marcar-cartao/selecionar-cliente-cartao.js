@@ -33,6 +33,11 @@ class SelecionarClienteCartao extends Component{
         this.setState({
             clienteSelecionado: clienteModel
         },()=>{
+
+            debugger;
+            if (this.state.telefoneOUCpf)
+                localStorage.setItem('telefoneParaPesquisa',this.state.telefoneOUCpf);
+
             this.props.history.push("/marcarCartao/"+ this.state.clienteSelecionado.Telefone);
         })
     }
@@ -40,18 +45,18 @@ class SelecionarClienteCartao extends Component{
 
     render(){
         return <div className="" id="marcarCartao" style={{marginTop:'15px'}}>
-
              
             <BuscarCliente 
                 setCliente={this.setarClienteSelecionado} 
                 handleModal={this.props.handleModal}
                 handleValorDaPesquisa={this.handleChangeValorParaPesquisa}>
             </BuscarCliente>           
-                       
-            {/* <br></br>
-            <Link className="w3-button w3-block w3-padding-large w3-blue-gray w3-margin-bottom" to={"cadastrarCliente/"+this.state.telefoneOUCpf}>Cadastrar Cliente</Link>
-              */}
+                               
         </div>
+    }
+
+    componentDidMount(){
+            
     }
 }
 

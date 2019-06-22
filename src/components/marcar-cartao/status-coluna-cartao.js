@@ -4,7 +4,7 @@ const StatusColunaCartao = {
     PENDENTE:'pendente',
     MARCADO:'marcado',
     BLOQUEADO: 'bloqueado',
-    DESBLOQUEADO: 'desbloqueado'
+    DESBLOQUEADO: 'desbloqueado'    
 }
 
 export default StatusColunaCartao;
