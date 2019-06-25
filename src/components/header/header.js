@@ -53,7 +53,7 @@ class Header extends Component{
                            
                             <NavLink onClick={this.closeMenuClick} className="w3-bar-item w3-button w3-hover-white" to="/">Marcar Cartão</NavLink>                            
                             <NavLink onClick={this.logout} className="w3-bar-item w3-button w3-hover-white" to="/">Sair</NavLink>
-                            <NavLink onClick={this.handleClickLimparCache} className="w3-bar-item w3-button w3-hover-white" to="/">Limpar Cache</NavLink>
+                            {/* <NavLink onClick={this.handleClickLimparCache} className="w3-bar-item w3-button w3-hover-white" to="/">Limpar Cache</NavLink> */}
                             
                         </div>
                     </nav>     

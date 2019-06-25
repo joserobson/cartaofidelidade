@@ -5,18 +5,13 @@ import Main from './main'
 import Loading from './components/loading/loading';
 import Modal from './components/modal/modal';
 import {NotificationContainer} from 'react-notifications';
-
+import 'react-notifications/lib/notifications.css';
 
 class App extends Component {
 
   constructor(){
     super();
-
-    //criar amostra de dados para teste do app
-    //console.log("Zerar os dados");
-    //MockDadosHelper.ZerarDados();
-    //MockDadosHelper.carregarDadosDeTeste();
-
+   
     this.handleModal = this.handleModal.bind(this);      
     
     this.state = {

@@ -63,7 +63,7 @@ class ColunaCartao extends Component{
    
     handleIconClick(event){
         
-        debugger;
+        
         if (this.state.status === StatusColunaCartao.PENDENTE){
             
             this.colunaFoiMarcada();            
@@ -82,10 +82,6 @@ class ColunaCartao extends Component{
             }else{
                 if (this.state.status === StatusColunaCartao.BLOQUEADO){
                    this.desbloquearColuna();
-                }else{
-                    if (this.state.status === StatusColunaCartao.DESBLOQUEADO){
-                        alert('E agora?');     
-                    }
                 }
             }
         }        

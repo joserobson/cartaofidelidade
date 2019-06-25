@@ -69,7 +69,7 @@ class BuscarCliente extends Component
                         <form className="">    
                             <div className="w3-row w3-section">
                                 <div className="w3-col s11">                                    
-                                    <input className="w3-input w3-border" name="first" type="text" placeholder="Telefone ou CPF" value={this.state.textoParaPesquisa} onChange={this.handleChangePesquisa}/>
+                                    <input className="w3-input w3-border" name="first" type="text" placeholder="Telefone" value={this.state.textoParaPesquisa} onChange={this.handleChangePesquisa}/>
                                 </div>
                                 <div className="w3-col s1 w3-center" style={{paddingLef: '2px'}}>
                                     <i className="w3-xxlarge fa fa-search pointer" style={{cursor: 'pointer'}} onClick={this.buscarClientes}></i>

@@ -117,10 +117,10 @@ class MarcarCartao extends Component{
                         <div className="w3-bar">
                             <div className="w3-left">                                                                                              
                                 <h1 className="w3-xlarge w3-text-red"><b>{this.state.nomeCartao}</b></h1>
-                                <h1 className="w3-medium w3-text-black"><b>Cliente:</b> {this.state.telefoneCliente}</h1>                                                                                                
+                                <h1 className="w3-medium w3-text-black"><b>Cliente:</b> {this.state.telefoneCliente}</h1>                                                                                                                                
                             </div>
-                            <div className="w3-right"> 
-                                <h1 className="w3-xlarge w3-text-red"><b>Número:</b> <span className="w3-text-blue-gray"> {this.state.cartaoDoCliente.Numero}</span></h1>                                                                        
+                            <div className="w3-right">                                 
+                                <h1 className="w3-medium w3-text-gray"> <b>{this.state.cartaoDoCliente.Numero}º Cartão</b></h1>
                             </div>
                         </div>
 
@@ -190,8 +190,13 @@ class MarcarCartao extends Component{
 
             Loading.close();
             
-            const erro = respostaCartao.json();
+            if (respostaCartao.status === 401){     
+                    
+                UsuarioService.RemoverUsuarioLogado();
+                window.location.reload();
+            }
 
+            const erro = respostaCartao.json();
             NotificationHelper.ExibirAlerta(erro.Message);
         }
     }   

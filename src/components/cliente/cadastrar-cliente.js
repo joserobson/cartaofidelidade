@@ -4,8 +4,6 @@ import { ClienteModel } from "../../models/cliente-model";
 import { ClienteService } from "../../services/cliente-service";
 import Loading from "../loading/loading"; 
 import MaskedInput from "react-maskedinput";
-import TipoDeAlerta from "../modal/tipo-alerta";
-import 'react-notifications/lib/notifications.css';
 import {NotificationManager} from 'react-notifications';
 
 class CadastrarCliente extends Component{    

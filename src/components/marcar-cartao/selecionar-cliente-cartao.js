@@ -34,7 +34,7 @@ class SelecionarClienteCartao extends Component{
             clienteSelecionado: clienteModel
         },()=>{
 
-            debugger;
+            
             if (this.state.telefoneOUCpf)
                 localStorage.setItem('telefoneParaPesquisa',this.state.telefoneOUCpf);
 

@@ -1,6 +1,7 @@
 
 
 import React, { Component } from 'react';
+import "./item-cliente/item-cliente.css"
 
 class ItemCliente extends Component{
 
@@ -34,14 +35,28 @@ class ItemCliente extends Component{
 
   render(){
     return  <li className="w3-bar w3-hover-red" onClick={this.handleOnClick}>
-                 <div className="w3-row">
+                 <div className="w3-row" style={{height: "40x"}}>                    
                     
-                    <div className="w3-col s12">
-                        <span className="w3-medium"> <b>Tel:</b> {this.props.cliente.Telefone}</span>
-                        
-                        <span className="w3-small"><b> Nome:</b> {this.props.cliente.Nome}</span>
-                        <br></br>
-                        <span className="w3-small"><b>E-mail:</b> {this.props.cliente.Email}</span>
+                    <div className="w3-col coluna-imagem">
+                        <img className="img-cliente" src={require("./img/phone.png")}></img>                    
+                    </div>
+
+                    <div className="w3-col coluna-texto">
+                        <div className="w3-row">
+                             <div className="w3-col s12">
+                                <span className="w3-medium"> <b>{this.props.cliente.Telefone}</b></span>
+                             </div> 
+                             <div className="w3-col s12">
+                                 <div className="w3-row">
+                                    <div className="w3-col" style={{width:"30%"}}>
+                                        <span className="w3-small">{this.props.cliente.Nome}</span>    
+                                    </div>
+                                    <div className="w3-col" style={{width:"60%"}}>
+                                        <span className="w3-small">{this.props.cliente.Email}</span>
+                                    </div>
+                                </div>
+                             </div>  
+                        </div>
                     </div>
                 </div> 
             </li>              

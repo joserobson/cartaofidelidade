@@ -1,0 +1,32 @@
+.coluna-imagem {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    border: 0px solid red;
+    width: 10%;
+    padding-top: 5px;
+}
+
+.img-cliente {
+    
+    vertical-align: middle;
+    max-height: 50px;
+    max-width: 160px;
+}
+
+.coluna-texto{
+    width:90%;
+    border:0px solid red;
+    padding-left: 8px;
+    height: 100%;
+    
+}
+
+p{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+    text-align: left;
+    
+}
