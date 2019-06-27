@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import LayoutCartao from './layout-cartao';
-import { Link } from 'react-router-dom'
-import BuscarCliente from '../cliente/buscar-cliente';
-import { ClienteModel } from '../../models/cliente-model';
+import LayoutCartao from '../../../helpers/layout-cartao-helper';
+import BuscarCliente from '../../cliente/buscar-cliente';
 
 class SelecionarClienteCartao extends Component{
 

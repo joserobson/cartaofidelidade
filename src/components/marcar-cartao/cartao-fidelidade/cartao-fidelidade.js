@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import TabelaCartao from './tabela-cartao';
-import StatusColunaCartao from './status-coluna-cartao';
-import LayoutCartao from './layout-cartao';
+import TabelaCartao from '../tabela-cartao/tabela-cartao';
+import StatusColunaCartao from '../../../enums/status-coluna-cartao';
+import LayoutCartao from '../../../helpers/layout-cartao-helper';
 
 class CartaoFidelidade extends Component{
 

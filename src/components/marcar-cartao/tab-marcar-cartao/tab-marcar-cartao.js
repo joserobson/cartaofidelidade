@@ -1,7 +1,7 @@
 import React,{Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import CadastrarCliente from '../../cliente/cadastrar-cliente';
-import SelecionarClienteCartao from '../selecionar-cliente-cartao';
+import CadastrarCliente from './../../cliente/cadastrar-cliente';
+import SelecionarClienteCartao from '../selecionar-cliente-cartao/selecionar-cliente-cartao';
 import '../tab-marcar-cartao/tab-marcar-cartao.css';
 
 class TabMarcarCartao extends Component{

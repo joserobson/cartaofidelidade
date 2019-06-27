@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import LinhaCartao from './linha-cartao';
+import LinhaCartao from './linha-cartao/linha-cartao';
 
 class TabelaCartao extends Component{
 

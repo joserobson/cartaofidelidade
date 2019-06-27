@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import CartaoFidelidade from './cartao-fidelidade';
+import CartaoFidelidade from './cartao-fidelidade/cartao-fidelidade';
 import Loading from '../loading/loading';
 import { CartaoService } from '../../services/cartao-service';
-import TipoDeAlerta from "../modal/tipo-alerta";
 import { StatusDoCartao } from '../../enums/status-cartao';
 import { UsuarioService } from '../../services/usuario-service';
 import { NotificationHelper } from '../../helpers/notificacao-helper';

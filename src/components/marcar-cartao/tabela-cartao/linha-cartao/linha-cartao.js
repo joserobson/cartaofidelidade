@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import ColunaCartao from './coluna-cartao/coluna-cartao';
+import ColunaCartao from '../coluna-cartao/coluna-cartao';
 
 class LinhaCartao extends Component{
 

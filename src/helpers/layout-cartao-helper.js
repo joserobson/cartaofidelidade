@@ -1,5 +1,5 @@
 
-const LayoutCartao = {
+const LayoutCartaoHelper = {
 
     TAMANHO_8:{
         NUMERO_LINHAS: 2,
@@ -65,4 +65,4 @@ const LayoutCartao = {
     }
 }
 
-export default LayoutCartao;
+export default LayoutCartaoHelper;

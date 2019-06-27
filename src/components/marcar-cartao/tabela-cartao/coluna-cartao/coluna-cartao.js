@@ -1,10 +1,10 @@
 
 import React, { Component } from 'react';
-import StatusColunaCartao from '../status-coluna-cartao';
+import StatusColunaCartao from '../../../../enums/status-coluna-cartao';
 import './coluna-cartao.css';
-import {ConfiguracaoHelper} from "../../../helpers/configuracao-helper";
-import TipoDeAlerta from "../../modal/tipo-alerta";
-import { NotificationHelper } from './../../../helpers/notificacao-helper';
+import {ConfiguracaoHelper} from "../../../../helpers/configuracao-helper";
+import TipoDeAlerta from "../../../modal/tipo-alerta";
+import { NotificationHelper } from '../../../../helpers/notificacao-helper';
 
 class ColunaCartao extends Component{
 
@@ -123,7 +123,7 @@ class ColunaCartao extends Component{
     render(){        
         return <div className={this.state.cssColuna} style={{height: '100%', cursor:'pointer'}} onClick={this.handleIconClick}>
                     <div className="div-coluna-cartao">                        
-                        <img className={this.state.cssImg} src={require("./../img/" + ConfiguracaoHelper.ObterIcone())}></img>                          
+                        <img className={this.state.cssImg} src={require("../../img/" + ConfiguracaoHelper.ObterIcone())}></img>                          
                     </div>                          
                 </div>
     }
