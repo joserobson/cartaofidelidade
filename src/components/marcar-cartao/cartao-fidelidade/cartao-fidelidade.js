@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TabelaCartao from '../tabela-cartao/tabela-cartao';
 import StatusColunaCartao from '../../../enums/status-coluna-cartao';
 import LayoutCartao from '../../../helpers/layout-cartao-helper';
-
+import './cartao-fidelidade.css';
 class CartaoFidelidade extends Component{
 
     constructor(props){
@@ -154,7 +154,7 @@ class CartaoFidelidade extends Component{
     }    
 
     render(){
-        return <div>                
+        return <div className="cartao-fidelidade">                
                     <TabelaCartao 
                         linhas={this.state.linhas} 
                         altura={this.state.alturaTabela} 

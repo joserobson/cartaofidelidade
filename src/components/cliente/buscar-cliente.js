@@ -77,7 +77,7 @@ class BuscarCliente extends Component
                             </div>    
                         </form>
                     </div>
-                    <div style={{paddingTop: '3px'}}>     
+                    <div style={{paddingTop: '3px'}} id="listaClientes">     
 
                         {this.state.clientes.length === 0 
                             ? <div className="w3-border w3-center">

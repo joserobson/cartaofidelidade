@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-
 import ItemCliente from "./item-cliente";
+import './lista-cliente.css';
 
 class ListaDeClientes extends Component {
   constructor(props) {
