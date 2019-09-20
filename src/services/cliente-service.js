@@ -13,8 +13,15 @@ class ClienteService{
 
         const token = TokenService.ObterTokenLocal();
         
-        return await fetch(ConfiguracaoHelper.URI_API_MAIS_FIDELIDADE + "api/consumidor/InserirConsumidor/", {
-            method: 'POST',
+        let acao = "InserirConsumidor";
+        let metodo = "POST";
+        if (cliente.Id){
+            acao = "EditarConsumidor";
+            metodo = "PUT";
+        } 
+
+        return await fetch(ConfiguracaoHelper.URI_API_MAIS_FIDELIDADE + "api/consumidor/" + acao + "/", {
+            method: metodo,
             body: JSON.stringify(cliente),
             headers: new Headers({
                 'Content-Type': 'application/json',

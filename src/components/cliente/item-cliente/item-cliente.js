@@ -1,7 +1,7 @@
 
 
 import React, { Component } from 'react';
-import "./item-cliente/item-cliente.css"
+import "./item-cliente.css"
 
 class ItemCliente extends Component{
 
@@ -9,7 +9,7 @@ class ItemCliente extends Component{
         super(props);
 
         this.handleOnClick = this.handleOnClick.bind(this);
-        
+        this.handleImgEditClick = this.handleImgEditClick.bind(this);
     }
    
 
@@ -18,6 +18,11 @@ class ItemCliente extends Component{
 
     componentWillUnmount(){
         console.info("ummont lista cliente");
+    }
+
+    handleImgEditClick(event){
+
+        this.props.editarCliente(this.props.cliente);
     }
 
     handleOnClick(event){
@@ -34,30 +39,30 @@ class ItemCliente extends Component{
     }
 
   render(){
-    return  <li className="w3-bar w3-hover-red" onClick={this.handleOnClick}>
+    return  <li className="w3-bar w3-hover-red">
                  <div className="w3-row" style={{height: "40x"}}>                    
                     
-                    <div className="w3-col coluna-imagem">
-                        <img className="img-cliente" src={require("./img/phone.png")}></img>                    
+                    <div className="w3-col coluna-imagem" onClick={this.handleOnClick}>
+                        <img className="img-telefone" src={require("../img/phone.png")}></img>                    
                     </div>
 
-                    <div className="w3-col coluna-texto">
+                    <div className="w3-col coluna-texto" onClick={this.handleOnClick}>
                         <div className="w3-row">
                              <div className="w3-col s12">
                                 <span className="w3-medium"> <b>{this.props.cliente.Telefone}</b></span>
                              </div> 
                              <div className="w3-col s12">
                                  <div className="w3-row">
-                                    <div className="w3-col" style={{width:"30%"}}>
+                                    <div className="w3-col" style={{width:"80%"}}>
                                         <span className="w3-small">{this.props.cliente.Nome}</span>    
-                                    </div>
-                                    <div className="w3-col" style={{width:"60%"}}>
-                                        <span className="w3-small">{this.props.cliente.Email}</span>
-                                    </div>
+                                    </div>                                    
                                 </div>
                              </div>  
                         </div>
-                    </div>
+                    </div>  
+                    <div className="w3-col coluna-imagem">
+                        <img className="img-edit" src={require("../img/edit.png")} onClick={this.handleImgEditClick}></img>                    
+                    </div>                  
                 </div> 
             </li>              
     }

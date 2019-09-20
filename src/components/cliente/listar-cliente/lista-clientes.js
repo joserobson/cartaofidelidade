@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ItemCliente from "./item-cliente";
+import ItemCliente from "../item-cliente/item-cliente";
 import './lista-cliente.css';
 
 class ListaDeClientes extends Component {
@@ -51,6 +51,7 @@ class ListaDeClientes extends Component {
             key={cliente.Id}
             setCliente={this.props.setCliente}
             desmarcarClientes={this.desmarcarClientes}
+            editarCliente={this.props.editarCliente}
           />
         ))}
       </ul>

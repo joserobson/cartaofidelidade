@@ -1,8 +1,8 @@
 
 import React, {Component} from "react";
-import { ClienteModel } from "../../models/cliente-model";
-import { ClienteService } from "../../services/cliente-service";
-import Loading from "../loading/loading"; 
+import { ClienteModel } from "../../../models/cliente-model";
+import { ClienteService } from "../../../services/cliente-service";
+import Loading from "../../loading/loading"; 
 import MaskedInput from "react-maskedinput";
 import {NotificationManager} from 'react-notifications';
 
@@ -12,6 +12,7 @@ class CadastrarCliente extends Component{
         super(props);
 
         this.state = {
+            id: null,
             telefone: '',
             nome: '',
             email:'',
@@ -31,7 +32,8 @@ class CadastrarCliente extends Component{
                 {Id:12,Mes:'Dezembro'}
             ],
             diaSelecionado: 0,
-            mesSelecionado: 0            
+            mesSelecionado: 0,
+            modoEdicao: false            
         }
         
         this.handleTelefoneChange = this.handleTelefoneChange.bind(this);
@@ -46,6 +48,19 @@ class CadastrarCliente extends Component{
             dias.push(index);  
         } 
         this.state.dias = dias;
+        
+        if (props.clienteParaEdicao){ 
+            
+            console.log("Editar cliente=>", props.clienteParaEdicao);
+            
+            this.state.telefone = props.clienteParaEdicao.Telefone;
+            this.state.email = props.clienteParaEdicao.Email;
+            this.state.nome = props.clienteParaEdicao.Nome;
+            this.state.diaSelecionado = props.clienteParaEdicao.DiaAniversario;
+            this.state.mesSelecionado = props.clienteParaEdicao.MesAniversario;        
+            this.state.modoEdicao = true;
+            this.state.id = props.clienteParaEdicao.Id;    
+        }
     }  
 
 
@@ -60,7 +75,8 @@ class CadastrarCliente extends Component{
                                     this.state.email,
                                     this.state.nome,
                                     this.state.diaSelecionado,
-                                    this.state.mesSelecionado
+                                    this.state.mesSelecionado,
+                                    this.state.id
                                 );
 
         let retornoCadastrarCliente = await ClienteService.CadastrarCliente(cliente);
@@ -69,8 +85,12 @@ class CadastrarCliente extends Component{
 
         if (retornoCadastrarCliente.ok){
             
-            NotificationManager.success('Cliente Cadastrado Com Sucesso','',3000);            
-            this.props.history.push("/marcarCartao/"+this.state.telefone);
+            if (this.state.modoEdicao){
+                NotificationManager.success('Cliente Atualizado Com Sucesso','',3000);                
+            }else{
+                NotificationManager.success('Cliente Cadastrado Com Sucesso','',3000);            
+                this.props.history.push("/marcarCartao/"+this.state.telefone);
+            }
 
         }else{
             const erro = await retornoCadastrarCliente.json();
@@ -110,7 +130,9 @@ class CadastrarCliente extends Component{
                     <form onSubmit={this.handleSubmit}>
                         <div className="w3-section">
                             <label>Telefone</label>
-                            <MaskedInput mask="(11) 1 1111-1111" className="w3-input w3-border" type="text" name="Telefone" required value={this.state.telefone} onChange={this.handleTelefoneChange} />
+                            <MaskedInput mask="(11) 1 1111-1111" className="w3-input w3-border" 
+                                type="text" name="Telefone" required value={this.state.telefone} 
+                                onChange={this.handleTelefoneChange} disabled={this.state.modoEdicao}/>
                         </div>
                         <div className="w3-section">
                             <label>Nome</label>
@@ -126,7 +148,7 @@ class CadastrarCliente extends Component{
                                 <label>Dia Aniversário</label>
                                 <select className="w3-input w3-border" value={this.state.diaSelecionado} onChange={this.handleChangeDia}>
                                     {this.state.dias.map(dia =>(   
-                                        <option value={dia}>{dia}</option>    
+                                        <option key={dia} value={dia}>{dia}</option>    
                                     ))}
                                 </select>
                             </div>
@@ -134,7 +156,7 @@ class CadastrarCliente extends Component{
                                 <label>Mês Aniversário</label>
                                 <select className="w3-input w3-border" value={this.state.mesSelecionado} onChange={this.handleChangeMes}>
                                     {this.state.meses.map(mes =>(   
-                                        <option value={mes.Id}>{mes.Mes}</option>    
+                                        <option key={mes.Id} value={mes.Id}>{mes.Mes}</option>    
                                     ))}
                                 </select>       
                             </div>
@@ -146,7 +168,7 @@ class CadastrarCliente extends Component{
     }
 
     componentDidMount(){
-                
+                    
     }
 }
 

@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import { Switch, Route, Redirect } from 'react-router-dom';
-import CadastrarCliente from './components/cliente/cadastrar-cliente';
+import CadastrarCliente from './components/cliente/cadastrar-cliente/cadastrar-cliente';
 import MarcarCartao from './components/marcar-cartao/marcar-cartao';
 import Login from "./components/login/login";
 import TabMarcarCartao from "./components/marcar-cartao/tab-marcar-cartao/tab-marcar-cartao";

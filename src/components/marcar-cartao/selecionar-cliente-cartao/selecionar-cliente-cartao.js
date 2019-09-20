@@ -15,7 +15,7 @@ class SelecionarClienteCartao extends Component{
 
         this.handleChangeValorParaPesquisa = this.handleChangeValorParaPesquisa.bind(this);
 
-        this.setarClienteSelecionado = this.setarClienteSelecionado.bind(this);
+        this.setarClienteSelecionado = this.setarClienteSelecionado.bind(this);        
         
     }
 
@@ -38,8 +38,7 @@ class SelecionarClienteCartao extends Component{
 
             this.props.history.push("/marcarCartao/"+ this.state.clienteSelecionado.Telefone);
         })
-    }
-
+    }    
 
     render(){
         return <div className="" id="marcarCartao" style={{marginTop:'15px'}}>
@@ -47,7 +46,8 @@ class SelecionarClienteCartao extends Component{
             <BuscarCliente 
                 setCliente={this.setarClienteSelecionado} 
                 handleModal={this.props.handleModal}
-                handleValorDaPesquisa={this.handleChangeValorParaPesquisa}>
+                handleValorDaPesquisa={this.handleChangeValorParaPesquisa}
+                editarCliente={this.props.editarCliente}>
             </BuscarCliente>           
                                
         </div>

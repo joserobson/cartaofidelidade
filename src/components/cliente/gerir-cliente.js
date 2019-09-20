@@ -19,9 +19,7 @@ class GerirCliente extends Component{
         console.info("ummont gerir cliente");
     }
 
-    setarClienteSelecionado(clienteModel){
-        
-        //alert(clienteModel.Telefone);
+    setarClienteSelecionado(clienteModel){                
 
         this.setState({
             clienteSelecionado: clienteModel
@@ -32,7 +30,10 @@ class GerirCliente extends Component{
 
         return <div className="w3-container" id="gerirCliente" style={{marginTop:'75px'}}>                
                    
-                    <BuscarCliente setCliente={this.setarClienteSelecionado} handleModal={this.props.handleModal}></BuscarCliente>                 
+                    <BuscarCliente 
+                        setCliente={this.setarClienteSelecionado} 
+                        handleModal={this.props.handleModal}>
+                    </BuscarCliente>                 
                     
                     <div style={{paddingTop: '10px'}}>                        
                         <Link className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom" to="cadastrarCliente">Adicionar</Link>

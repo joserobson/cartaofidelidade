@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 
 import {ClienteService} from '../../services/cliente-service';
-import ListaDeClientes from './lista-clientes';
+import ListaDeClientes from './listar-cliente/lista-clientes';
 import Loading from '../loading/loading';
-import TipoAlerta from "../modal/tipo-alerta";
 import { UsuarioService } from '../../services/usuario-service';
 import { NotificationHelper } from '../../helpers/notificacao-helper';
 
@@ -83,7 +82,11 @@ class BuscarCliente extends Component
                             ? <div className="w3-border w3-center">
                                 <h6 className="w3-opacity">Lista de Clientes Vazia</h6>
                               </div>
-                            : <ListaDeClientes setCliente={this.props.setCliente} clientes={this.state.clientes}></ListaDeClientes>
+                            : <ListaDeClientes 
+                                setCliente={this.props.setCliente} 
+                                clientes={this.state.clientes} 
+                                editarCliente={this.props.editarCliente}>                                    
+                              </ListaDeClientes>
                         }                        
                         
                      </div>                 
