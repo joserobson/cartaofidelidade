@@ -4,6 +4,7 @@ import CadastrarCliente from './components/cliente/cadastrar-cliente/cadastrar-c
 import MarcarCartao from './components/marcar-cartao/marcar-cartao';
 import Login from "./components/login/login";
 import TabMarcarCartao from "./components/marcar-cartao/tab-marcar-cartao/tab-marcar-cartao";
+import { UsuarioService } from "./services/usuario-service";
 
 class Main extends Component{
 
@@ -14,8 +15,7 @@ constructor(props){
 }
 
 PossuiUsuarioLogado(){
-
-    return localStorage.getItem('user');
+    return UsuarioService.ObterUsuarioLogado();    
 }
 
 render(){
@@ -26,8 +26,7 @@ render(){
                     path='/'
                     render={(props) => 
                                 (                                                    
-                                    this.PossuiUsuarioLogado()
-                                    //? <SelecionarClienteCartao{...props} handleModal={this.props.handleModal}/> 
+                                    this.PossuiUsuarioLogado()                                    
                                     ? <TabMarcarCartao{...props} handleModal={this.props.handleModal}/> 
                                     : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
                                 )

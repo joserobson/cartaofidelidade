@@ -1,11 +1,12 @@
+import { TokenRepositorio } from "../repositorios/token-repositorio";
 
 class TokenService{
 
     static URL_API_TOKEN = "http://192.168.1.4/MaisFidelidade.Api/token";
 
-    static async  ObterToken(userName, password){
+    static async ObterToken(userName, password){
 
-          //pegar o token no servidor e testar as credencias
+          //pegar o token no servidor e testa as credencias
         return await fetch(this.URL_API_TOKEN,{
             method:'POST',
             body:`userName=${userName}&password=${password}&grant_type=password`,
@@ -16,11 +17,13 @@ class TokenService{
     }
 
     static ObterTokenLocal(){
-        return localStorage.getItem("acess_token");
+
+        const token = TokenRepositorio.ObterToken();                
+        return token.Id;
     }
 
     static SetTokenLocal(token){
-        localStorage.setItem("acess_token",token);
+        TokenRepositorio.SalvarToken(token);
     }
 }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { NavLink } from 'react-router-dom'
+import { UsuarioService } from '../../services/usuario-service';
 
 
 
@@ -24,18 +25,12 @@ class Header extends Component{
         document.getElementById("myOverlay").style.display = "none";
     }
 
-    handleClickLimparCache(){
-
-        localStorage.clear();
-        
-        alert('cache limpo');
+    handleClickLimparCache(){        
     
     }
 
-    logout(){
-        
-        localStorage.removeItem("user");        
-        localStorage.removeItem("acess_token"); 
+    logout(){        
+        UsuarioService.Logout();
     }
 
     render(){

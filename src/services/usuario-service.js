@@ -1,6 +1,8 @@
 
 import { TokenService } from "./token-service";
 import { ConfiguracaoHelper } from "../helpers/configuracao-helper";
+import { UsuarioRepositorio } from "../repositorios/usuario-repositorio";
+import { TokenRepositorio } from "../repositorios/token-repositorio";
 
 
 class UsuarioService{
@@ -35,14 +37,16 @@ class UsuarioService{
 
     static ObterUsuarioLogado(){
 
-        const jsonUsuario = localStorage.getItem("user");
-        const usuario = JSON.parse(jsonUsuario);
-        return usuario;
+        return UsuarioRepositorio.ObterUsuario();
     }
 
     static RemoverUsuarioLogado(){
+        UsuarioRepositorio.RemoverUsuario();    
+    }
 
-        const jsonUsuario = localStorage.removeItem("user");        
+    static Logout(){
+        UsuarioRepositorio.RemoverUsuario();
+        TokenRepositorio.RemoverToken();
     }
     
 

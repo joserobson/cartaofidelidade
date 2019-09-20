@@ -4,6 +4,8 @@ import { ConfiguracaoHelper } from '../../helpers/configuracao-helper';
 import Loading from '../loading/loading';
 import TipoDeAlerta from "../modal/tipo-alerta";
 import { TokenService } from '../../services/token-service';
+import { UsuarioRepositorio } from '../../repositorios/usuario-repositorio';
+import { Token } from '../../models/token-model';
 class Login extends Component
 {
 
@@ -29,11 +31,11 @@ class Login extends Component
 
             const usuario = await respostaObterDados.json();
             usuario.Login = this.state.userName;
-            usuario.Senha = this.state.password;
+            //usuario.Senha = this.state.password;
 
-            console.log("Usuario Logado:", usuario);      
-            
-            localStorage.setItem("user",JSON.stringify(usuario));                     
+            console.log("Usuario Logado:", usuario);                      
+            UsuarioRepositorio.SalvarUsuario(usuario);
+
             this.props.history.push("/");
         }else{
 
@@ -46,8 +48,9 @@ class Login extends Component
 
             if (respostaObterDados.status === 401 )
             {
-                localStorage.removeItem("user");        
-                localStorage.removeItem("acess_token"); 
+                
+                UsuarioService.Logout();
+
                 this.props.history.push("/");
 
                 mensagemModal.texto = "Problema ao autenticar os dados, faça o Login Novamente.";
@@ -68,8 +71,13 @@ class Login extends Component
 
         if (respostaLogar.ok){
 
-            const dataToken = await respostaLogar.json();
-            TokenService.SetTokenLocal(dataToken.access_token);  
+            const respostaToken = await respostaLogar.json();
+
+            let dataExpiracao = new Date();
+            dataExpiracao.setSeconds(dataExpiracao.getSeconds() + respostaToken.expires_in);
+            
+            let token = new Token(respostaToken.access_token, dataExpiracao);
+            TokenService.SetTokenLocal(token);  
 
             this.ObterDadosDoUsuario();
         }else{

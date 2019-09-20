@@ -5,6 +5,7 @@ import ListaDeClientes from './listar-cliente/lista-clientes';
 import Loading from '../loading/loading';
 import { UsuarioService } from '../../services/usuario-service';
 import { NotificationHelper } from '../../helpers/notificacao-helper';
+import { FiltroTelefoneRepositorio } from '../../repositorios/filtro-telefone-repositorio';
 
 class BuscarCliente extends Component
 {
@@ -95,7 +96,9 @@ class BuscarCliente extends Component
 
     async componentDidMount(){        
 
-        let telefonePesquisado = localStorage.getItem('telefoneParaPesquisa');
+        console.log('did mount buscar-cliente');
+
+        let telefonePesquisado = FiltroTelefoneRepositorio.ObterFiltroTelefone();
         if (telefonePesquisado){
             
             console.log('Telefone Pesquisado:', telefonePesquisado);
@@ -106,7 +109,7 @@ class BuscarCliente extends Component
                 this.buscarClientes();
             });
                     
-            localStorage.removeItem('telefoneParaPesquisa');
+            FiltroTelefoneRepositorio.RemoverFiltroTelefone();
         }else{    
 
             Loading.show();

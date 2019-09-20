@@ -4,6 +4,7 @@ import CadastrarCliente from './../../cliente/cadastrar-cliente/cadastrar-client
 import SelecionarClienteCartao from '../selecionar-cliente-cartao/selecionar-cliente-cartao';
 import '../tab-marcar-cartao/tab-marcar-cartao.css';
 import { ClienteModel } from '../../../models/cliente-model';
+import { FiltroTelefoneRepositorio } from '../../../repositorios/filtro-telefone-repositorio';
 
 class TabMarcarCartao extends Component{
 
@@ -37,6 +38,9 @@ class TabMarcarCartao extends Component{
     }
 
     selecionarAbaCliente(tabIndex){
+
+        let texto = FiltroTelefoneRepositorio.ObterFiltroTelefone();
+        console.log(texto);
 
         this.setState({
             tabIndex,
