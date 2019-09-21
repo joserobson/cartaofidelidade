@@ -6,6 +6,7 @@ import Loading from "../../loading/loading";
 import MaskedInput from "react-maskedinput";
 import {NotificationManager} from 'react-notifications';
 import { HttpServiceHelper } from "../../../helpers/http-service-helper";
+import { NotificationHelper } from "../../../helpers/notificacao-helper";
 
 class CadastrarCliente extends Component{    
 
@@ -88,9 +89,9 @@ class CadastrarCliente extends Component{
         if (retornoCadastrarCliente.ok){
             
             if (this.state.modoEdicao){
-                NotificationManager.success('Cliente Atualizado Com Sucesso','',3000);                
+                NotificationHelper.ExibirSucesso('Cliente Atualizado Com Sucesso');                
             }else{
-                NotificationManager.success('Cliente Cadastrado Com Sucesso','',3000);            
+                NotificationHelper.ExibirSucesso('Cliente Cadastrado Com Sucesso');            
                 this.props.history.push("/marcarCartao/"+this.state.telefone);
             }
          }       

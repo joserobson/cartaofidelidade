@@ -15,6 +15,7 @@ class MarcarCartao extends Component{
         this.handleClickSalvarCartao = this.handleClickSalvarCartao.bind(this);
         this.handleChangeCartao = this.handleChangeCartao.bind(this);
         this.handleClickFinalizarCartao = this.handleClickFinalizarCartao.bind(this);
+        this.handleClickVoltar = this.handleClickVoltar.bind(this);
     }   
 
     handleChangeCartao(diasMarcados, diasDesbloqueados){
@@ -26,6 +27,10 @@ class MarcarCartao extends Component{
             diasMarcados: diasMarcados,
             diasDesbloqueados: diasDesbloqueados
         });
+    }
+
+    handleClickVoltar(){
+        this.props.history.push("/");      
     }
 
     async handleClickFinalizarCartao(){
@@ -109,9 +114,14 @@ class MarcarCartao extends Component{
                                         onChange={this.handleChangeCartao}
                                         handleModal={this.props.handleModal}>
                                     </CartaoFidelidade>
-
-                                    <p></p>                                                                                            
-                                    <button type="button" className="w3-button w3-block w3-blue" onClick={this.handleClickSalvarCartao}>Salvar</button>                                                                                
+                                    
+                                    <div style={{paddingTop:'10px'}}>                                                                                            
+                                        <button type="button" className="w3-button w3-block w3-red" onClick={this.handleClickSalvarCartao}>Salvar</button>                                                                                
+                                        <div style={{paddingTop:'10px'}}>
+                                            <button type="button" className="w3-button w3-block w3-blue-gray" onClick={this.handleClickVoltar}>Voltar</button>                                                                                
+                                        </div>
+                                        
+                                    </div>
                                 </div>
                             }
                         

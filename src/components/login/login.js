@@ -6,6 +6,8 @@ import TipoDeAlerta from "../modal/tipo-alerta";
 import { TokenService } from '../../services/token-service';
 import { UsuarioRepositorio } from '../../repositorios/usuario-repositorio';
 import { Token } from '../../models/token-model';
+import { HttpServiceHelper } from '../../helpers/http-service-helper';
+import { NotificationHelper } from '../../helpers/notificacao-helper';
 class Login extends Component
 {
 
@@ -23,9 +25,15 @@ class Login extends Component
     }
 
     async ObterDadosDoUsuario(){
-        const respostaObterDados = await UsuarioService.ObterDadosDoUsuario(this.state.userName);
+       
+
+        const respostaObterDados = await HttpServiceHelper.InvocarServico(()=> {
+            return UsuarioService.ObterDadosDoUsuario(this.state.userName);
+        })
+
+        //const respostaObterDados = await UsuarioService.ObterDadosDoUsuario(this.state.userName);
                         
-        Loading.close();
+        //Loading.close();
 
         if (respostaObterDados.ok){
 
@@ -37,27 +45,8 @@ class Login extends Component
             UsuarioRepositorio.SalvarUsuario(usuario);
 
             this.props.history.push("/");
-        }else{
-
-            const erro = await respostaObterDados.json();                
-            
-            let mensagemModal = {
-                texto: erro.Message,
-                tipo: TipoDeAlerta.WARNING
-            }
-
-            if (respostaObterDados.status === 401 )
-            {
-                
-                UsuarioService.Logout();
-
-                this.props.history.push("/");
-
-                mensagemModal.texto = "Problema ao autenticar os dados, faça o Login Novamente.";
-            }    
-            
-            this.props.handleModal(mensagemModal)
-        }
+        }   
+        
     }
 
 
@@ -65,7 +54,7 @@ class Login extends Component
 
         event.preventDefault();
 
-        Loading.show();
+        //Loading.show();
 
         const respostaLogar = await UsuarioService.Logar(this.state.userName,this.state.password);
 
@@ -80,19 +69,11 @@ class Login extends Component
             TokenService.SetTokenLocal(token);  
 
             this.ObterDadosDoUsuario();
-        }else{
-
+        }
+        else{
             const error = await respostaLogar.json()
             console.error(error);
-            
-            Loading.close();
-            
-            let mensagemModal = {
-                texto: "Não foi Possível Logar no Aplicativo, entre em contato com o administrador do sistema.",
-                tipo: TipoDeAlerta.WARNING
-            }
-    
-            this.props.handleModal(mensagemModal);
+            NotificationHelper.ExibirErro(error.error_description);
         }
             
     }
