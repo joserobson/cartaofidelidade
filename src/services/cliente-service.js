@@ -1,7 +1,4 @@
 
-
-import {ClienteModel} from '../models/cliente-model'
-import { MockDadosHelper } from '../helpers/mock-dados-helper';
 import { UsuarioService } from './usuario-service';
 import { ConfiguracaoHelper } from '../helpers/configuracao-helper';
 import { TokenService } from "./token-service";

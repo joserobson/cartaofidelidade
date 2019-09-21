@@ -1,84 +1,10 @@
 
-import { CartaoFidelidadeModel } from '../models/cartao-fidelidade-model';
-import { MockDadosHelper } from '../helpers/mock-dados-helper';
 import { UsuarioService } from './usuario-service';
-import { StatusDoCartao } from '../enums/status-cartao';
 import { ConfiguracaoHelper } from '../helpers/configuracao-helper';
 import { TokenService } from './token-service';
 
 class  CartaoService{
-    
-
-    // static AtivarModeloCartao(modeloCartao){
-
-    //     let modelos = JSON.parse(localStorage.getItem("modelosDeCartao"));
-
-    //     modelos.forEach((item)=>{
-    //         item.Ativo = false;
-    //     }) 
-
-    //     let modeloEncontrado = modelos.find((item)=>{
-    //         return item.Id === modeloCartao.Id
-    //     })
-    //     modeloEncontrado.Ativo = true;
         
-    //     localStorage.setItem("modelosDeCartao",JSON.stringify(modelos));
-
-    // }
-
-    // static CadastrarModeloCartao(modeloCartao){
-
-    //     let cartaoStorage = localStorage.getItem("modelosDeCartao")
-    //     let cartoes = [];
-        
-    //     if (!cartaoStorage){            
-    //         cartoes.push(modeloCartao);            
-    //     }else{
-    //         cartoes = JSON.parse(localStorage.getItem("modelosDeCartao"));
-    //         cartoes.push(modeloCartao);        
-    //     }
-
-    //     localStorage.setItem("modelosDeCartao",JSON.stringify(cartoes));
-
-    //     return new Promise(resolve=>{
-    //             setTimeout(() => {
-    //             resolve(modeloCartao);
-    //         }, 2000);
-             
-    //      });
-         
-    // }       
-
-    // static ObterModeloDeCartoes(textoParaPesquisa){
-        
-    //     let cartoes = [];
-    //     let cartoesEncontrados = [];
-
-    //     let cartaoStorage = localStorage.getItem("modelosDeCartao");
-    //     if (cartaoStorage){
-    //         cartoes = JSON.parse(cartaoStorage);
-    //     }                    
-
-    //     if (cartoes.length > 0){                                     
-    //         cartoesEncontrados = cartoes.filter((cartao)=>{
-    //             return cartao.Nome.indexOf(textoParaPesquisa) !== -1;   
-    //         });
-    //     }        
-
-    //     return new Promise(resolve=>{
-    //        setTimeout(() => {            
-
-    //         if (textoParaPesquisa){
-    //             resolve(cartoesEncontrados);
-    //         }else{
-    //             resolve(cartoes)   
-    //         }
-            
-    //        }, 2000);
-            
-    //     });
-
-    // }
 
     static async obterCartaoDoCliente(telefone){
 
@@ -95,7 +21,7 @@ class  CartaoService{
             });           
     }
 
-    static async FecharCartao(idDoCartao){
+    static async fecharCartao(idDoCartao){
 
 
         const token = TokenService.ObterTokenLocal();

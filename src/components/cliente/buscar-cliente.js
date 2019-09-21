@@ -6,6 +6,7 @@ import Loading from '../loading/loading';
 import { UsuarioService } from '../../services/usuario-service';
 import { NotificationHelper } from '../../helpers/notificacao-helper';
 import { FiltroTelefoneRepositorio } from '../../repositorios/filtro-telefone-repositorio';
+import { HttpServiceHelper } from '../../helpers/http-service-helper';
 
 class BuscarCliente extends Component
 {
@@ -33,13 +34,11 @@ class BuscarCliente extends Component
         if (telefone.length < 4){
             NotificationHelper.ExibirAlerta('Forneça pelo menos 4 números para pesquisa');
             return;
-        }
+        }        
 
-        Loading.show();
-
-        const resposta = await ClienteService.ObterClientesPor(telefone);
-
-        Loading.close();
+        const resposta = await HttpServiceHelper.InvocarServico(()=>{
+            return ClienteService.ObterClientesPor(telefone);
+        })        
 
         if (resposta.ok){
 
@@ -56,11 +55,7 @@ class BuscarCliente extends Component
 
                 NotificationHelper.ExibirAlerta("Nenhum Telefone foi encontrado!!!");
             }
-        }else{
-
-            const erro = await resposta.json();            
-            NotificationHelper.ExibirErro(erro.Message);
-        }        
+        }            
     }
 
     render(){
@@ -112,32 +107,45 @@ class BuscarCliente extends Component
             FiltroTelefoneRepositorio.RemoverFiltroTelefone();
         }else{    
 
-            Loading.show();
+            Loading.show();            
 
-            let resposta = await ClienteService.obterTopClientes();
+            //let resposta = await ClienteService.obterTopClientes();
+            let resposta = await HttpServiceHelper.InvocarServico(()=>{
+                return ClienteService.obterTopClientes();
+            })
 
-            Loading.close();
-            
             if (resposta.ok){
                 const topClientes = await resposta.json();
-
                 if (topClientes.length > 0)
-                    {
-                        this.setState(state => ({                
-                            clientes: topClientes
-                        }))
-                    }
-            }else{
-
-                if (resposta.status === 401){     
-                    
-                    UsuarioService.RemoverUsuarioLogado();
-                    window.location.reload();
+                {
+                    this.setState(state => ({                
+                        clientes: topClientes
+                    }))
                 }
+            }
 
-                const erro = await resposta.json();
-                NotificationHelper.ExibirErro(erro.Message);
-            }     
+            //Loading.close();
+            
+            //if (resposta.ok){
+            //    const topClientes = await resposta.json();
+
+            //     if (topClientes.length > 0)
+            //         {
+            //             this.setState(state => ({                
+            //                 clientes: topClientes
+            //             }))
+            //         }
+            // }else{
+
+            //     if (resposta.status === 401){     
+                    
+            //         UsuarioService.RemoverUsuarioLogado();
+            //         window.location.reload();
+            //     }
+
+            //     const erro = await resposta.json();
+            //     NotificationHelper.ExibirErro(erro.Message);
+            // }     
         }  
     }
 

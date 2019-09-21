@@ -5,6 +5,7 @@ import { ClienteService } from "../../../services/cliente-service";
 import Loading from "../../loading/loading"; 
 import MaskedInput from "react-maskedinput";
 import {NotificationManager} from 'react-notifications';
+import { HttpServiceHelper } from "../../../helpers/http-service-helper";
 
 class CadastrarCliente extends Component{    
 
@@ -66,7 +67,7 @@ class CadastrarCliente extends Component{
 
      handleSubmit = async event =>{
         
-        Loading.show();
+        //Loading.show();
 
         event.preventDefault();
 
@@ -78,10 +79,11 @@ class CadastrarCliente extends Component{
                                     this.state.mesSelecionado,
                                     this.state.id
                                 );
+        
 
-        let retornoCadastrarCliente = await ClienteService.CadastrarCliente(cliente);
-
-        Loading.close();    
+        let retornoCadastrarCliente = await HttpServiceHelper.InvocarServico(()=>{
+            return ClienteService.CadastrarCliente(cliente);;
+        })        
 
         if (retornoCadastrarCliente.ok){
             
@@ -91,12 +93,7 @@ class CadastrarCliente extends Component{
                 NotificationManager.success('Cliente Cadastrado Com Sucesso','',3000);            
                 this.props.history.push("/marcarCartao/"+this.state.telefone);
             }
-
-        }else{
-            const erro = await retornoCadastrarCliente.json();
-            NotificationManager.warning(erro.Message,'',3000);
-        }  
-            
+         }       
     }
 
     handleTelefoneChange(event){

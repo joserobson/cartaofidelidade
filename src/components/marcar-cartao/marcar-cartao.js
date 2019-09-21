@@ -5,6 +5,7 @@ import { CartaoService } from '../../services/cartao-service';
 import { StatusDoCartao } from '../../enums/status-cartao';
 import { UsuarioService } from '../../services/usuario-service';
 import { NotificationHelper } from '../../helpers/notificacao-helper';
+import { HttpServiceHelper } from '../../helpers/http-service-helper';
 
 class MarcarCartao extends Component{
 
@@ -27,37 +28,22 @@ class MarcarCartao extends Component{
         });
     }
 
-    handleClickFinalizarCartao(){
+    async handleClickFinalizarCartao(){
+        
+        console.info(this.state.cartaoDoCliente.Id);        
 
-        Loading.show();
+        const respostaFecharCartao = await HttpServiceHelper.InvocarServico(()=>{
+            return CartaoService.fecharCartao(this.state.cartaoDoCliente.Id);
+        })
 
-        console.info(this.state.cartaoDoCliente.Id);
-        const respostaFecharCartao = CartaoService.FecharCartao(this.state.cartaoDoCliente.Id);
-
-        respostaFecharCartao.then((resp)=>{
-            
-            Loading.close();   
-
-            if (resp.ok)            
-            {                                
-                NotificationHelper.ExibirSucesso("Cartão Finalizado Com Sucesso.")
-                this.props.history.push("/");
-
-            }else{
-                
-                resp.json().then((erro)=>{                                                        
-                    NotificationHelper.ExibirErro(erro.Message);
-                });
-
-                
-            }
-        });
+        if (respostaFecharCartao.ok){
+            NotificationHelper.ExibirSucesso("Cartão Finalizado Com Sucesso.")
+            this.props.history.push("/");
+        }        
 
     }
 
-    async handleClickSalvarCartao(event){
-
-        Loading.show();
+    async handleClickSalvarCartao(event){        
 
         const usuarioLogado = UsuarioService.ObterUsuarioLogado();
 
@@ -67,13 +53,13 @@ class MarcarCartao extends Component{
             IdEmissor:  usuarioLogado.Id,
             NovosDiasMarcados: this.state.diasMarcados,
             DiasDesbloqueados: this.state.diasDesbloqueados
-        }
+        }        
 
-        const respostaSalvarCartao = await CartaoService.salvarCartaoFidelidade(dadosDoCartao);
+        const respostaSalvarCartao = await HttpServiceHelper.InvocarServico(()=> {
+            return CartaoService.salvarCartaoFidelidade(dadosDoCartao);
+        });
 
-        if (respostaSalvarCartao.ok){
-
-            Loading.close();             
+        if (respostaSalvarCartao.ok){                    
 
             NotificationHelper.ExibirSucesso('Cartão Atualizado Com Sucesso');
 
@@ -95,15 +81,7 @@ class MarcarCartao extends Component{
 
                 this.props.history.push("/");      
             }
-
-        }else{
-
-            Loading.close(); 
-            
-            const erro = respostaSalvarCartao.json();
-
-            NotificationHelper.ExibirAlerta(erro.Message);
-        }       
+        }      
     }    
 
 
@@ -157,12 +135,13 @@ class MarcarCartao extends Component{
 
     async componentDidMount(){                
            
-        Loading.show();
+        //Loading.show();
        
         let telefone = this.props.match.params.telefone;        
 
-
-        const respostaCartao = await CartaoService.obterCartaoDoCliente(telefone);
+        const respostaCartao = await HttpServiceHelper.InvocarServico(()=>{
+            return CartaoService.obterCartaoDoCliente(telefone);
+        });        
 
         if (respostaCartao.ok){
 
@@ -180,24 +159,10 @@ class MarcarCartao extends Component{
                 nomeCartao: usuarioLogado.ModeloCartaoFidelidade.Nome,
                 telefoneCliente: telefone,
                 qtdMarcacoes: usuarioLogado.ModeloCartaoFidelidade.QtdMarcacoes
-            },()=>{
-                Loading.close();
-
+            },()=>{                
                 console.log("State Mount",this.state);
             });
-        }else{
-
-            Loading.close();
-            
-            if (respostaCartao.status === 401){     
-                    
-                UsuarioService.RemoverUsuarioLogado();
-                window.location.reload();
-            }
-
-            const erro = respostaCartao.json();
-            NotificationHelper.ExibirAlerta(erro.Message);
-        }
+        }        
     }   
 }
 
