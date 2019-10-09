@@ -1,13 +1,12 @@
 import { TokenRepositorio } from "../repositorios/token-repositorio";
+import { ConfiguracaoHelper } from "../helpers/configuracao-helper";
 
-class TokenService{
-
-    static URL_API_TOKEN = "http://192.168.1.4/MaisFidelidade.Api/token";
+class TokenService{    
 
     static async ObterToken(userName, password){
 
           //pegar o token no servidor e testa as credencias
-        return await fetch(this.URL_API_TOKEN,{
+        return await fetch(ConfiguracaoHelper.URI_API_TOKEN_MAIS_FIDELIDADE,{
             method:'POST',
             body:`userName=${userName}&password=${password}&grant_type=password`,
             headers: new Headers({

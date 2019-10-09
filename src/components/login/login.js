@@ -54,7 +54,10 @@ class Login extends Component
 
         event.preventDefault();
 
-        //Loading.show();
+        if (!navigator.onLine){
+            NotificationHelper.ExibirAlerta("Você está sem internet, tente mais tarde!!");
+            return;
+        }
 
         const respostaLogar = await UsuarioService.Logar(this.state.userName,this.state.password);
 

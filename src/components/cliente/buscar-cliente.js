@@ -107,9 +107,6 @@ class BuscarCliente extends Component
             FiltroTelefoneRepositorio.RemoverFiltroTelefone();
         }else{    
 
-            Loading.show();            
-
-            //let resposta = await ClienteService.obterTopClientes();
             let resposta = await HttpServiceHelper.InvocarServico(()=>{
                 return ClienteService.obterTopClientes();
             })
@@ -122,30 +119,7 @@ class BuscarCliente extends Component
                         clientes: topClientes
                     }))
                 }
-            }
-
-            //Loading.close();
-            
-            //if (resposta.ok){
-            //    const topClientes = await resposta.json();
-
-            //     if (topClientes.length > 0)
-            //         {
-            //             this.setState(state => ({                
-            //                 clientes: topClientes
-            //             }))
-            //         }
-            // }else{
-
-            //     if (resposta.status === 401){     
-                    
-            //         UsuarioService.RemoverUsuarioLogado();
-            //         window.location.reload();
-            //     }
-
-            //     const erro = await resposta.json();
-            //     NotificationHelper.ExibirErro(erro.Message);
-            // }     
+            }     
         }  
     }
 

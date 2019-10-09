@@ -8,6 +8,14 @@ class HttpServiceHelper{
     
      static async InvocarServico(servico){                        
 
+        if (!navigator.onLine){
+
+            NotificationHelper.ExibirErro('Sem Conexão Com a Internet');
+            return {
+                ok: false
+            };
+        }
+
         Loading.show();   
         
         const resposta = await servico();
