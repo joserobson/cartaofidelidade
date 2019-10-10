@@ -1,10 +1,10 @@
 self.__precacheManifest = [
   {
-    "revision": "0b4ac1dc75df35e169b70d7719afe4cc",
-    "url": "/maisFidelidade/static/media/notification.0b4ac1dc.ttf"
+    "revision": "c0d3c94cd6112550c51d7d1ed13b9da1",
+    "url": "/maisFidelidade/static/media/notification.c0d3c94c.eot"
   },
   {
-    "revision": "d643d13bfec22410b566",
+    "revision": "704daa552db86ce0d613",
     "url": "/maisFidelidade/static/css/main.de0262cf.chunk.css"
   },
   {
@@ -20,20 +20,20 @@ self.__precacheManifest = [
     "url": "/maisFidelidade/static/js/2.fbf1f92c.chunk.js"
   },
   {
-    "revision": "c0d3c94cd6112550c51d7d1ed13b9da1",
-    "url": "/maisFidelidade/static/media/notification.c0d3c94c.eot"
+    "revision": "651771e1df95c807c99608188d0a4287",
+    "url": "/maisFidelidade/static/media/notification.651771e1.woff"
+  },
+  {
+    "revision": "0b4ac1dc75df35e169b70d7719afe4cc",
+    "url": "/maisFidelidade/static/media/notification.0b4ac1dc.ttf"
+  },
+  {
+    "revision": "704daa552db86ce0d613",
+    "url": "/maisFidelidade/static/js/main.703086a4.chunk.js"
   },
   {
     "revision": "5bee74caefdf9d0a834915f6c8eeb259",
     "url": "/maisFidelidade/static/media/notification.5bee74ca.svg"
-  },
-  {
-    "revision": "d643d13bfec22410b566",
-    "url": "/maisFidelidade/static/js/main.7da53a8b.chunk.js"
-  },
-  {
-    "revision": "651771e1df95c807c99608188d0a4287",
-    "url": "/maisFidelidade/static/media/notification.651771e1.woff"
   },
   {
     "revision": "af7ae505a9eed503f8b8e6982036873e",
@@ -44,19 +44,19 @@ self.__precacheManifest = [
     "url": "/maisFidelidade/static/media/fontawesome-webfont.fee66e71.woff"
   },
   {
-    "revision": "674f50d287a8c48dc19ba404d20fe713",
-    "url": "/maisFidelidade/static/media/fontawesome-webfont.674f50d2.eot"
-  },
-  {
     "revision": "b06871f281fee6b241d60582ae9369b9",
     "url": "/maisFidelidade/static/media/fontawesome-webfont.b06871f2.ttf"
+  },
+  {
+    "revision": "674f50d287a8c48dc19ba404d20fe713",
+    "url": "/maisFidelidade/static/media/fontawesome-webfont.674f50d2.eot"
   },
   {
     "revision": "1ea991839e8f2d7f40d3",
     "url": "/maisFidelidade/static/css/2.8d3947fb.chunk.css"
   },
   {
-    "revision": "5a97ab25bce534a126d9166292c4889e",
+    "revision": "bf4329054aa8b75dbbb207b13944d32b",
     "url": "/maisFidelidade/index.html"
   }
 ];
