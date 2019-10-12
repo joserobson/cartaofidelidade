@@ -7,6 +7,7 @@ import { UsuarioService } from '../../services/usuario-service';
 import { NotificationHelper } from '../../helpers/notificacao-helper';
 import { FiltroTelefoneRepositorio } from '../../repositorios/filtro-telefone-repositorio';
 import { HttpServiceHelper } from '../../helpers/http-service-helper';
+import { RepositorioFactory } from '../../util/repositorio-factory';
 
 class BuscarCliente extends Component
 {
@@ -35,6 +36,15 @@ class BuscarCliente extends Component
             NotificationHelper.ExibirAlerta('Forneça pelo menos 4 números para pesquisa');
             return;
         }        
+
+        //teste buscar cliente
+        RepositorioFactory
+            .getClienteRepositorio()
+            .then(repo=> repo.obterPorTelefone(telefone))
+            .then(clientes=> {
+                console.log('clientes encontrados busca por telefone',clientes);
+            });
+
 
         const resposta = await HttpServiceHelper.InvocarServico(()=>{
             return ClienteService.ObterClientesPor(telefone);
@@ -93,34 +103,81 @@ class BuscarCliente extends Component
 
         console.log('did mount buscar-cliente');
 
-        let telefonePesquisado = FiltroTelefoneRepositorio.ObterFiltroTelefone();
-        if (telefonePesquisado){
+        RepositorioFactory.getClienteRepositorio()
+        .then(repo=>repo.listaTodos())
+        .then(async clientes =>{
+            console.log('Clientes Em Base', clientes);
             
-            console.log('Telefone Pesquisado:', telefonePesquisado);
-            this.setState({
-                textoParaPesquisa: telefonePesquisado
-            },()=>{
-                this.props.handleValorDaPesquisa(telefonePesquisado);
-                this.buscarClientes();
-            });
-                    
-            FiltroTelefoneRepositorio.RemoverFiltroTelefone();
-        }else{    
+            if (clientes.length === 0)
+            {
+                let resposta = await HttpServiceHelper.InvocarServico(()=>{
+                    return ClienteService.obterTopClientes();
+                })
+    
+                if (resposta.ok){
+                    const topClientes = await resposta.json();
+                    if (topClientes.length > 0)
+                    {
+                        this.setState(state => ({                
+                            clientes: topClientes
+                        }));
+ 
+                         topClientes.forEach(element => {
+                        
+                                RepositorioFactory.getClienteRepositorio()
+                                .then(repo=> repo.adiciona(element))
+                                .then(()=>{
+                                    console.log('Cliente adicionado com sucesso', element);  
+                                });
 
-            let resposta = await HttpServiceHelper.InvocarServico(()=>{
-                return ClienteService.obterTopClientes();
-            })
-
-            if (resposta.ok){
-                const topClientes = await resposta.json();
-                if (topClientes.length > 0)
-                {
-                    this.setState(state => ({                
-                        clientes: topClientes
-                    }))
+                         });     
+    
+                    }
                 }
-            }     
-        }  
+            }else{
+                if (clientes.length > 0){
+                    this.setState(state => ({                
+                        clientes: clientes
+                    }))    
+                }
+            }
+       
+        });
+
+
+
+        // let telefonePesquisado = FiltroTelefoneRepositorio.ObterFiltroTelefone();
+        // if (telefonePesquisado){
+            
+        //     console.log('Telefone Pesquisado:', telefonePesquisado);
+        //     this.setState({
+        //         textoParaPesquisa: telefonePesquisado
+        //     },()=>{
+        //         this.props.handleValorDaPesquisa(telefonePesquisado);
+        //         this.buscarClientes();
+        //     });
+                    
+        //     FiltroTelefoneRepositorio.RemoverFiltroTelefone();
+        // }else{    
+
+        //     let resposta = await HttpServiceHelper.InvocarServico(()=>{
+        //         return ClienteService.obterTopClientes();
+        //     })
+
+        //     if (resposta.ok){
+        //         const topClientes = await resposta.json();
+        //         if (topClientes.length > 0)
+        //         {
+        //             this.setState(state => ({                
+        //                 clientes: topClientes
+        //             }))
+
+                       
+
+
+        //         }
+        //     }     
+        // }  
     }
 
 }

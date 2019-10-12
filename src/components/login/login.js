@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { UsuarioService } from '../../services/usuario-service';
-import { ConfiguracaoHelper } from '../../helpers/configuracao-helper';
-import Loading from '../loading/loading';
-import TipoDeAlerta from "../modal/tipo-alerta";
 import { TokenService } from '../../services/token-service';
 import { UsuarioRepositorio } from '../../repositorios/usuario-repositorio';
 import { Token } from '../../models/token-model';
 import { HttpServiceHelper } from '../../helpers/http-service-helper';
 import { NotificationHelper } from '../../helpers/notificacao-helper';
+import { ConnectionFactory } from '../../util/connection-factory';
+
 class Login extends Component
 {
 
@@ -21,7 +20,8 @@ class Login extends Component
         }
 
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);            
+        
     }
 
     async ObterDadosDoUsuario(){
