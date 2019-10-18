@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/maisFidelidade/precache-manifest.1c5784da95999e792c7279b3ee5db90e.js"
+  "/cartaoMaisClientes/precache-manifest.013e3e19994f66cc3b5c05c44fdd8974.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/maisFidelidade/index.html", {
+workbox.routing.registerNavigationRoute("/cartaoMaisClientes/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
