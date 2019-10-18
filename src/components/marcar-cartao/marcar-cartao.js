@@ -6,6 +6,8 @@ import { StatusDoCartao } from '../../enums/status-cartao';
 import { UsuarioService } from '../../services/usuario-service';
 import { NotificationHelper } from '../../helpers/notificacao-helper';
 import { HttpServiceHelper } from '../../helpers/http-service-helper';
+import { CartaoFidelidadeModel } from '../../models/cartao-fidelidade-model';
+import { UsuarioRepositorio } from '../../repositorios/usuario-repositorio';
 
 class MarcarCartao extends Component{
 
@@ -36,9 +38,10 @@ class MarcarCartao extends Component{
     async handleClickFinalizarCartao(){
         
         console.info(this.state.cartaoDoCliente.Id);        
+        const usuario = UsuarioRepositorio.ObterUsuario();
 
         const respostaFecharCartao = await HttpServiceHelper.InvocarServico(()=>{
-            return CartaoService.fecharCartao(this.state.cartaoDoCliente.Id);
+            return CartaoService.fecharCartao(this.state.telefoneCliente, usuario.Id);
         })
 
         if (respostaFecharCartao.ok){
@@ -119,8 +122,7 @@ class MarcarCartao extends Component{
                                         <button type="button" className="w3-button w3-block w3-red" onClick={this.handleClickSalvarCartao}>Salvar</button>                                                                                
                                         <div style={{paddingTop:'10px'}}>
                                             <button type="button" className="w3-button w3-block w3-blue-gray" onClick={this.handleClickVoltar}>Voltar</button>                                                                                
-                                        </div>
-                                        
+                                        </div>                                        
                                     </div>
                                 </div>
                             }
@@ -144,35 +146,44 @@ class MarcarCartao extends Component{
     }
 
     async componentDidMount(){                
-           
-        //Loading.show();
-       
+             
         let telefone = this.props.match.params.telefone;        
 
-        const respostaCartao = await HttpServiceHelper.InvocarServico(()=>{
-            return CartaoService.obterCartaoDoCliente(telefone);
-        });        
+        const respostaDiasMarcados = await HttpServiceHelper.InvocarServico(()=>{
+            return CartaoService.ObterDiasMarcados(telefone);
+        });
 
-        if (respostaCartao.ok){
+        if (respostaDiasMarcados.ok){
 
-            const cartaoCliente = await respostaCartao.json();
+            const diasMarcados = await respostaDiasMarcados.json();
             
-            console.log("Cartao do Cliente", cartaoCliente);
-
+            console.log('Dias Marcados', diasMarcados);
             const usuarioLogado = UsuarioService.ObterUsuarioLogado();
 
-            console.log("Usuario logado",usuarioLogado);
+            let status = StatusDoCartao.ABERTO 
+            if (diasMarcados.length === usuarioLogado.ModeloCartaoFidelidade.QtdMarcacoes)
+            {
+                status = StatusDoCartao.COMPLETO;
+            }
+            
+            let cartaoCliente = {
+                Status : status,
+                Id: '-1',
+                Numero: 1
+            };
 
             this.setState({                
                 cartaoDoCliente: cartaoCliente,
-                diasMarcados: cartaoCliente.DiasMarcados,
+                diasMarcados: diasMarcados,
                 nomeCartao: usuarioLogado.ModeloCartaoFidelidade.Nome,
                 telefoneCliente: telefone,
                 qtdMarcacoes: usuarioLogado.ModeloCartaoFidelidade.QtdMarcacoes
             },()=>{                
                 console.log("State Mount",this.state);
             });
-        }        
+        
+        }      
+        
     }   
 }
 

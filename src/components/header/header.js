@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { NavLink } from 'react-router-dom'
 import { UsuarioService } from '../../services/usuario-service';
+import { UsuarioRepositorio } from '../../repositorios/usuario-repositorio';
 
 
 
@@ -13,6 +14,10 @@ class Header extends Component{
         this.closeMenuClick = this.closeMenuClick.bind(this);        
         this.logout = this.logout.bind(this);
         this.handleClickLimparCache = this.handleClickLimparCache.bind(this);
+
+        this.state = {
+            nomeUsuario: ''
+        }
     }
 
     openMenuClick(){
@@ -48,19 +53,37 @@ class Header extends Component{
                            
                             <NavLink onClick={this.closeMenuClick} className="w3-bar-item w3-button w3-hover-white" to="/">Marcar Cartão</NavLink>                            
                             <NavLink onClick={this.logout} className="w3-bar-item w3-button w3-hover-white" to="/">Sair</NavLink>
-                            {/* <NavLink onClick={this.handleClickLimparCache} className="w3-bar-item w3-button w3-hover-white" to="/">Limpar Cache</NavLink> */}
-                            
                         </div>
                     </nav>     
                             
                     <header className="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
                         <a href="javascript:void(0)" className="w3-button w3-red w3-margin-right" onClick={this.openMenuClick}>☰</a>
-                        <span className="w3-opacity" id="tituloView"> Marcar Cartão</span>
+                        <span className="w3-opacity" id="tituloView">{this.state.nomeUsuario}</span>
                     </header>
 
                     <div className="w3-overlay w3-hide-large" onClick={this.closeMenuClick} style={{cursor:'pointer'}} title="close side menu" id="myOverlay"></div>
                 </div>
         );
+    }
+
+    componentDidUpdate(){
+
+        // const usuario = UsuarioService.ObterUsuarioLogado();
+        
+        // if (usuario && usuario.Nome){
+        //     this.setState({
+        //         nomeUsuario: usuario.Nome
+        //     })
+        // }else{
+        //     this.setState({
+        //         nomeUsuario:''
+        //     })
+        // }
+    }
+
+    componentDidMount(){
+        
+        
     }
 }
 

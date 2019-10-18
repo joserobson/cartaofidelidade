@@ -21,12 +21,14 @@ class  CartaoService{
             });           
     }
 
-    static async fecharCartao(idDoCartao){
-
+    static async fecharCartao(telefone, idUsuario){
 
         const token = TokenService.ObterTokenLocal();
         
-        let cartao = {IdDoCartao: idDoCartao};
+        let cartao = {
+            Telefone: telefone,
+            IdDoEmissor: idUsuario
+        };
 
         return await fetch(ConfiguracaoHelper.URI_API_MAIS_FIDELIDADE + "api/cartaofidelidade/FecharCartao/", {
             method: 'POST',
@@ -53,6 +55,21 @@ class  CartaoService{
                 'Authorization': 'bearer ' + token                
             })
         });       
+    }
+
+    static async ObterDiasMarcados(telefone){
+
+        const usuarioLogado = UsuarioService.ObterUsuarioLogado();
+
+        const token = TokenService.ObterTokenLocal();
+        
+        return await fetch(ConfiguracaoHelper.URI_API_MAIS_FIDELIDADE 
+            + "api/cartaofidelidade/ObterDiasMarcados?idEmissor=" + usuarioLogado.Id + "&telefone="+telefone, {
+                headers: new Headers({
+                    'Authorization': 'bearer ' + token,
+                    'Content-Type': 'application/json'
+                })
+            });           
     }
 
 }

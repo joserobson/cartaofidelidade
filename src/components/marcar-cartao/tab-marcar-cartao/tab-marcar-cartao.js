@@ -72,6 +72,7 @@ class TabMarcarCartao extends Component{
                                 handleModal={this.props.handleModal} 
                                 history={this.props.history}
                                 clienteParaEdicao={this.state.clienteParaEdicao}
+                                voltar={this.changeClick}
                                 />                             
                         </TabPanel>
                     </Tabs>

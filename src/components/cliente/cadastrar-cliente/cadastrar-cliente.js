@@ -7,6 +7,8 @@ import MaskedInput from "react-maskedinput";
 import {NotificationManager} from 'react-notifications';
 import { HttpServiceHelper } from "../../../helpers/http-service-helper";
 import { NotificationHelper } from "../../../helpers/notificacao-helper";
+import { RepositorioFactory } from "../../../util/repositorio-factory";
+import InputMask from 'react-input-mask';
 
 class CadastrarCliente extends Component{    
 
@@ -44,6 +46,7 @@ class CadastrarCliente extends Component{
         this.handleNomeChange = this.handleNomeChange.bind(this);
         this.handleChangeDia = this.handleChangeDia.bind(this);
         this.handleChangeMes = this.handleChangeMes.bind(this);
+        this.handleClickVoltar = this.handleClickVoltar.bind(this);
 
         let dias = [];
         for (let index = 1; index <= 31; index++) {
@@ -65,11 +68,12 @@ class CadastrarCliente extends Component{
         }
     }  
 
+    handleClickVoltar(){
+        this.props.voltar();    
+    }
 
      handleSubmit = async event =>{
         
-        //Loading.show();
-
         event.preventDefault();
 
         let cliente = new ClienteModel(
@@ -81,20 +85,35 @@ class CadastrarCliente extends Component{
                                     this.state.id
                                 );
         
+        try{
+           
+         if (cliente.isValid()) {
+           
+           const repo = await RepositorioFactory.getClienteRepositorio();
+           const clienteEmBase = await repo.obterPorTelefone(
+             cliente.TelefoneSemMascara()
+           );
 
-        let retornoCadastrarCliente = await HttpServiceHelper.InvocarServico(()=>{
-            return ClienteService.CadastrarCliente(cliente);;
-        })        
+           if (clienteEmBase && clienteEmBase.length === 1) {
+             repo.atualiza(cliente);
+             NotificationHelper.ExibirSucesso("Cliente Atualizado Com Sucesso");
+           } else {
+             repo.adiciona(cliente);
+             NotificationHelper.ExibirSucesso("Cliente Cadastrado Com Sucesso");
+             this.props.history.push("/marcarCartao/" + this.state.telefone);
+           }
 
-        if (retornoCadastrarCliente.ok){
-            
-            if (this.state.modoEdicao){
-                NotificationHelper.ExibirSucesso('Cliente Atualizado Com Sucesso');                
-            }else{
-                NotificationHelper.ExibirSucesso('Cliente Cadastrado Com Sucesso');            
-                this.props.history.push("/marcarCartao/"+this.state.telefone);
-            }
-         }       
+           try {
+             await ClienteService.CadastrarCliente(cliente);
+             console.log("sucesso ao enviar cliente para o servidor");
+           } catch (error) {
+             console.log("erro ao enviar cliente para o servidor");
+           }
+         }
+        }catch(error){
+            NotificationHelper.ExibirAlerta(error.message);
+        }
+               
     }
 
     handleTelefoneChange(event){
@@ -128,9 +147,10 @@ class CadastrarCliente extends Component{
                     <form onSubmit={this.handleSubmit}>
                         <div className="w3-section">
                             <label>Telefone</label>
-                            <MaskedInput mask="(11) 1 1111-1111" className="w3-input w3-border" 
-                                type="text" name="Telefone" required value={this.state.telefone} 
-                                onChange={this.handleTelefoneChange} disabled={this.state.modoEdicao}/>
+                           
+                            <InputMask mask="(99) 9 9999-9999" 
+                            className="w3-input w3-border" value={this.state.telefone}
+                            onChange={this.handleTelefoneChange} disabled={this.state.modoEdicao}/>
                         </div>
                         <div className="w3-section">
                             <label>Nome</label>
@@ -160,7 +180,16 @@ class CadastrarCliente extends Component{
                             </div>
                             
                         </div>
-                        <button type="submit" className="w3-button w3-block w3-padding-large w3-blue w3-margin-bottom">Salvar</button>                        
+
+                        {/* <div style={{paddingTop:'10px'}}>                                                                                            
+                                        <button type="button" className="w3-button w3-block w3-red" onClick={this.handleClickSalvarCartao}>Salvar</button>                                                                                
+                                        <div style={{paddingTop:'10px'}}>
+                                            <button type="button" className="w3-button w3-block w3-blue-gray" onClick={this.handleClickVoltar}>Voltar</button>                                                                                
+                                        </div>                                        
+                                    </div> */}
+
+                        <button type="submit" className="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Salvar</button>   
+                        <button type="button" className="w3-button w3-block w3-blue-gray" onClick={this.handleClickVoltar}>Voltar</button>                                                                                                     
                     </form>                    
                 </div>
     }

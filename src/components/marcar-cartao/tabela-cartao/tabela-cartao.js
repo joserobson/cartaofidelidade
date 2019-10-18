@@ -32,7 +32,7 @@ class TabelaCartao extends Component{
     }
 
     componentDidUpdate(){
-        //debugger;
+      
         //alert('update');
     }
 }

@@ -1,7 +1,8 @@
 const stores = [
   {
     nome: "clientes",
-    indices: ["Telefone"]
+    indices: [],
+    key:'TelefoneDesformatado'
   }
 ];
 let connection = null;
@@ -17,7 +18,7 @@ const ConnectionFactory = (() => {
       return new Promise((resolve, reject) => {
         if (connection) return resolve(connection);
 
-        const openRequest = indexedDB.open("indexMaisFidelidade", 3);
+        const openRequest = indexedDB.open("indexMaisFidelidade", 10);
 
         openRequest.onupgradeneeded = e => {
           ConnectionFactory._createStores(e.target.result);
@@ -47,12 +48,17 @@ const ConnectionFactory = (() => {
         if (connection.objectStoreNames.contains(store.nome))
           connection.deleteObjectStore(store.nome);
 
-        const objectStore = connection.createObjectStore(store.nome, {
-          autoIncrement: true
-        });
+        let objectStore;  
+        if (store.key){
+          objectStore = connection.createObjectStore(store.nome, {keyPath: store.key});
+        }else{
+           objectStore = connection.createObjectStore(store.nome, {
+            autoIncrement: true
+          });
+        }
 
         store.indices.forEach(indice => {
-          objectStore.createIndex("Telefone", "Telefone", { unique: false });
+          objectStore.createIndex("Telefone", "TelefoneDesformatado", { unique: false });
         });
       });
     }

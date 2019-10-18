@@ -3,6 +3,8 @@ import { TokenService } from "./token-service";
 import { ConfiguracaoHelper } from "../helpers/configuracao-helper";
 import { UsuarioRepositorio } from "../repositorios/usuario-repositorio";
 import { TokenRepositorio } from "../repositorios/token-repositorio";
+import { ClienteRepositorio } from "../repositorios/cliente-repositorio";
+import { RepositorioFactory } from "../util/repositorio-factory";
 
 
 class UsuarioService{
@@ -47,6 +49,12 @@ class UsuarioService{
     static Logout(){
         UsuarioRepositorio.RemoverUsuario();
         TokenRepositorio.RemoverToken();
+        
+        RepositorioFactory.getClienteRepositorio().
+        then(repo=> repo.apagaTodos()).
+        then(()=>{
+            console.log('clientes apagados');
+        })
     }
     
 

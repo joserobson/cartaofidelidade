@@ -8,6 +8,7 @@ import { NotificationHelper } from '../../helpers/notificacao-helper';
 import { FiltroTelefoneRepositorio } from '../../repositorios/filtro-telefone-repositorio';
 import { HttpServiceHelper } from '../../helpers/http-service-helper';
 import { RepositorioFactory } from '../../util/repositorio-factory';
+import { UsuarioRepositorio } from '../../repositorios/usuario-repositorio';
 
 class BuscarCliente extends Component
 {
@@ -18,7 +19,7 @@ class BuscarCliente extends Component
         this.state = {clientes: [], textoParaPesquisa: ''};               
         this.buscarClientes = this.buscarClientes.bind(this);
         this.handleChangePesquisa = this.handleChangePesquisa.bind(this);
-    
+        this.reiniciarBusca = this.reiniciarBusca.bind(this);
     }
 
     handleChangePesquisa(event){
@@ -28,8 +29,16 @@ class BuscarCliente extends Component
         this.props.handleValorDaPesquisa(event.target.value);
     }
 
+    async reiniciarBusca(){
+
+        this.setState({textoParaPesquisa: ''});
+
+        await this.obterTodosClientes();
+    }
+
     async buscarClientes(){        
              
+        
         const telefone = this.state.textoParaPesquisa;
 
         if (telefone.length < 4){
@@ -37,35 +46,47 @@ class BuscarCliente extends Component
             return;
         }        
 
+       
         //teste buscar cliente
-        RepositorioFactory
-            .getClienteRepositorio()
-            .then(repo=> repo.obterPorTelefone(telefone))
-            .then(clientes=> {
-                console.log('clientes encontrados busca por telefone',clientes);
-            });
+        const repo = await RepositorioFactory.getClienteRepositorio();
+        const clientesEncontrados = await repo.obterPorTelefone(telefone);
+
+        //console.log('clientes encontrados busca por telefone',clientesEncontrados);
+        
+        if (clientesEncontrados && clientesEncontrados.length > 0){
+            this.setState(state => ({                
+                clientes: clientesEncontrados
+            })); 
+        }else{
+            this.setState(state => ({                
+                clientes: []
+            })); 
+
+            NotificationHelper.ExibirAlerta("Nenhum Telefone foi encontrado!!!");
+        }
+            
 
 
-        const resposta = await HttpServiceHelper.InvocarServico(()=>{
-            return ClienteService.ObterClientesPor(telefone);
-        })        
+        // const resposta = await HttpServiceHelper.InvocarServico(()=>{
+        //     return ClienteService.ObterClientesPor(telefone);
+        // })        
 
-        if (resposta.ok){
+        // if (resposta.ok){
 
-            const clientesEncontrados = await resposta.json();
+        //     const clientesEncontrados = await resposta.json();
 
-            if (clientesEncontrados && clientesEncontrados.length > 0){
-                this.setState(state => ({                
-                    clientes: clientesEncontrados
-                })); 
-            }else{
-                this.setState(state => ({                
-                    clientes: []
-                })); 
+        //     if (clientesEncontrados && clientesEncontrados.length > 0){
+        //         this.setState(state => ({                
+        //             clientes: clientesEncontrados
+        //         })); 
+        //     }else{
+        //         this.setState(state => ({                
+        //             clientes: []
+        //         })); 
 
-                NotificationHelper.ExibirAlerta("Nenhum Telefone foi encontrado!!!");
-            }
-        }            
+        //         NotificationHelper.ExibirAlerta("Nenhum Telefone foi encontrado!!!");
+        //     }
+        // }            
     }
 
     render(){
@@ -73,12 +94,19 @@ class BuscarCliente extends Component
                     <div className="">
                         <form className="">    
                             <div className="w3-row w3-section">
-                                <div className="w3-col s11">                                    
+                                <div className="w3-col s10">                                    
                                     <input className="w3-input w3-border" name="first" type="text" placeholder="Telefone" value={this.state.textoParaPesquisa} onChange={this.handleChangePesquisa}/>
                                 </div>
-                                <div className="w3-col s1 w3-center" style={{paddingLef: '2px'}}>
-                                    <i className="w3-xxlarge fa fa-search pointer" style={{cursor: 'pointer'}} onClick={this.buscarClientes}></i>
-                                </div>
+                                <div className="w3-col s2 w3-center" style={{paddingLeft: '2px'}}>
+                                    <div className="w3-row">
+                                         <div className="w3-col s12">
+                                            <i className="w3-xxlarge fa fa-search pointer" style={{cursor: 'pointer'}} onClick={this.buscarClientes}></i>                                            
+                                        </div>        
+                                        {/* <div className="w3-col s6">
+                                            <i className="w3-xxlarge fa fa-refresh pointer" style={{cursor: 'pointer'}} onClick={this.reiniciarBusca}></i>                                    
+                                        </div> */}
+                                    </div>     
+                                </div>                            
                             </div>    
                         </form>
                     </div>
@@ -99,85 +127,80 @@ class BuscarCliente extends Component
                 </div>
     }
 
+    async obterTodosClientes(){
+
+      Loading.show();
+
+        const repo = await RepositorioFactory.getClienteRepositorio();
+          let clientes = await repo.listaTodos();
+
+          if (clientes.length === 0) {
+            
+            let resposta = await HttpServiceHelper.InvocarServico(() => {
+              return ClienteService.ObterClientesDoUsuarioLogado();
+            });
+
+            if (resposta.ok) {
+
+              await this.obterMaiorDataDeCadastro();
+
+              const topClientes = await resposta.json();
+              if (topClientes.length > 0) {
+                this.setState(state => ({
+                  clientes: topClientes
+                }));
+
+                topClientes.forEach(async itemCliente => {
+                  const repo = await RepositorioFactory.getClienteRepositorio();
+                  await repo.adiciona(itemCliente);
+                });
+              }
+            }
+          } else {
+            if (clientes.length > 0) {        
+
+              this.setState(state => ({
+                clientes: clientes
+              }),()=> Loading.close());
+            }
+        }
+    }
+
     async componentDidMount(){        
 
-        console.log('did mount buscar-cliente');
+        console.log("did mount buscar-cliente");
 
-        RepositorioFactory.getClienteRepositorio()
-        .then(repo=>repo.listaTodos())
-        .then(async clientes =>{
-            console.log('Clientes Em Base', clientes);
-            
-            if (clientes.length === 0)
+        let telefonePesquisado = FiltroTelefoneRepositorio.ObterFiltroTelefone();
+        if (telefonePesquisado) {
+          console.log("Telefone Pesquisado:", telefonePesquisado);
+          this.setState(
             {
-                let resposta = await HttpServiceHelper.InvocarServico(()=>{
-                    return ClienteService.obterTopClientes();
-                })
-    
-                if (resposta.ok){
-                    const topClientes = await resposta.json();
-                    if (topClientes.length > 0)
-                    {
-                        this.setState(state => ({                
-                            clientes: topClientes
-                        }));
- 
-                         topClientes.forEach(element => {
-                        
-                                RepositorioFactory.getClienteRepositorio()
-                                .then(repo=> repo.adiciona(element))
-                                .then(()=>{
-                                    console.log('Cliente adicionado com sucesso', element);  
-                                });
-
-                         });     
-    
-                    }
-                }
-            }else{
-                if (clientes.length > 0){
-                    this.setState(state => ({                
-                        clientes: clientes
-                    }))    
-                }
+              textoParaPesquisa: telefonePesquisado
+            },
+            () => {
+              this.props.handleValorDaPesquisa(telefonePesquisado);
+              this.buscarClientes();
             }
-       
-        });
+          );
 
+          FiltroTelefoneRepositorio.RemoverFiltroTelefone();
+        } else {
+            await this.obterTodosClientes();
+          }
+    }    
+    
+    async obterMaiorDataDeCadastro(){
 
+      let resposta = await HttpServiceHelper.InvocarServico(() => {
+        return ClienteService.ObterMaiorDataDeCadastro();
+      });
 
-        // let telefonePesquisado = FiltroTelefoneRepositorio.ObterFiltroTelefone();
-        // if (telefonePesquisado){
-            
-        //     console.log('Telefone Pesquisado:', telefonePesquisado);
-        //     this.setState({
-        //         textoParaPesquisa: telefonePesquisado
-        //     },()=>{
-        //         this.props.handleValorDaPesquisa(telefonePesquisado);
-        //         this.buscarClientes();
-        //     });
-                    
-        //     FiltroTelefoneRepositorio.RemoverFiltroTelefone();
-        // }else{    
-
-        //     let resposta = await HttpServiceHelper.InvocarServico(()=>{
-        //         return ClienteService.obterTopClientes();
-        //     })
-
-        //     if (resposta.ok){
-        //         const topClientes = await resposta.json();
-        //         if (topClientes.length > 0)
-        //         {
-        //             this.setState(state => ({                
-        //                 clientes: topClientes
-        //             }))
-
-                       
-
-
-        //         }
-        //     }     
-        // }  
+      if (resposta.ok) {
+        const maiorData = await resposta.json();
+        console.log("Maior Data de Cadastro", maiorData);
+        
+        UsuarioRepositorio.SalvarMaiorDataCadastroCliente(maiorData);
+      }
     }
 
 }

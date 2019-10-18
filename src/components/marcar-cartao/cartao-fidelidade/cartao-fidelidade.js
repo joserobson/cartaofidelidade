@@ -66,7 +66,7 @@ class CartaoFidelidade extends Component{
 
     onClickCartao(event){
 
-        //debugger;
+       
         console.info(event);
     
         let dia = event.diaDaMarcacao;

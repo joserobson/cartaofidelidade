@@ -20,7 +20,7 @@ class Modal extends Component{
 
     handleClose(event){
         
-        debugger;        
+            
         document.getElementById("modalId").style.display = 'none';  
         
         event();

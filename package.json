@@ -6,6 +6,7 @@
     "font-awesome": "^4.7.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-input-mask": "^3.0.0-alpha.0",
     "react-maskedinput": "^4.0.1",
     "react-notifications": "^1.4.3",
     "react-router-dom": "^4.4.0",

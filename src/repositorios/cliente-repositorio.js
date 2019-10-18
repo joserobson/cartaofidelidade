@@ -8,10 +8,35 @@ class ClienteRepositorio {
         this._store = 'clientes';
     }
 
+     salvar(cliente){
+
+        const index = this._connection
+        .transaction([this._store], 'readwrite')
+        .objectStore(this._store)
+        .index('Telefone');
+
+        var request = index.get(cliente.TelefoneSemMascara());
+
+        request.onsuccess = e => {
+            
+            console.log('sucesso:', e.target.result);
+            let result = e.target.result;
+            result.Nome = cliente.Nome;
+            this.atualiza(result);
+        };
+
+        request.onerror = e => {
+            console.log('Erro ao salvar:', e.target.error);
+            //reject('Não foi possível salvar o cliente');
+        }
+        
+    }
 
     adiciona(cliente) {
 
         return new Promise((resolve, reject) => {
+
+            cliente.TelefoneDesformatado = cliente.TelefoneSemMascara();
 
             const request = this._connection
                 .transaction([this._store], 'readwrite')
@@ -31,6 +56,8 @@ class ClienteRepositorio {
 
         return new Promise((resolve, reject) => {
 
+            cliente.TelefoneDesformatado = cliente.TelefoneSemMascara();
+            
             const request = this._connection
                 .transaction([this._store], 'readwrite')
                 .objectStore(this._store)
@@ -110,35 +137,35 @@ class ClienteRepositorio {
 
             const clientes = [];
 
-            const indexTelefone = this._connection
+            const cursor = this._connection
                 .transaction([this._store], 'readwrite')
                 .objectStore(this._store)
-                .index("Telefone");
-
-
-            var telefoneBoundKeyRange = IDBKeyRange.only(telefone);
-
-            const cursor = indexTelefone
-                .openCursor(telefoneBoundKeyRange);
+                .openCursor();
 
             cursor.onsuccess = e => {
 
+                
                 const atual = e.target.result;
 
                 if (atual) {
 
-                    const cliente = new ClienteModel(
-                        atual.value.Telefone,
-                        atual.value.Email,
-                        atual.value.Nome,
-                        atual.value.DiaAniversario,
-                        atual.value.MesAniversario,
-                        atual.value.Id);
+                    if (atual.value.TelefoneDesformatado.includes(telefone))
+                    {
+                        const cliente = new ClienteModel(
+                            atual.value.Telefone,
+                            atual.value.Email,
+                            atual.value.Nome,
+                            atual.value.DiaAniversario,
+                            atual.value.MesAniversario,
+                            atual.value.Id);
 
-                    clientes.push(cliente);
+                        clientes.push(cliente);                        
+                    }
+
                     atual.continue();
+                }
 
-                } else {
+                else {
 
                     resolve(clientes);
                 }
@@ -146,10 +173,22 @@ class ClienteRepositorio {
 
             cursor.onerror = e => {
                 console.log(e.target.error);
-                reject('Não foi possível buscar o client pelo telefone');
+                reject('Não foi possível listar os clientes');
             }
 
         });
+    }
+
+    async adicionaNovosClientes(clientes) {
+        
+        clientes.forEach(async cliente => {
+            
+            const telefone = ClienteModel.RemoverMascaraTelefone(cliente.Telefone);
+            var clientesEncontrados = await this.obterPorTelefone(telefone);
+            if (clientesEncontrados.length === 0){
+                await this.adiciona(cliente);
+            }        
+        });               
     }
 
 }
