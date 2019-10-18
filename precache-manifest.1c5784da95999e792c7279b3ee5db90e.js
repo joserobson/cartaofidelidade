@@ -1,10 +1,10 @@
 self.__precacheManifest = [
   {
-    "revision": "c0d3c94cd6112550c51d7d1ed13b9da1",
-    "url": "/maisFidelidade/static/media/notification.c0d3c94c.eot"
+    "revision": "651771e1df95c807c99608188d0a4287",
+    "url": "/maisFidelidade/static/media/notification.651771e1.woff"
   },
   {
-    "revision": "704daa552db86ce0d613",
+    "revision": "409dbe43fd6639ffdbc7",
     "url": "/maisFidelidade/static/css/main.de0262cf.chunk.css"
   },
   {
@@ -16,20 +16,20 @@ self.__precacheManifest = [
     "url": "/maisFidelidade/static/media/fontawesome-webfont.912ec66d.svg"
   },
   {
-    "revision": "1ea991839e8f2d7f40d3",
-    "url": "/maisFidelidade/static/js/2.fbf1f92c.chunk.js"
-  },
-  {
-    "revision": "651771e1df95c807c99608188d0a4287",
-    "url": "/maisFidelidade/static/media/notification.651771e1.woff"
+    "revision": "47da9211fff9d8b52e31",
+    "url": "/maisFidelidade/static/js/2.0b06fed4.chunk.js"
   },
   {
     "revision": "0b4ac1dc75df35e169b70d7719afe4cc",
     "url": "/maisFidelidade/static/media/notification.0b4ac1dc.ttf"
   },
   {
-    "revision": "704daa552db86ce0d613",
-    "url": "/maisFidelidade/static/js/main.703086a4.chunk.js"
+    "revision": "c0d3c94cd6112550c51d7d1ed13b9da1",
+    "url": "/maisFidelidade/static/media/notification.c0d3c94c.eot"
+  },
+  {
+    "revision": "409dbe43fd6639ffdbc7",
+    "url": "/maisFidelidade/static/js/main.73b0e5f8.chunk.js"
   },
   {
     "revision": "5bee74caefdf9d0a834915f6c8eeb259",
@@ -52,11 +52,11 @@ self.__precacheManifest = [
     "url": "/maisFidelidade/static/media/fontawesome-webfont.674f50d2.eot"
   },
   {
-    "revision": "1ea991839e8f2d7f40d3",
+    "revision": "47da9211fff9d8b52e31",
     "url": "/maisFidelidade/static/css/2.8d3947fb.chunk.css"
   },
   {
-    "revision": "bf4329054aa8b75dbbb207b13944d32b",
+    "revision": "67b726c38632382382f0be875b9cf033",
     "url": "/maisFidelidade/index.html"
   }
 ];
