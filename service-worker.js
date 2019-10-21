@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/cartaofidelidade/precache-manifest.13c9501c81482b2b172344bf486fc336.js"
+  "/maisFidelidade/precache-manifest.eb90b7018158737e968ebbaa5fd59774.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/cartaofidelidade/index.html", {
+workbox.routing.registerNavigationRoute("/maisFidelidade/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
