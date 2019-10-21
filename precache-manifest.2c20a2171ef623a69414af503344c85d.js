@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/cartaofidelidade/static/media/notification.0b4ac1dc.ttf"
   },
   {
-    "revision": "405a5c892934c1b2386d",
+    "revision": "f0ebb7de647c5fbc6f77",
     "url": "/cartaofidelidade/static/css/main.de0262cf.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = [
     "url": "/cartaofidelidade/static/media/fontawesome-webfont.912ec66d.svg"
   },
   {
-    "revision": "76c5b5a2ec80a1144286",
-    "url": "/cartaofidelidade/static/js/2.0b06fed4.chunk.js"
+    "revision": "127577314e7fb3ff518e",
+    "url": "/cartaofidelidade/static/js/2.1e6237b9.chunk.js"
   },
   {
     "revision": "c0d3c94cd6112550c51d7d1ed13b9da1",
@@ -28,8 +28,8 @@ self.__precacheManifest = [
     "url": "/cartaofidelidade/static/media/notification.651771e1.woff"
   },
   {
-    "revision": "405a5c892934c1b2386d",
-    "url": "/cartaofidelidade/static/js/main.95dbfa41.chunk.js"
+    "revision": "f0ebb7de647c5fbc6f77",
+    "url": "/cartaofidelidade/static/js/main.963e59c1.chunk.js"
   },
   {
     "revision": "5bee74caefdf9d0a834915f6c8eeb259",
@@ -52,11 +52,11 @@ self.__precacheManifest = [
     "url": "/cartaofidelidade/static/media/fontawesome-webfont.b06871f2.ttf"
   },
   {
-    "revision": "76c5b5a2ec80a1144286",
+    "revision": "127577314e7fb3ff518e",
     "url": "/cartaofidelidade/static/css/2.7411320b.chunk.css"
   },
   {
-    "revision": "325c4453aefb17bf8cdfc384a46c20a0",
+    "revision": "43bb93d58b411832d1b1b2a1eeba03b0",
     "url": "/cartaofidelidade/index.html"
   }
 ];
