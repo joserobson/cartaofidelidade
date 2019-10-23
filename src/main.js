@@ -65,7 +65,8 @@ render(){
                            }
                 />
 
-                <Route path='/login' exact={true} render={(props)=><Login{...props} handleModal={this.props.handleModal}/>} />            
+                <Route path='/login' exact={true} render={(props)=><Login{...props} handleModal={this.props.handleModal} 
+                        handleHeader={this.props.handleHeader}/>} />            
             </Switch>            
         </div> 
     }        

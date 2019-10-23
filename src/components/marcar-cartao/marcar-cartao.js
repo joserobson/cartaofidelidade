@@ -18,6 +18,10 @@ class MarcarCartao extends Component{
         this.handleChangeCartao = this.handleChangeCartao.bind(this);
         this.handleClickFinalizarCartao = this.handleClickFinalizarCartao.bind(this);
         this.handleClickVoltar = this.handleClickVoltar.bind(this);
+
+        this.state = {
+            desabilitarSalvar: true
+        };
     }   
 
     handleChangeCartao(diasMarcados, diasDesbloqueados){
@@ -25,9 +29,11 @@ class MarcarCartao extends Component{
         console.info("handle change cartao=> dias marcados",diasMarcados);
         console.info("handle change cartao=> dias desbloqueados",diasDesbloqueados);
         
+
         this.setState({
             diasMarcados: diasMarcados,
-            diasDesbloqueados: diasDesbloqueados
+            diasDesbloqueados: diasDesbloqueados,
+            desabilitarSalvar: (diasMarcados.length === 0 & diasDesbloqueados.length === 0) 
         });
     }
 
@@ -119,7 +125,7 @@ class MarcarCartao extends Component{
                                     </CartaoFidelidade>
                                     
                                     <div style={{paddingTop:'10px'}}>                                                                                            
-                                        <button type="button" className="w3-button w3-block w3-red" onClick={this.handleClickSalvarCartao}>Salvar</button>                                                                                
+                                        <button type="button" disabled={this.state.desabilitarSalvar} className="w3-button w3-block w3-red" onClick={this.handleClickSalvarCartao}>Salvar</button>                                                                                
                                         <div style={{paddingTop:'10px'}}>
                                             <button type="button" className="w3-button w3-block w3-blue-gray" onClick={this.handleClickVoltar}>Voltar</button>                                                                                
                                         </div>                                        

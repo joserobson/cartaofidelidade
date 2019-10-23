@@ -14,7 +14,8 @@ class TabMarcarCartao extends Component{
         this.state = { 
             tabIndex: 0,
             clienteParaEdicao: {},
-            labelAbaCliente: 'Adicionar'
+            labelAbaCliente: 'Adicionar',
+            atualizarClientes: false
          };
 
         this.editarCliente = this.editarCliente.bind(this);
@@ -39,16 +40,24 @@ class TabMarcarCartao extends Component{
 
     selecionarAbaCliente(tabIndex){
 
-        let texto = FiltroTelefoneRepositorio.ObterFiltroTelefone();
-        console.log(texto);
+          let texto = FiltroTelefoneRepositorio.ObterFiltroTelefone();
+          console.log("selecionar aba cliente", texto);
 
-        this.setState({
+          this.setState({
             tabIndex,
             clienteParaEdicao: null,
-            labelAbaCliente: 'Adicionar'
-        });
+            labelAbaCliente: "Adicionar"
+          });
+        
     }
 
+    onRefreshClientes = ()=> {
+
+        console.info('click onrefresj clientes');
+        this.setState({
+            atualizarClientes: !this.state.atualizarClientes
+        });
+    }
 
     render(){
 
@@ -56,8 +65,25 @@ class TabMarcarCartao extends Component{
 
                     <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.selecionarAbaCliente(tabIndex)}>
                         <TabList>
-                            <Tab>Clientes</Tab>
-                            <Tab>{this.state.labelAbaCliente}</Tab>
+                            <Tab>
+                                <div className="w3-row">
+                                    <div className="w3-col" style={{width:'20%'}}>
+                                        <i className="fa fa-refresh w3-xlarge" style={{cursor: 'pointer'}} 
+                                            onClick={this.onRefreshClientes}></i>
+                                    </div>        
+                                    <div className="w3-col" style={{width:'80%'}}>
+                                        Clientes
+                                    </div>    
+                                </div>                                
+                            </Tab>
+                            <Tab>
+                                <div className="w3-row">
+                                    <div className="w3-col">
+                                        {this.state.labelAbaCliente}
+                                    </div>
+                                </div>
+                                
+                            </Tab>
                         </TabList>
 
                         <TabPanel>
@@ -65,6 +91,7 @@ class TabMarcarCartao extends Component{
                                 handleModal={this.props.handleModal}   
                                 history={this.props.history} 
                                 editarCliente={this.editarCliente}
+                                atualizarClientes={this.state.atualizarClientes}
                                 />
                         </TabPanel>
                         <TabPanel>

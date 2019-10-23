@@ -65,28 +65,6 @@ class BuscarCliente extends Component
             NotificationHelper.ExibirAlerta("Nenhum Telefone foi encontrado!!!");
         }
             
-
-
-        // const resposta = await HttpServiceHelper.InvocarServico(()=>{
-        //     return ClienteService.ObterClientesPor(telefone);
-        // })        
-
-        // if (resposta.ok){
-
-        //     const clientesEncontrados = await resposta.json();
-
-        //     if (clientesEncontrados && clientesEncontrados.length > 0){
-        //         this.setState(state => ({                
-        //             clientes: clientesEncontrados
-        //         })); 
-        //     }else{
-        //         this.setState(state => ({                
-        //             clientes: []
-        //         })); 
-
-        //         NotificationHelper.ExibirAlerta("Nenhum Telefone foi encontrado!!!");
-        //     }
-        // }            
     }
 
     render(){
@@ -200,6 +178,18 @@ class BuscarCliente extends Component
         console.log("Maior Data de Cadastro", maiorData);
         
         UsuarioRepositorio.SalvarMaiorDataCadastroCliente(maiorData);
+      }
+    }
+
+    async componentDidUpdate(prevProps){
+
+      if (this.props.atualizarClientes !== prevProps.atualizarClientes){
+        
+        console.info('update buscar clientes');
+        Loading.show();
+        
+        await ClienteService.obterNovosClientes();
+        await this.obterTodosClientes();
       }
     }
 

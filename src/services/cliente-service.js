@@ -3,6 +3,7 @@ import { UsuarioService } from './usuario-service';
 import { ConfiguracaoHelper } from '../helpers/configuracao-helper';
 import { TokenService } from "./token-service";
 import { UsuarioRepositorio } from '../repositorios/usuario-repositorio';
+import { RepositorioFactory } from '../util/repositorio-factory';
 
 class ClienteService{
     
@@ -107,6 +108,41 @@ class ClienteService{
 
     }
 
+    static async obterMaiorDataDeCadastro() {
+        const resposta = await ClienteService.ObterMaiorDataDeCadastro();
+    
+        if (resposta.ok) {
+          const maiorData = await resposta.json();
+          console.log("Salvando Maior Data de Cadastro", maiorData);
+    
+          UsuarioRepositorio.SalvarMaiorDataCadastroCliente(maiorData);
+        }
+      }
+
+    static async obterNovosClientes() {
+        try {
+          if (navigator.onLine) {
+            const usuario = UsuarioRepositorio.ObterUsuario();
+            if (usuario) {
+              const resp = await ClienteService.ObterConsumidoresPorDataCadastro();
+    
+              if (resp.ok) {
+                const novosClientes = await resp.json();
+                console.log("novos clientes", novosClientes);
+    
+                if (novosClientes && novosClientes.length > 0) {
+                  const repo = await RepositorioFactory.getClienteRepositorio();
+                  await repo.adicionaNovosClientes(novosClientes);
+    
+                  await this.obterMaiorDataDeCadastro();
+                }
+              }
+            }
+          }      
+        } catch (error) {
+          console.log("erro ao obter novos clientes", error);
+        }
+      } 
 }
 
 export {ClienteService};

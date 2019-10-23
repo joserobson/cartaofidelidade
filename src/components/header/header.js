@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import { NavLink } from 'react-router-dom'
 import { UsuarioService } from '../../services/usuario-service';
-import { UsuarioRepositorio } from '../../repositorios/usuario-repositorio';
 
 
 
@@ -14,10 +13,10 @@ class Header extends Component{
         this.closeMenuClick = this.closeMenuClick.bind(this);        
         this.logout = this.logout.bind(this);
         this.handleClickLimparCache = this.handleClickLimparCache.bind(this);
-
+        
         this.state = {
-            nomeUsuario: ''
-        }
+            titulo: props.titulo
+        };
     }
 
     openMenuClick(){
@@ -35,7 +34,7 @@ class Header extends Component{
     }
 
     logout(){        
-        UsuarioService.Logout();
+        UsuarioService.Logout();                
     }
 
     render(){
@@ -45,8 +44,8 @@ class Header extends Component{
                         <a href="javascript:void(0)" onClick={this.closeMenuClick} className="w3-button w3-hide-large w3-display-topleft" 
                             style={{width:'100%', fontSize: '22px'}}>Fechar Menu</a>
 
-                        <div className="w3-container">
-                            <h3 className="w3-padding-64"><b>+ Fidelidade</b></h3>
+                        <div className="w3-container">                           
+                            <h3 className="w3-padding-64"><b>{this.state.titulo}</b></h3>                            
                         </div>
 
                         <div className="w3-bar-block">
@@ -58,7 +57,7 @@ class Header extends Component{
                             
                     <header className="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
                         <a href="javascript:void(0)" className="w3-button w3-red w3-margin-right" onClick={this.openMenuClick}>☰</a>
-                        <span className="w3-opacity" id="tituloView">{this.state.nomeUsuario}</span>
+                        <span className="w3-display-middle" id="tituloView">{this.state.titulo} </span>
                     </header>
 
                     <div className="w3-overlay w3-hide-large" onClick={this.closeMenuClick} style={{cursor:'pointer'}} title="close side menu" id="myOverlay"></div>
@@ -66,24 +65,18 @@ class Header extends Component{
         );
     }
 
-    componentDidUpdate(){
+    componentDidUpdate(prevProps){
+                      
 
-        // const usuario = UsuarioService.ObterUsuarioLogado();
-        
-        // if (usuario && usuario.Nome){
-        //     this.setState({
-        //         nomeUsuario: usuario.Nome
-        //     })
-        // }else{
-        //     this.setState({
-        //         nomeUsuario:''
-        //     })
-        // }
+        if (this.props.titulo !== prevProps.titulo){
+            this.setState({
+                titulo: this.props.titulo
+            });
+        }
     }
 
     componentDidMount(){
-        
-        
+                        
     }
 }
 

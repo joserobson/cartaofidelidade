@@ -38,7 +38,6 @@ class UsuarioService{
 
 
     static ObterUsuarioLogado(){
-
         return UsuarioRepositorio.ObterUsuario();
     }
 

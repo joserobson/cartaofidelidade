@@ -47,7 +47,9 @@ class SelecionarClienteCartao extends Component{
                 setCliente={this.setarClienteSelecionado} 
                 handleModal={this.props.handleModal}
                 handleValorDaPesquisa={this.handleChangeValorParaPesquisa}
-                editarCliente={this.props.editarCliente}>
+                editarCliente={this.props.editarCliente}
+                atualizarClientes={this.props.atualizarClientes}
+                >    
             </BuscarCliente>           
                                
         </div>

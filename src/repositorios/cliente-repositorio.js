@@ -15,7 +15,7 @@ class ClienteRepositorio {
         .objectStore(this._store)
         .index('Telefone');
 
-        var request = index.get(cliente.TelefoneSemMascara());
+        var request = index.get(ClienteModel.RemoverMascaraTelefone(cliente.Telefone));
 
         request.onsuccess = e => {
             
@@ -36,7 +36,7 @@ class ClienteRepositorio {
 
         return new Promise((resolve, reject) => {
 
-            cliente.TelefoneDesformatado = cliente.TelefoneSemMascara();
+            cliente.TelefoneDesformatado = ClienteModel.RemoverMascaraTelefone(cliente.Telefone);
 
             const request = this._connection
                 .transaction([this._store], 'readwrite')
@@ -56,7 +56,7 @@ class ClienteRepositorio {
 
         return new Promise((resolve, reject) => {
 
-            cliente.TelefoneDesformatado = cliente.TelefoneSemMascara();
+            cliente.TelefoneDesformatado = ClienteModel.RemoverMascaraTelefone(cliente.Telefone);
             
             const request = this._connection
                 .transaction([this._store], 'readwrite')
@@ -187,7 +187,9 @@ class ClienteRepositorio {
             var clientesEncontrados = await this.obterPorTelefone(telefone);
             if (clientesEncontrados.length === 0){
                 await this.adiciona(cliente);
-            }        
+            }else{
+                await this.atualiza(cliente);
+            }       
         });               
     }
 

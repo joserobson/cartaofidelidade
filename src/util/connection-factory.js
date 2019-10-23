@@ -18,7 +18,7 @@ const ConnectionFactory = (() => {
       return new Promise((resolve, reject) => {
         if (connection) return resolve(connection);
 
-        const openRequest = indexedDB.open("indexMaisFidelidade", 10);
+        const openRequest = indexedDB.open("indexMaisFidelidade", 11);
 
         openRequest.onupgradeneeded = e => {
           ConnectionFactory._createStores(e.target.result);

@@ -23,22 +23,19 @@ class Login extends Component {
   }
 
   async ObterDadosDoUsuario() {
+    
     const respostaObterDados = await HttpServiceHelper.InvocarServico(() => {
       return UsuarioService.ObterDadosDoUsuario(this.state.userName);
-    });
-
-    //const respostaObterDados = await UsuarioService.ObterDadosDoUsuario(this.state.userName);
-
-    //Loading.close();
+    });    
 
     if (respostaObterDados.ok) {
       const usuario = await respostaObterDados.json();
-      usuario.Login = this.state.userName;
-      //usuario.Senha = this.state.password;
+      usuario.Login = this.state.userName;      
 
       console.log("Usuario Logado:", usuario);
       UsuarioRepositorio.SalvarUsuario(usuario);
 
+      this.props.handleHeader(usuario.Nome);
       this.props.history.push("/");
     }
   }
@@ -55,12 +52,13 @@ class Login extends Component {
 
     try {
 
-        Loading.show();
+      Loading.show();
         
       const respostaLogar = await UsuarioService.Logar(
         this.state.userName,
         this.state.password
       );
+
       Loading.close();
 
       if (respostaLogar.ok) {
