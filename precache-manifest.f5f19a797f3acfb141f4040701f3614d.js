@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/cartaofidelidade/static/media/notification.0b4ac1dc.ttf"
   },
   {
-    "revision": "be03fff434731d780714",
+    "revision": "37b6f395e5f22c4de591",
     "url": "/cartaofidelidade/static/css/main.de0262cf.chunk.css"
   },
   {
@@ -20,16 +20,16 @@ self.__precacheManifest = [
     "url": "/cartaofidelidade/static/js/2.0b06fed4.chunk.js"
   },
   {
-    "revision": "651771e1df95c807c99608188d0a4287",
-    "url": "/cartaofidelidade/static/media/notification.651771e1.woff"
-  },
-  {
     "revision": "c0d3c94cd6112550c51d7d1ed13b9da1",
     "url": "/cartaofidelidade/static/media/notification.c0d3c94c.eot"
   },
   {
-    "revision": "be03fff434731d780714",
-    "url": "/cartaofidelidade/static/js/main.0a1e8ca1.chunk.js"
+    "revision": "651771e1df95c807c99608188d0a4287",
+    "url": "/cartaofidelidade/static/media/notification.651771e1.woff"
+  },
+  {
+    "revision": "37b6f395e5f22c4de591",
+    "url": "/cartaofidelidade/static/js/main.012e5dde.chunk.js"
   },
   {
     "revision": "5bee74caefdf9d0a834915f6c8eeb259",
@@ -56,7 +56,7 @@ self.__precacheManifest = [
     "url": "/cartaofidelidade/static/css/2.7411320b.chunk.css"
   },
   {
-    "revision": "89eda8a08c46d707c5642b6516553208",
+    "revision": "7510ac105f33c0e9944ce476a059b6e1",
     "url": "/cartaofidelidade/index.html"
   }
 ];
