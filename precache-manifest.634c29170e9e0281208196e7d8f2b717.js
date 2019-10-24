@@ -1,10 +1,10 @@
 self.__precacheManifest = [
   {
-    "revision": "0b4ac1dc75df35e169b70d7719afe4cc",
-    "url": "/cartaofidelidade/static/media/notification.0b4ac1dc.ttf"
+    "revision": "651771e1df95c807c99608188d0a4287",
+    "url": "/cartaofidelidade/static/media/notification.651771e1.woff"
   },
   {
-    "revision": "37b6f395e5f22c4de591",
+    "revision": "996d770f8127ec3d9151",
     "url": "/cartaofidelidade/static/css/main.de0262cf.chunk.css"
   },
   {
@@ -24,12 +24,12 @@ self.__precacheManifest = [
     "url": "/cartaofidelidade/static/media/notification.c0d3c94c.eot"
   },
   {
-    "revision": "651771e1df95c807c99608188d0a4287",
-    "url": "/cartaofidelidade/static/media/notification.651771e1.woff"
+    "revision": "0b4ac1dc75df35e169b70d7719afe4cc",
+    "url": "/cartaofidelidade/static/media/notification.0b4ac1dc.ttf"
   },
   {
-    "revision": "37b6f395e5f22c4de591",
-    "url": "/cartaofidelidade/static/js/main.012e5dde.chunk.js"
+    "revision": "996d770f8127ec3d9151",
+    "url": "/cartaofidelidade/static/js/main.6f163a87.chunk.js"
   },
   {
     "revision": "5bee74caefdf9d0a834915f6c8eeb259",
@@ -44,19 +44,19 @@ self.__precacheManifest = [
     "url": "/cartaofidelidade/static/media/fontawesome-webfont.fee66e71.woff"
   },
   {
-    "revision": "674f50d287a8c48dc19ba404d20fe713",
-    "url": "/cartaofidelidade/static/media/fontawesome-webfont.674f50d2.eot"
-  },
-  {
     "revision": "b06871f281fee6b241d60582ae9369b9",
     "url": "/cartaofidelidade/static/media/fontawesome-webfont.b06871f2.ttf"
+  },
+  {
+    "revision": "674f50d287a8c48dc19ba404d20fe713",
+    "url": "/cartaofidelidade/static/media/fontawesome-webfont.674f50d2.eot"
   },
   {
     "revision": "76c5b5a2ec80a1144286",
     "url": "/cartaofidelidade/static/css/2.7411320b.chunk.css"
   },
   {
-    "revision": "7510ac105f33c0e9944ce476a059b6e1",
+    "revision": "0c53ec6fa5efbaf3acaa6b61f6c4b54b",
     "url": "/cartaofidelidade/index.html"
   }
 ];
