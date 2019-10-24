@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "651771e1df95c807c99608188d0a4287",
-    "url": "/cartaofidelidade/static/media/notification.651771e1.woff"
+    "revision": "0b4ac1dc75df35e169b70d7719afe4cc",
+    "url": "/cartaofidelidade/static/media/notification.0b4ac1dc.ttf"
   },
   {
-    "revision": "996d770f8127ec3d9151",
-    "url": "/cartaofidelidade/static/css/main.de0262cf.chunk.css"
+    "revision": "3af6b7cd80b6ed48533a",
+    "url": "/cartaofidelidade/static/css/main.f632d018.chunk.css"
   },
   {
     "revision": "45e8075c66ac89123a02",
@@ -24,12 +24,12 @@ self.__precacheManifest = [
     "url": "/cartaofidelidade/static/media/notification.c0d3c94c.eot"
   },
   {
-    "revision": "0b4ac1dc75df35e169b70d7719afe4cc",
-    "url": "/cartaofidelidade/static/media/notification.0b4ac1dc.ttf"
+    "revision": "651771e1df95c807c99608188d0a4287",
+    "url": "/cartaofidelidade/static/media/notification.651771e1.woff"
   },
   {
-    "revision": "996d770f8127ec3d9151",
-    "url": "/cartaofidelidade/static/js/main.6f163a87.chunk.js"
+    "revision": "3af6b7cd80b6ed48533a",
+    "url": "/cartaofidelidade/static/js/main.ce3b270e.chunk.js"
   },
   {
     "revision": "5bee74caefdf9d0a834915f6c8eeb259",
@@ -44,19 +44,19 @@ self.__precacheManifest = [
     "url": "/cartaofidelidade/static/media/fontawesome-webfont.fee66e71.woff"
   },
   {
-    "revision": "b06871f281fee6b241d60582ae9369b9",
-    "url": "/cartaofidelidade/static/media/fontawesome-webfont.b06871f2.ttf"
-  },
-  {
     "revision": "674f50d287a8c48dc19ba404d20fe713",
     "url": "/cartaofidelidade/static/media/fontawesome-webfont.674f50d2.eot"
+  },
+  {
+    "revision": "b06871f281fee6b241d60582ae9369b9",
+    "url": "/cartaofidelidade/static/media/fontawesome-webfont.b06871f2.ttf"
   },
   {
     "revision": "76c5b5a2ec80a1144286",
     "url": "/cartaofidelidade/static/css/2.7411320b.chunk.css"
   },
   {
-    "revision": "0c53ec6fa5efbaf3acaa6b61f6c4b54b",
+    "revision": "b06cdf9a5d45f47e1487a836035a6ef7",
     "url": "/cartaofidelidade/index.html"
   }
 ];
