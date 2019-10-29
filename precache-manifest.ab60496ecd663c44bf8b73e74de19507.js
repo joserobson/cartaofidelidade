@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/cartaofidelidade/static/media/notification.0b4ac1dc.ttf"
   },
   {
-    "revision": "e0ab8d5172425ffff44e",
+    "revision": "9ee13cda3d26d106fa64",
     "url": "/cartaofidelidade/static/css/main.f632d018.chunk.css"
   },
   {
@@ -28,8 +28,8 @@ self.__precacheManifest = [
     "url": "/cartaofidelidade/static/media/notification.651771e1.woff"
   },
   {
-    "revision": "e0ab8d5172425ffff44e",
-    "url": "/cartaofidelidade/static/js/main.e30a90b8.chunk.js"
+    "revision": "9ee13cda3d26d106fa64",
+    "url": "/cartaofidelidade/static/js/main.6dc3f0a4.chunk.js"
   },
   {
     "revision": "5bee74caefdf9d0a834915f6c8eeb259",
@@ -56,7 +56,7 @@ self.__precacheManifest = [
     "url": "/cartaofidelidade/static/css/2.7411320b.chunk.css"
   },
   {
-    "revision": "b8b3674795282b7aa0d32c6748e3ee5f",
+    "revision": "ebc268dc65752ce23a55b34a2393c38e",
     "url": "/cartaofidelidade/index.html"
   }
 ];
