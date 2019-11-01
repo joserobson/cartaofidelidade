@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/cartaofidelidade/precache-manifest.7b3f5c0e60265709c07b96ce022c9d30.js"
+  "/cartaofidelidade/precache-manifest.efc54f6e46ecf1a0fe7f0c38ce9ff955.js"
 );
 
 workbox.clientsClaim();
