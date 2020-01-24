@@ -9,8 +9,9 @@ class ClienteModel{
     Nome;
     DiaAniversario;
     MesAniversario;
+    QtdMarcacoes;
 
-    constructor(telefone, email, nome, diaAniversario, mesAniversario, id){
+    constructor(telefone, email, nome, diaAniversario, mesAniversario, id, qtdMarcacoes){
 
         this.Telefone = telefone;
         this.Email = email;
@@ -18,6 +19,7 @@ class ClienteModel{
         this.Id = id;
         this.DiaAniversario = diaAniversario;
         this.MesAniversario = mesAniversario;
+        this.QtdMarcacoes = qtdMarcacoes;
     }
 
     isValid(){

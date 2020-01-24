@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import CartaoFidelidade from './cartao-fidelidade/cartao-fidelidade';
-import Loading from '../loading/loading';
 import { CartaoService } from '../../services/cartao-service';
 import { StatusDoCartao } from '../../enums/status-cartao';
 import { UsuarioService } from '../../services/usuario-service';
 import { NotificationHelper } from '../../helpers/notificacao-helper';
 import { HttpServiceHelper } from '../../helpers/http-service-helper';
-import { CartaoFidelidadeModel } from '../../models/cartao-fidelidade-model';
 import { UsuarioRepositorio } from '../../repositorios/usuario-repositorio';
+import { ClienteRepositorio } from '../../repositorios/cliente-repositorio';
+import { RepositorioFactory } from '../../util/repositorio-factory';
 
 class MarcarCartao extends Component{
 
@@ -78,6 +78,10 @@ class MarcarCartao extends Component{
             NotificationHelper.ExibirSucesso('Cartão Atualizado Com Sucesso');
 
             const bodyResposta = await respostaSalvarCartao.json();
+            const totalDeMarcacoes = bodyResposta.TotalDeMarcacoesDoConsumidor;
+            
+            const repo = await RepositorioFactory.getClienteRepositorio()
+            await repo.atualizarTotalDeMarcacoes(this.state.telefoneCliente, totalDeMarcacoes);
 
             if (bodyResposta.CompletouCartao){
                 
@@ -161,9 +165,10 @@ class MarcarCartao extends Component{
 
         if (respostaDiasMarcados.ok){
 
-            const diasMarcados = await respostaDiasMarcados.json();
-            
-            console.log('Dias Marcados', diasMarcados);
+            const dados = await respostaDiasMarcados.json();
+            const diasMarcados = dados.DiasMarcados;
+            const numeroCartao = dados.NumeroDoCartao;
+                        
             const usuarioLogado = UsuarioService.ObterUsuarioLogado();
 
             let status = StatusDoCartao.ABERTO 
@@ -175,7 +180,7 @@ class MarcarCartao extends Component{
             let cartaoCliente = {
                 Status : status,
                 Id: '-1',
-                Numero: 1
+                Numero: numeroCartao
             };
 
             this.setState({                

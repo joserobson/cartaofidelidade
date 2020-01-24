@@ -30,8 +30,7 @@ class ListaDeClientes extends Component {
     }
   }
 
-  componentDidUpdate() {
-    //this.addEventoDestacarClienteSelecionado();
+  componentDidUpdate() {    
   }
 
   componentWillUnmount() {
@@ -45,7 +44,13 @@ class ListaDeClientes extends Component {
   render() {
     return (
       <ul className="w3-ul w3-border" id="ulClientes" style={{cursor: "pointer"}}>
-        {this.props.clientes.map(cliente => (
+        {  this.props.clientes
+          .sort(function(a,b){ 
+            if (a.QtdMarcacoes < b.QtdMarcacoes) return 1;
+            if (a.QtdMarcacoes > b.QtdMarcacoes) return -1;
+            return 0;
+          })
+          .map(cliente => (
           <ItemCliente
             cliente={cliente}
             key={cliente.Telefone}

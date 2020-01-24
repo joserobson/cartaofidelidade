@@ -48,6 +48,7 @@ class UsuarioService{
     static Logout(){
         UsuarioRepositorio.RemoverUsuario();
         TokenRepositorio.RemoverToken();
+        UsuarioRepositorio.RemoverMaiorDataCadastroCliente();
         
         RepositorioFactory.getClienteRepositorio().
         then(repo=> repo.apagaTodos()).

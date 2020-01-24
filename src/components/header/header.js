@@ -55,12 +55,21 @@ class Header extends Component{
                         </div>
                     </nav>     
                             
-                    <header className="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
-                        <a href="javascript:void(0)" className="w3-button w3-red w3-margin-right" onClick={this.openMenuClick}>☰</a>
-                        <span className="w3-display-middle" id="tituloView">{this.state.titulo} </span>
+                    <header id="header" className="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+                        <div id="tituloHeader">
+                            <a href="javascript:void(0)" className="w3-button w3-red w3-margin-right" onClick={this.openMenuClick}>☰</a>
+                            <span className="w3-display-middle" id="tituloView">{this.state.titulo} </span>
+                        </div>
+                        <div id="notificacaoHeader" className="w3-center" style={{display:'none', height:'55px'}}>
+                            <i className="fa fa-comments w3-left"></i>
+                            <span className="w3-large w3-animate-right" style={{fontWeight:'bold'}} id="textNotificacao"></span>
+                            <i className="fa fa-comments w3-right"></i>
+                        </div>
                     </header>
 
                     <div className="w3-overlay w3-hide-large" onClick={this.closeMenuClick} style={{cursor:'pointer'}} title="close side menu" id="myOverlay"></div>
+                
+                   
                 </div>
         );
     }

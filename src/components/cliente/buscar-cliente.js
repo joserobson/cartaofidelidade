@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import {ClienteService} from '../../services/cliente-service';
 import ListaDeClientes from './listar-cliente/lista-clientes';
 import Loading from '../loading/loading';
-import { UsuarioService } from '../../services/usuario-service';
 import { NotificationHelper } from '../../helpers/notificacao-helper';
 import { FiltroTelefoneRepositorio } from '../../repositorios/filtro-telefone-repositorio';
 import { HttpServiceHelper } from '../../helpers/http-service-helper';
@@ -54,11 +53,11 @@ class BuscarCliente extends Component
         //console.log('clientes encontrados busca por telefone',clientesEncontrados);
         
         if (clientesEncontrados && clientesEncontrados.length > 0){
-            this.setState(state => ({                
+            this.setState(() => ({                
                 clientes: clientesEncontrados
             })); 
         }else{
-            this.setState(state => ({                
+            this.setState(() => ({                
                 clientes: []
             })); 
 
@@ -123,8 +122,9 @@ class BuscarCliente extends Component
               await this.obterMaiorDataDeCadastro();
 
               const topClientes = await resposta.json();
-              if (topClientes.length > 0) {
-                this.setState(state => ({
+              if (topClientes.length > 0) {              
+
+                this.setState(() => ({
                   clientes: topClientes
                 }));
 
@@ -135,9 +135,8 @@ class BuscarCliente extends Component
               }
             }
           } else {
-            if (clientes.length > 0) {        
-
-              this.setState(state => ({
+            if (clientes.length > 0) {                   
+              this.setState(() => ({
                 clientes: clientes
               }),()=> Loading.close());
             }

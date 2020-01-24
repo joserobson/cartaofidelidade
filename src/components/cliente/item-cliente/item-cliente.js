@@ -49,7 +49,7 @@ class ItemCliente extends Component{
                     <div className="w3-col coluna-texto" onClick={this.handleOnClick}>
                         <div className="w3-row">
                              <div className="w3-col s12">
-                                <span className="w3-medium"> <b>{this.props.cliente.Telefone}</b></span>
+                                <span className="w3-medium"> <b>{this.props.cliente.Telefone}</b></span>                                
                              </div> 
                              <div className="w3-col s12">
                                  <div className="w3-row">
@@ -60,7 +60,10 @@ class ItemCliente extends Component{
                              </div>  
                         </div>
                     </div>  
-                    <div className="w3-col coluna-imagem">
+                    <div className="w3-col coluna-informacoes">
+                        {/* <span class="w3-badge w3-small w3-red">{this.props.cliente.QtdMarcacoes}</span>                         */}
+                    </div>
+                    <div className="w3-col coluna-imagem">                        
                         <img className="img-edit" src={require("../img/edit.png")} onClick={this.handleImgEditClick}></img>                    
                     </div>                  
                 </div> 

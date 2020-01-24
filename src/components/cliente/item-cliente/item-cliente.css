@@ -21,11 +21,10 @@
 }
 
 .coluna-texto{
-    width:80%;
+    width:70%;
     border:0px solid red;
     padding-left: 8px;
-    height: 100%;
-    
+    height: 100%;    
 }
 
 p{
@@ -35,4 +34,10 @@ p{
     max-width: 300px;
     text-align: left;
     
+}
+
+.coluna-informacoes{
+    width:10%;        
+    height: 100%;     
+    margin-top: 10px;    
 }

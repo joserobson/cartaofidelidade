@@ -6,6 +6,7 @@ import Login from "./components/login/login";
 import TabMarcarCartao from "./components/marcar-cartao/tab-marcar-cartao/tab-marcar-cartao";
 import { UsuarioService } from "./services/usuario-service";
 
+
 class Main extends Component{
 
 constructor(props){
@@ -20,7 +21,9 @@ PossuiUsuarioLogado(){
 
 render(){
 
-    return <div className="w3-main" style={{marginLeft:'340px', marginRight:'75px'}}>                                               
+    return(
+        <div id="main"> 
+            <div className="w3-main" style={{marginLeft:'340px', marginRight:'75px'}}>                             
             <Switch>
                 <Route exact 
                     path='/'
@@ -68,7 +71,8 @@ render(){
                 <Route path='/login' exact={true} render={(props)=><Login{...props} handleModal={this.props.handleModal} 
                         handleHeader={this.props.handleHeader}/>} />            
             </Switch>            
-        </div> 
+            </div> 
+        </div>)
     }        
 }
 

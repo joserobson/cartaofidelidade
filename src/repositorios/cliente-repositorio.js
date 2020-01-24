@@ -94,7 +94,8 @@ class ClienteRepositorio {
                         atual.value.Nome,
                         atual.value.DiaAniversario,
                         atual.value.MesAniversario,
-                        atual.value.Id);
+                        atual.value.Id,
+                        atual.value.QtdMarcacoes);
 
                     clientes.push(cliente);
                     atual.continue();
@@ -157,7 +158,8 @@ class ClienteRepositorio {
                             atual.value.Nome,
                             atual.value.DiaAniversario,
                             atual.value.MesAniversario,
-                            atual.value.Id);
+                            atual.value.Id,
+                            atual.value.QtdMarcacoes);
 
                         clientes.push(cliente);                        
                     }
@@ -179,6 +181,40 @@ class ClienteRepositorio {
         });
     }
 
+    obterDonoDoTelefone(telefone){
+        return new Promise((resolve, reject) => {
+            
+
+            const objectStore = this._connection
+                .transaction([this._store], 'readonly')
+                .objectStore(this._store);                
+
+            const request = objectStore.get(telefone);
+            
+            request.onsuccess = e =>{
+                
+                const result = request.result;
+
+                const cliente = new ClienteModel(
+                    result.Telefone,
+                    result.Email,
+                    result.Nome,
+                    result.DiaAniversario,
+                    result.MesAniversario,
+                    result.Id,
+                    result.QtdMarcacoes);
+
+                resolve(cliente);
+            }
+
+            request.onerror = e => {
+                console.log(e.target.error);
+                reject('Não foi possível obter o dono do telefone');
+            }
+
+        });
+    }
+
     async adicionaNovosClientes(clientes) {
         
         clientes.forEach(async cliente => {
@@ -191,6 +227,21 @@ class ClienteRepositorio {
                 await this.atualiza(cliente);
             }       
         });               
+    }
+
+    async atualizarTotalDeMarcacoes(telefone, qtdMarcacoes){
+        
+        console.info('AtualizarTotalDeMarcacoes',telefone,qtdMarcacoes);
+
+        let cliente = await this.obterDonoDoTelefone(ClienteModel.RemoverMascaraTelefone(telefone));
+
+        if (cliente){
+            
+            cliente.QtdMarcacoes = qtdMarcacoes;
+
+            await this.atualiza(cliente);
+        }
+
     }
 
 }

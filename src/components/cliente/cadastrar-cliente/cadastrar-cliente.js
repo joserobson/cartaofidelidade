@@ -82,13 +82,16 @@ class CadastrarCliente extends Component{
                                     this.state.nome,
                                     this.state.diaSelecionado,
                                     this.state.mesSelecionado,
-                                    this.state.id
+                                    this.state.id,
+                                    0
                                 );
         
         try{
            
          if (cliente.isValid()) {
            
+           Loading.show();
+
            const repo = await RepositorioFactory.getClienteRepositorio();
            const clienteEmBase = await repo.obterPorTelefone(
              cliente.TelefoneSemMascara()
@@ -103,6 +106,8 @@ class CadastrarCliente extends Component{
              this.props.history.push("/marcarCartao/" + this.state.telefone);
            }
 
+           Loading.close();
+
            try {
              await ClienteService.CadastrarCliente(cliente);
              console.log("sucesso ao enviar cliente para o servidor");
@@ -112,6 +117,8 @@ class CadastrarCliente extends Component{
          }
         }catch(error){
             NotificationHelper.ExibirAlerta(error.message);
+        }finally{
+            Loading.close();
         }
                
     }
@@ -180,13 +187,6 @@ class CadastrarCliente extends Component{
                             </div>
                             
                         </div>
-
-                        {/* <div style={{paddingTop:'10px'}}>                                                                                            
-                                        <button type="button" className="w3-button w3-block w3-red" onClick={this.handleClickSalvarCartao}>Salvar</button>                                                                                
-                                        <div style={{paddingTop:'10px'}}>
-                                            <button type="button" className="w3-button w3-block w3-blue-gray" onClick={this.handleClickVoltar}>Voltar</button>                                                                                
-                                        </div>                                        
-                                    </div> */}
 
                         <button type="submit" className="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Salvar</button>   
                         <button type="button" className="w3-button w3-block w3-blue-gray" onClick={this.handleClickVoltar}>Voltar</button>                                                                                                     
