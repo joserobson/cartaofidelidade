@@ -2,7 +2,7 @@ import { TokenRepositorio } from "../repositorios/token-repositorio";
 
 class TokenService{
 
-    static URL_API_TOKEN = "http://192.168.1.4/MaisFidelidade.Api/token";
+    static URL_API_TOKEN = "http://localhost/MaisFidelidade.Api/token";
 
     static async ObterToken(userName, password){
 
